@@ -108,11 +108,8 @@
             <button class="btn btn-success" @onclick="AddNewUser">Add User</button>
         }
                
-        else
-        {
-            <p>You're not signed in as a user in @ADMINISTRATION_ROLE.</p>
-        }
-        @if (context.User.IsInRole(EDITOR_ROLE))
+ 
+        else if (context.User.IsInRole(EDITOR_ROLE))
         {
             <p>You are an editor not a user in @ADMINISTRATION_ROLE.</p>
         } 
