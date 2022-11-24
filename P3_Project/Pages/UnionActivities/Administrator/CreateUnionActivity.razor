@@ -1,0 +1,22 @@
+﻿@page "/begivenheder/opretbegivenhed"
+
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using P3_Project.Models
+
+@inject IUnionActivityData _db
+
+<h3>CreateUnionActivity</h3>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    UnionActivityModel unionActivity = new UnionActivityModel();
+
+
+    
+
+    
+}

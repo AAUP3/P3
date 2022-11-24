@@ -1,0 +1,12 @@
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.deps.json
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.dll
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.AssemblyReference.cache
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfoInputs.cache
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfo.cs
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.CoreCompileInputs.cache
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.dll
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
+C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll

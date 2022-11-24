@@ -1,0 +1,98 @@
+﻿@page "/begivenheder"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using P3_Project.Models
+
+@inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
+
+<h1>Begivenheder</h1>
+
+
+<button type="button" @onclick="GoToMakeUnionActivity">Opret</button>
+
+
+<h4>Tilføj ny begivenhed</h4>
+<EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
+    <InputText id="name" @bind-Value="newUnionActivity.Name"></InputText>
+    <InputText id="description" @bind-Value="newUnionActivity.Description"></InputText>
+
+    <button type="submit" class="btn btn-primary">Tilføj</button>
+</EditForm>
+
+
+@if (unionActivities == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Overskrift</th>
+            <th>Beskrivelse</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var unionActivity in unionActivities)
+        {
+            <tr>
+                <td>@unionActivity.Id</td>
+                <td>@unionActivity.Name</td>
+                <td>@unionActivity.Description</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)">
+                            <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>  
+}
+
+
+
+
+
+
+
+@code {
+    private List<UnionActivityModel> unionActivities;
+    private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+    }
+
+
+    private async Task InsertUnionActivity()
+    {
+        UnionActivityModel ua = new UnionActivityModel
+            {
+                Id = newUnionActivity.Id,
+                Name = newUnionActivity.Name,
+                Description = newUnionActivity.Description
+            };
+
+        await _db.InsertUnionActivity(ua);
+
+        unionActivities.Add(ua);
+
+        newUnionActivity = new DisplayUnionActivityModel();
+    }
+
+    void GoToMakeUnionActivity()
+    {
+        NavigationManager.NavigateTo("begivenheder/opretbegivenhed");
+    }
+
+    void ShowUnionActivity(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+}

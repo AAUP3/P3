@@ -1,0 +1,62 @@
+﻿@page "/begivenheder/{id:int}"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using P3_Project.Models
+
+@inject IUnionActivityData _db
+
+
+@if (unionActivity == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <h1>@unionActivity.Name</h1>
+    <p>Beskrivelse</p>
+    <p>@unionActivity.Description</p>
+}
+
+
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+
+    private UnionActivityModel unionActivity;
+    private List<UnionActivityModel> unionActivities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+        unionActivity = GetSingleUnionActivity((int)Id);
+    }
+
+
+    private UnionActivityModel GetSingleUnionActivity(int id)
+    {
+        foreach (var unionActivity in unionActivities)
+        {
+            if (unionActivity.Id == id)
+            {
+                return unionActivity;
+                break;
+            }
+            else
+            {
+
+            }
+        }
+        return unionActivity;
+    }
+
+
+
+    
+    private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
+
+    
+}
