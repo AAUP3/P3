@@ -1,15 +1,36 @@
 ﻿@page "/counter"
-
 <PageTitle>Counter</PageTitle>
-
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<AuthorizeView>
+    <Authorized>
+        @if (context.User.IsInRole("Administrators"))
+        {
+            <h1>Counter: Admin</h1>
+            <p role="status">Current count: @currentCount</p>
+            <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+        }
+        else if (context.User.IsInRole(EDITOR_ROLE))
+        {
+            <h1>Counter: Editor</h1>
+            <p role="status">Current count: @currentCount</p>
+            <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+        } else {
+            <p>You do not have permissions to view this page</p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You're not loggged in.</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
+    // Strings nessesary for finding the roles.
+    string ADMINISTRATION_ROLE = "Administrators";
+    string EDITOR_ROLE = "Editors";
+    
+    
     private int currentCount = 0;
+
+
 
     private void IncrementCount()
     {

@@ -107,8 +107,13 @@
             }
             <button class="btn btn-success" @onclick="AddNewUser">Add User</button>
         }
-        else
+               
+ 
+        else if (context.User.IsInRole(EDITOR_ROLE))
         {
+            <p>You are an editor not a user in @ADMINISTRATION_ROLE.</p>
+        } 
+        else{
             <p>You're not signed in as a user in @ADMINISTRATION_ROLE.</p>
         }
     </Authorized>
@@ -121,6 +126,7 @@
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
     string ADMINISTRATION_ROLE = "Administrators";
+    string EDITOR_ROLE = "Editors";
     System.Security.Claims.ClaimsPrincipal CurrentUser;
     protected override async Task OnInitializedAsync()
     {
@@ -131,11 +137,19 @@
             // Create ADMINISTRATION_ROLE Role
             await _RoleManager.CreateAsync(new IdentityRole(ADMINISTRATION_ROLE));
         }
+
+        // Check that the Editor exists
+        var RoleEditor = await _RoleManager.FindByNameAsync(EDITOR_ROLE);
+        if (RoleEditor == null){
+            // Create EDITOR_ROLE
+            await _RoleManager.CreateAsync(new IdentityRole(EDITOR_ROLE));
+        }
+
         // Make a test admin account with the following email: Admin@student.aau.dk / Password: @AAu123
         var user = await _UserManager.FindByNameAsync("Admin@student.aau.dk");
         if (user != null)
         {
-            // Is Admin@BlazorHelpWebsite.com in administrator role?
+            // Is Admin@student.aau.dk in administrator role?
             var UserResult = await _UserManager.IsInRoleAsync(user, ADMINISTRATION_ROLE);
             if (!UserResult)
             {
@@ -156,8 +170,8 @@
     // Collection to display the existing users
     List<IdentityUser> ColUsers = new List<IdentityUser>();
     // Options to display in the roles dropdown when editing a user
-    List<string> Options = new List<string>() { "Users", "Administrators" };
-    // To hold any possible errors
+    List<string> Options = new List<string>() { "Users", "Editors", "Administrators" }; // Added Editors here
+                                                                                        // To hold any possible errors
     string strError = "";
     // To enable showing the Popup
     bool ShowPopup = false;
@@ -217,33 +231,41 @@
                 }
                 // Handle Roles
                 // Is user in administrator role?
-                var UserResult =
-                    await _UserManager
-                    .IsInRoleAsync(user, ADMINISTRATION_ROLE);
+                var UserResult = await _UserManager.IsInRoleAsync(user, ADMINISTRATION_ROLE);
+                var IsEditor = await _UserManager.IsInRoleAsync(user, EDITOR_ROLE);
                 // Is Administrator role selected
                 // but user is not an Administrator?
-                if (
-                    (CurrentUserRole == ADMINISTRATION_ROLE)
-                    &
-                    (!UserResult))
+                if ((CurrentUserRole == ADMINISTRATION_ROLE) & (!UserResult))
                 {
                     // Put admin in Administrator role
-                    await _UserManager
-                        .AddToRoleAsync(user, ADMINISTRATION_ROLE);
+                    await _UserManager.AddToRoleAsync(user, ADMINISTRATION_ROLE);
                 }
                 else
                 {
                     // Is Administrator role not selected
                     // but user is an Administrator?
-                    if ((CurrentUserRole != ADMINISTRATION_ROLE)
-                        &
-                        (UserResult))
+                    if ((CurrentUserRole != ADMINISTRATION_ROLE) & (UserResult))
                     {
                         // Remove user from Administrator role
-                        await _UserManager
-                            .RemoveFromRoleAsync(user, ADMINISTRATION_ROLE);
+                        await _UserManager.RemoveFromRoleAsync(user, ADMINISTRATION_ROLE);
                     }
                 }
+                if ((CurrentUserRole == EDITOR_ROLE) & (!IsEditor))
+                {
+                    // put user in editor role
+                    await _UserManager.AddToRoleAsync(user, EDITOR_ROLE);
+                }
+                else
+                {
+                    // is editor role not selected
+                    if ((CurrentUserRole != EDITOR_ROLE) & (IsEditor))
+                    {
+                        // Remove user from Editor role
+                        await _UserManager.RemoveFromRoleAsync(user, EDITOR_ROLE);
+                    }
+                }
+
+
             }
             else
             {
@@ -282,8 +304,11 @@
                     if (CurrentUserRole == ADMINISTRATION_ROLE)
                     {
                         // Put admin in Administrator role
-                        await _UserManager
-                            .AddToRoleAsync(NewUser, ADMINISTRATION_ROLE);
+                        await _UserManager.AddToRoleAsync(NewUser, ADMINISTRATION_ROLE);
+                    }
+                    else if (CurrentUserRole == EDITOR_ROLE){
+                        //put user in editor role
+                        await _UserManager.AddToRoleAsync(NewUser, EDITOR_ROLE);
                     }
                 }
             }
@@ -307,17 +332,23 @@
         if (user != null)
         {
             // Is user in administrator role?
-            var UserResult =
-                await _UserManager
-                .IsInRoleAsync(user, ADMINISTRATION_ROLE);
+            var UserResult = await _UserManager.IsInRoleAsync(user, ADMINISTRATION_ROLE);
+            var IsEditor = await _UserManager.IsInRoleAsync(user, EDITOR_ROLE);
             if (UserResult)
             {
                 CurrentUserRole = ADMINISTRATION_ROLE;
             }
+            else if(IsEditor){
+                CurrentUserRole = EDITOR_ROLE;
+            }
             else
             {
                 CurrentUserRole = "Users";
+                
             }
+            
+
+            
         }
         // Open the Popup
         ShowPopup = true;
