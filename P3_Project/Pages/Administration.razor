@@ -232,6 +232,7 @@
                 // Handle Roles
                 // Is user in administrator role?
                 var UserResult = await _UserManager.IsInRoleAsync(user, ADMINISTRATION_ROLE);
+                var IsEditor = await _UserManager.IsInRoleAsync(user, EDITOR_ROLE);
                 // Is Administrator role selected
                 // but user is not an Administrator?
                 if ((CurrentUserRole == ADMINISTRATION_ROLE) & (!UserResult))
@@ -249,7 +250,7 @@
                         await _UserManager.RemoveFromRoleAsync(user, ADMINISTRATION_ROLE);
                     }
                 }
-                if ((CurrentUserRole == EDITOR_ROLE) & (!UserResult))
+                if ((CurrentUserRole == EDITOR_ROLE) & (!IsEditor))
                 {
                     // put user in editor role
                     await _UserManager.AddToRoleAsync(user, EDITOR_ROLE);
@@ -257,9 +258,9 @@
                 else
                 {
                     // is editor role not selected
-                    if ((CurrentUserRole != EDITOR_ROLE) & (UserResult))
+                    if ((CurrentUserRole != EDITOR_ROLE) & (IsEditor))
                     {
-                        // Remove user from Administrator role
+                        // Remove user from Editor role
                         await _UserManager.RemoveFromRoleAsync(user, EDITOR_ROLE);
                     }
                 }
