@@ -6,5 +6,7 @@ namespace DataAccessLibrary
     {
         Task<List<UnionActivityModel>> GetUnionActivities();
         Task InsertUnionActivity(UnionActivityModel unionActivity);
+        Task UpdateUnionActivity(int id, UnionActivityModel unionActivity);
+        Task DeleteUnionActivity(int id, UnionActivityModel unionActivity);
     }
 }

@@ -6,17 +6,44 @@
 @using P3_Project.Models
 
 @inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
 
 <h3>CreateUnionActivity</h3>
 
+<EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
+    <div>
+        <label for="name">Overskrift</label>
+        <InputText id="name" @bind-Value="newUnionActivity.Name"></InputText>
+    </div>
+    <div>
+        <label for="description">Beskrivelse</label>
+        <InputText id="description" @bind-Value="newUnionActivity.Description"></InputText>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tilføj</button>
+</EditForm>
+
+
 @code {
-    [Parameter]
-    public int? Id { get; set; }
 
-    UnionActivityModel unionActivity = new UnionActivityModel();
+    private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
 
 
-    
+    private async Task InsertUnionActivity()
+    {
+        UnionActivityModel ua = new UnionActivityModel
+            {
+                Id = newUnionActivity.Id,
+                Name = newUnionActivity.Name,
+                Description = newUnionActivity.Description
+            };
+
+        await _db.InsertUnionActivity(ua);
+
+        newUnionActivity = new DisplayUnionActivityModel();
+
+        NavigationManager.NavigateTo("begivenheder");
+    }
 
     
 }

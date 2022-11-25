@@ -1,0 +1,81 @@
+﻿@page "/begivenheder/redigerbegivenhed/{id:int}"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using P3_Project.Models
+
+@inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
+
+<h3>UpdateUnionActivity</h3>
+
+
+@if (unionActivity == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="@unionActivity" OnSubmit="() => UpdateUnionActivity(unionActivity.Id, unionActivity)">
+        <div>
+            <label for="name">Overskrift</label>
+            <InputText id="name" @bind-Value="unionActivity.Name" class="form-control"></InputText>
+        </div>
+        <div>
+            <label for="description">Beskrivelse</label>
+            <InputText id="description" @bind-Value="unionActivity.Description" class="form-control"></InputText>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Opdater begivenhed</button>
+            <button type="button" class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">Slet begivenhed</button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    private UnionActivityModel unionActivity;
+    private List<UnionActivityModel> unionActivities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+        unionActivity = GetSingleUnionActivity((int)Id);
+    }
+
+    async Task UpdateUnionActivity(int id, UnionActivityModel unionActivityToUpdate)
+    {
+        await _db.UpdateUnionActivity(id, unionActivityToUpdate);
+
+        NavigationManager.NavigateTo("/begivenheder");
+    }
+
+    async void DeleteUnionActivity(int id, UnionActivityModel unionActivityToDelete)
+    {
+        await _db.DeleteUnionActivity(id, unionActivityToDelete);
+
+        NavigationManager.NavigateTo("/begivenheder");
+    }
+
+
+
+
+    private UnionActivityModel GetSingleUnionActivity(int id)
+    {
+        foreach (var unionActivity in unionActivities)
+        {
+            if (unionActivity.Id == id)
+            {
+                return unionActivity;
+                break;
+            }
+            else
+            {
+
+            }
+        }
+        return unionActivity;
+    }
+}

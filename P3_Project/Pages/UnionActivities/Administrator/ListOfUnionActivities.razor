@@ -13,15 +13,6 @@
 <button type="button" @onclick="GoToMakeUnionActivity">Opret</button>
 
 
-<h4>Tilføj ny begivenhed</h4>
-<EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
-    <InputText id="name" @bind-Value="newUnionActivity.Name"></InputText>
-    <InputText id="description" @bind-Value="newUnionActivity.Description"></InputText>
-
-    <button type="submit" class="btn btn-primary">Tilføj</button>
-</EditForm>
-
-
 @if (unionActivities == null)
 {
     <p>Loading...</p>
@@ -45,7 +36,17 @@ else
                 <td>@unionActivity.Description</td>
                 <td>
                     <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)">
+                            <i class="oi oi-info"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => UpdateUnionActivity(unionActivity.Id)">
                             <i class="oi oi-pencil"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">
+                        <i class="oi oi-trash"></i>
                     </button>
                 </td>
             </tr>
@@ -94,5 +95,15 @@ else
     void ShowUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+
+    async void UpdateUnionActivity(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/redigerbegivenhed/{id}");
+    }
+
+    async void DeleteUnionActivity(int id, UnionActivityModel unionActivityToDelete)
+    {
+        await _db.DeleteUnionActivity(id, unionActivityToDelete);
     }
 }

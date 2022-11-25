@@ -35,5 +35,20 @@ namespace DataAccessLibrary
             return _db.SaveData(sql, unionActivity);
         }
 
+
+        public Task UpdateUnionActivity(int id, UnionActivityModel unionActivity)
+        {
+            string sql = @"update dbo.UnionActivity set Name=@Name, Description=@Description where Id=@id;";
+
+            return _db.SaveData(sql, unionActivity);
+        }
+
+
+        public Task DeleteUnionActivity(int id, UnionActivityModel unionActivity)
+        {
+            string sql = @"delete from dbo.UnionActivity where Id=@id;";
+
+            return _db.SaveData(sql, unionActivity);
+        }
     }
 }
