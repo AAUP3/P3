@@ -26,14 +26,18 @@ else
     public int? Id { get; set; }
 
 
+
     private UnionActivityModel unionActivity;
     private List<UnionActivityModel> unionActivities;
+
+
 
     protected override async Task OnInitializedAsync()
     {
         unionActivities = await _db.GetUnionActivities();
         unionActivity = GetSingleUnionActivity((int)Id);
     }
+
 
 
     private UnionActivityModel GetSingleUnionActivity(int id)
@@ -53,10 +57,6 @@ else
         return unionActivity;
     }
 
-
-
-    
-    private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
 
     
 }

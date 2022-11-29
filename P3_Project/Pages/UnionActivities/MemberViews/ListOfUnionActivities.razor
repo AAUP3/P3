@@ -1,0 +1,81 @@
+﻿@page "/"
+
+<h3>ListOfUnionActivities</h3>
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
+
+
+
+
+@if (unionActivities == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Overskrift</th>
+                <th>Beskrivelse</th>
+                <th>Dato</th>
+                <th>Varighed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var unionActivity in unionActivities)
+            {
+                if (unionActivity.IsVisible)
+                {
+                    <tr>
+                        <td>@unionActivity.Name</td>
+                        @if (unionActivity.Description.Length >= 50)
+                        {
+                            <td>@unionActivity.Description.Substring(0, 50) ...</td>
+                        }
+                        else
+                        {
+                            <td>@unionActivity.Description</td> 
+                        }
+                        <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
+                        <td>@unionActivity.ActivityDuration</td>
+                        <td>
+                            <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)">
+                                <i class="oi oi-info"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" >Tilmeld</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+
+    private List<UnionActivityModel> unionActivities;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+    }
+
+
+
+    void ShowUnionActivity(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+
+}

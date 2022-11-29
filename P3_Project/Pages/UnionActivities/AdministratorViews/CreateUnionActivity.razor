@@ -19,6 +19,21 @@
         <label for="description">Beskrivelse</label>
         <InputText id="description" @bind-Value="newUnionActivity.Description"></InputText>
     </div>
+    <div>
+        <label for="dateofactivity">Dato for afholdelse</label>
+        <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
+    </div>
+    <div>
+        <label for="activityduration">Varighed</label>
+        
+    </div>
+    <div>
+        <label for="visibility"></label>
+        <InputRadioGroup @bind-Value="@newUnionActivity.IsVisible" id="visibility">
+            <InputRadio Value="true" /> Vis
+            <InputRadio Value="false" /> Skjul
+        </InputRadioGroup>
+    </div>
 
     <button type="submit" class="btn btn-primary">Tilføj</button>
 </EditForm>
@@ -35,7 +50,10 @@
             {
                 Id = newUnionActivity.Id,
                 Name = newUnionActivity.Name,
-                Description = newUnionActivity.Description
+                Description = newUnionActivity.Description,
+                DateOfActivity = newUnionActivity.DateOfActivity,
+                IsVisible = newUnionActivity.IsVisible
+
             };
 
         await _db.InsertUnionActivity(ua);

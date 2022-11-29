@@ -30,7 +30,7 @@ namespace DataAccessLibrary
 
         public Task InsertUnionActivity(UnionActivityModel unionActivity)
         {
-            string sql = @"insert into dbo.UnionActivity (Name, Description) values (@Name, @Description);";
+            string sql = @"insert into dbo.UnionActivity (Name, Description, DateOfActivity, IsVisible) values (@Name, @Description, @DateOfActivity, @IsVisible);";
 
             return _db.SaveData(sql, unionActivity);
         }
@@ -38,7 +38,7 @@ namespace DataAccessLibrary
 
         public Task UpdateUnionActivity(int id, UnionActivityModel unionActivity)
         {
-            string sql = @"update dbo.UnionActivity set Name=@Name, Description=@Description where Id=@id;";
+            string sql = @"update dbo.UnionActivity set Name=@Name, Description=@Description, DateOfActivity=@DateOfActivity, IsVisible=@IsVisible where Id=@id;";
 
             return _db.SaveData(sql, unionActivity);
         }

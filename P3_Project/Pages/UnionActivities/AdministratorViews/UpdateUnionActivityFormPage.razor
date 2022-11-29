@@ -26,6 +26,21 @@ else
             <InputText id="description" @bind-Value="unionActivity.Description" class="form-control"></InputText>
         </div>
         <div>
+            <label for="dateofactivity">Dato for afholdelse</label>
+            <InputDate id="dateofactivity" @bind-Value="unionActivity.DateOfActivity" class="form-control"></InputDate>
+        </div>
+        <div>
+            <label for="activityduration">Varighed</label>
+        </div>
+        <div>
+        <label for="visibility"></label>
+            <InputRadioGroup @bind-Value="@unionActivity.IsVisible" id="visibility">
+                <InputRadio Value="true" /> Vis
+                <InputRadio Value="false" /> Skjul
+            </InputRadioGroup>
+        </div>
+
+        <div>
             <button type="submit" class="btn btn-primary">Opdater begivenhed</button>
             <button type="button" class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">Slet begivenhed</button>
         </div>
@@ -36,8 +51,12 @@ else
     [Parameter]
     public int? Id { get; set; }
 
+
+
     private UnionActivityModel unionActivity;
     private List<UnionActivityModel> unionActivities;
+
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,12 +64,16 @@ else
         unionActivity = GetSingleUnionActivity((int)Id);
     }
 
+
+
     async Task UpdateUnionActivity(int id, UnionActivityModel unionActivityToUpdate)
     {
         await _db.UpdateUnionActivity(id, unionActivityToUpdate);
 
         NavigationManager.NavigateTo("/begivenheder");
     }
+
+
 
     async void DeleteUnionActivity(int id, UnionActivityModel unionActivityToDelete)
     {
@@ -60,8 +83,7 @@ else
     }
 
 
-
-
+    // Maybe this can be simplified by using sql statement like "select * from "table" where id=@id"????
     private UnionActivityModel GetSingleUnionActivity(int id)
     {
         foreach (var unionActivity in unionActivities)
