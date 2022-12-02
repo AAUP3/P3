@@ -22,7 +22,7 @@ namespace DataAccessLibrary
 
         public Task<List<UnionActivityModel>> GetUnionActivities()
         {
-            string sql = "select * from dbo.UnionActivity";
+            string sql = "select * from dbo.UnionActivityData";
 
             return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
         }
@@ -30,7 +30,7 @@ namespace DataAccessLibrary
 
         public Task InsertUnionActivity(UnionActivityModel unionActivity)
         {
-            string sql = @"insert into dbo.UnionActivity (Name, Description, DateOfActivity, IsVisible) values (@Name, @Description, @DateOfActivity, @IsVisible);";
+            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible) values (@Name, @Description, @DateOfActivity, @IsVisible);";
 
             return _db.SaveData(sql, unionActivity);
         }
@@ -38,7 +38,7 @@ namespace DataAccessLibrary
 
         public Task UpdateUnionActivity(int id, UnionActivityModel unionActivity)
         {
-            string sql = @"update dbo.UnionActivity set Name=@Name, Description=@Description, DateOfActivity=@DateOfActivity, IsVisible=@IsVisible where Id=@id;";
+            string sql = @"update dbo.UnionActivityData set Name=@Name, Description=@Description, DateOfActivity=@DateOfActivity, IsVisible=@IsVisible where Id=@id;";
 
             return _db.SaveData(sql, unionActivity);
         }
@@ -46,7 +46,7 @@ namespace DataAccessLibrary
 
         public Task DeleteUnionActivity(int id, UnionActivityModel unionActivity)
         {
-            string sql = @"delete from dbo.UnionActivity where Id=@id;";
+            string sql = @"delete from dbo.UnionActivityData where Id=@id;";
 
             return _db.SaveData(sql, unionActivity);
         }
