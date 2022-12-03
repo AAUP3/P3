@@ -10,3 +10,15 @@ C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.dll
 C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
 C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
 C:\AOPA DMU Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.deps.json
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.AssemblyReference.cache
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfoInputs.cache
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfo.cs
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.CoreCompileInputs.cache
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\night\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll

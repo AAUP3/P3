@@ -2,7 +2,7 @@
 <PageTitle>Counter</PageTitle>
 <AuthorizeView>
     <Authorized>
-        @if (context.User.IsInRole("Administrators"))
+        @if (context.User.IsInRole(ADMINISTRATION_ROLE))
         {
             <h1>Counter: Admin</h1>
             <p role="status">Current count: @currentCount</p>

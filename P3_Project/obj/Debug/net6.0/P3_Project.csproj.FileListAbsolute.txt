@@ -156,3 +156,14 @@ C:\AOPA DMU Projekt\P3\P3_Project\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2
 C:\AOPA DMU Projekt\P3\P3_Project\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\AOPA DMU Projekt\P3\P3_Project\bin\Debug\net6.0\DataAccessLibrary.dll
 C:\AOPA DMU Projekt\P3\P3_Project\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\Dapper.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\night\Documents\GitHub\P3\P3_Project\bin\Debug\net6.0\DataAccessLibrary.pdb

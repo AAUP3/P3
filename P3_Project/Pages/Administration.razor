@@ -111,7 +111,25 @@
  
         else if (context.User.IsInRole(EDITOR_ROLE))
         {
-            <p>You are an editor not a user in @ADMINISTRATION_ROLE.</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in ColUsers)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.UserName</td>
+                            <td>@user.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         } 
         else{
             <p>You're not signed in as a user in @ADMINISTRATION_ROLE.</p>
@@ -124,7 +142,7 @@
 
 @code {
     [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    private Task<AuthenticationState> authenticationStateTask { get; set; } = null;
     string ADMINISTRATION_ROLE = "Administrators";
     string EDITOR_ROLE = "Editors";
     System.Security.Claims.ClaimsPrincipal CurrentUser;

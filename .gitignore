@@ -1,0 +1,13 @@
+
+.editorconfig
+.vs/P3_Project/DesignTimeBuild/.dtbcache.v2
+.vs/P3_Project/DesignTimeBuild/.dtbcache.v2
+.vs/P3_Project/FileContentIndex/192d0bb4-b01b-43dd-8da0-e160e97e445b.vsidx
+*.vsidx
+.vs/P3_Project/v17/.suo
+DataAccessLibrary/obj/DataAccessLibrary.csproj.nuget.dgspec.json
+DataAccessLibrary/obj/DataAccessLibrary.csproj.nuget.g.props
+DataAccessLibrary/obj/Debug/net6.0/DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+DataAccessLibrary/obj/Debug/net6.0/DataAccessLibrary.pdb
+DataAccessLibrary/obj/project.assets.json
+DataAccessLibrary/obj/project.nuget.cache
