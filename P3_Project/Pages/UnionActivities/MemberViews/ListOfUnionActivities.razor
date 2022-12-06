@@ -1,6 +1,6 @@
 ﻿@page "/"
 
-<h3>ListOfUnionActivities</h3>
+<h3>SkriveBord</h3>
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
@@ -8,12 +8,12 @@
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
 
-<div class="container col-lg-12">
+<div class="container col-lg-12" style="margin: 20px;">
     <div class="row col-lg-12" style="">
         <div class="col-md-4 col-lg-4" style="text-align: center;">
             <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
                 <div style="padding: 1px; margin: 10px;">
-                    <p class="h4" style="text-align: left; font-weight: bold;">Kommende begivenheder </p>
+                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
                 </div>
 
                 <!--TABLE-->
@@ -35,14 +35,10 @@
                                     {
                                         <tr>
                                             <th scope="row">
-                                                <div class="col-md-4 col-lg-4">
-                                                    <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
-                                                </div>
-                                                <div class="col-md-12 col-lg-12">
-                                                  <p class="h5"><td>@unionActivity.Name</td></p>                                                
-                                                </div>
-                                             </th>
-                                            
+                                                <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
+                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">@unionActivity.Name</div>
+                                                                                               
+                                            </th>          
                                         </tr>
                                     }
                                 }
@@ -65,7 +61,7 @@
 
 
 
-
+<!--
 
 @if (unionActivities == null)
 {
@@ -116,7 +112,7 @@ else
         </tbody>
     </table>
 }
-
+-->
 
 
 @code {
