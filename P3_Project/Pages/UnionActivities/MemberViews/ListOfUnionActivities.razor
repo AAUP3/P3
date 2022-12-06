@@ -10,6 +10,7 @@
 
 <div class="container col-lg-12" style="margin: 20px;">
     <div class="row col-lg-12" style="">
+        <!--Box 1-->
         <div class="col-md-4 col-lg-4" style="text-align: center;">
             <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
                 <div style="padding: 1px; margin: 10px;">
@@ -29,7 +30,7 @@
                     {
                         <table class="table">
                             <tbody class="table-group-divider">
-                                @foreach (var unionActivity in unionActivities)
+                                @foreach (var unionActivity in unionActivities.OrderBy(x => x.DateOfActivity).Take(4))
                                 {
                                     if (unionActivity.IsVisible)
                                     {
@@ -37,8 +38,7 @@
                                             <th scope="row">
                                                 <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
                                                 <div class="col-md-12 col-lg-12 h5" style="text-align: left;">@unionActivity.Name</div>
-                                                                                               
-                                            </th>          
+                                            </th>
                                         </tr>
                                     }
                                 }
@@ -47,72 +47,55 @@
                     }
                 </div>
             </div>
-        <div class="h4" style="font-weight: bold; padding: 5px;">
+            <div class="h4" style="font-weight: bold; padding: 5px;">
                 Begivenheder
             </div>
         </div>
-        <div class="col-md-4 col-lg-4">box 2</div>
+
+        <!--Box 2-->
+        <div class="col-md-4 col-lg-4" style="text-align: center;">
+            <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+                <div style="padding: 1px; margin: 10px;">
+                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
+                </div>
+
+                <!--TABLE-->
+                <div style="background-color: white; border-radius: 10px; margin: 10px;">
+                    @if (unionActivities == null)
+                    {
+                        <p>Loading...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <tbody class="table-group-divider">
+                                @foreach (var unionActivity in unionActivities.OrderBy(x => x.DateOfActivity).Take(4))
+                                {
+                                    if (unionActivity.IsVisible)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
+                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">@unionActivity.Name</div>
+                                            </th>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="h4" style="font-weight: bold; padding: 5px;">
+                Begivenheder
+            </div>
+        </div>
         <div class="col-md-4 col-lg-4">box 3</div>
     </div>
 </div>
-    
-
-
-
-
-
-<!--
-
-@if (unionActivities == null)
-{
-    <p>Loading...</p>
-    <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-}
-else
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Overskrift</th>
-                <th>Beskrivelse</th>
-                <th>Dato</th>
-                <th>Varighed</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var unionActivity in unionActivities)
-            {
-                if (unionActivity.IsVisible)
-                {
-                    <tr>
-                        <td>@unionActivity.Name</td>
-                        @if (unionActivity.Description.Length >= 50)
-                        {
-                            <td>@unionActivity.Description.Substring(0, 50) ...</td>
-                        }
-                        else
-                        {
-                            <td>@unionActivity.Description</td> 
-                        }
-                        <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
-                        <td>@unionActivity.ActivityDuration</td>
-                        <td>
-                            <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)">
-                                <i class="oi oi-info"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" >Tilmeld</button>
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-}
--->
 
 
 @code {
