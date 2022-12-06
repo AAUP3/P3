@@ -8,12 +8,71 @@
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
 
+<div class="container col-lg-12">
+    <div class="row col-lg-12" style="">
+        <div class="col-md-4 col-lg-4" style="text-align: center;">
+            <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+                <div style="padding: 1px; margin: 10px;">
+                    <p class="h4" style="text-align: left; font-weight: bold;">Kommende begivenheder </p>
+                </div>
+
+                <!--TABLE-->
+                <div style="background-color: white; border-radius: 10px; margin: 10px;">
+                    @if (unionActivities == null)
+                    {
+                        <p>Loading...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <tbody class="table-group-divider">
+                                @foreach (var unionActivity in unionActivities)
+                                {
+                                    if (unionActivity.IsVisible)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="col-md-4 col-lg-4">
+                                                    <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
+                                                </div>
+                                                <div class="col-md-12 col-lg-12">
+                                                  <p class="h5"><td>@unionActivity.Name</td></p>                                                
+                                                </div>
+                                             </th>
+                                            
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        <div class="h4" style="font-weight: bold; padding: 5px;">
+                Begivenheder
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4">box 2</div>
+        <div class="col-md-4 col-lg-4">box 3</div>
+    </div>
+</div>
+    
+
+
+
+
 
 
 
 @if (unionActivities == null)
 {
     <p>Loading...</p>
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
 }
 else
 {
