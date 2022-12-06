@@ -50,5 +50,13 @@ namespace DataAccessLibrary
 
             return _db.SaveData(sql, unionActivity);
         }
+
+        public Task<List<UnionActivityModel>> OrderActivities()
+        {
+            string sql = "select * from dbo.UnionActivityData order by DateOfActivity;";
+
+            //await _db.SaveDataTest(sql, List);
+            return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+        }
     }
 }

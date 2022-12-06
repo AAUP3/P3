@@ -24,6 +24,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IUnionActivityData, UnionActivityData>();
+builder.Services.AddTransient<IRegistrationData, RegistrationData>();
 
 var app = builder.Build();
 

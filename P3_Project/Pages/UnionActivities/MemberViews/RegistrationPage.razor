@@ -1,0 +1,128 @@
+﻿@page "/begivenheder/tilmeld/{id:int}"
+
+@using DataAccessLibrary.Models
+@using DataAccessLibrary
+
+
+@inject NavigationManager NavigationManager
+@inject IRegistrationData _db
+
+
+
+<h3>Tilmeld</h3>
+
+<EditForm Model="@Registration" OnSubmit="@Submit" class="form-control">
+    <div>
+        <div>
+            <label for="flightno">Fly reg.</label>
+            <InputText id="flightno" @bind-Value="Registration.FlightRegistrationNumber"></InputText>
+        </div>
+        <div>
+            <label for="type">Type</label>
+            <InputText id="type" @bind-Value="Registration.Type"></InputText>
+        </div>
+        <div>
+            <label for="mtow">MTOW</label>
+            <InputNumber id="mtow" @bind-Value="Registration.MaxTakeoffWeight"></InputNumber>
+        </div>
+        <div>
+            <label for="club">Klub</label>
+            <InputText id="club" @bind-Value="Registration.Club"></InputText>
+        </div>
+        <div>
+            <label for="startdestination">Startdestination</label>
+            <InputText id="startdestination" @bind-Value="Registration.StartDestination"></InputText>
+        </div>
+    </div>
+    <br />
+    <div>
+        <div>
+            <label for="name">Navn</label>
+            <InputText id="name" @bind-Value="Registration.Name"></InputText>
+        </div>
+        <div>
+            <label for="email">E-mail</label>
+            <InputText id="email" @bind-Value="Registration.Email"></InputText>
+        </div>
+        <div>
+            <label for="email">Telefonnummer</label>
+            <InputText id="email" @bind-Value="Registration.Phonenumber"></InputText>
+        </div>
+        <div>
+            <label for="email">Deltagertype</label>
+            <InputSelect @bind-Value="Registration.ParticipantType">
+                <option value="" selected >-vælg type-</option>
+                <option value="PIC" >PIC</option>
+                <option value="COP" >COP</option>
+                <option value="PAX" >PAX</option>
+            </InputSelect>
+        </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Tilmeld</button>
+        <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
+    </div>
+
+    </div>
+    <button type="button" @onclick="showNUmber">Nummer</button>
+    @if (test)
+    {
+        @Registration.Phonenumber
+    }
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    string format = "## ## ## ##";
+    public bool test = false;
+
+
+    // Only works one time, can't convert back and forth
+    public void showNUmber()
+    {
+        if (test)
+        {
+            test = false;
+        }
+        else
+        {
+            test = true;
+            Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
+        }
+    }
+
+    RegistrationModel Registration = new RegistrationModel();
+
+    protected override void OnInitialized()
+    {
+        RegistrationModel Registration = new RegistrationModel();
+
+    }
+
+    public void AddParticipant()
+    {
+
+    }
+
+    private async Task Submit()
+    {
+        Registration.UnionActivityID = Id;
+        // Maybe to some testing that the phonenumber is the corret number of numbers???
+        Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
+
+        
+
+        await _db.InsertRegistration(Registration);
+
+        Registration = new RegistrationModel();
+
+        NavigationManager.NavigateTo("/");
+    }
+
+
+    public void GoBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

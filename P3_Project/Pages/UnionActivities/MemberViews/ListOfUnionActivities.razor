@@ -27,7 +27,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var unionActivity in unionActivities)
+            @foreach (var unionActivity in unionActivities) //Also add check on the userId to check if they can register or remove registration
             {
                 if (unionActivity.IsVisible)
                 {
@@ -49,7 +49,7 @@ else
                             </button>
                         </td>
                         <td>
-                            <button class="btn btn-primary" >Tilmeld</button>
+                            <button class="btn btn-primary" @onclick="() => GoToRegistration(unionActivity.Id)">Tilmeld</button>
                         </td>
                     </tr>
                 }
@@ -76,6 +76,12 @@ else
     void ShowUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+
+
+    void GoToRegistration(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
     }
 
 }

@@ -1,0 +1,68 @@
+﻿@page "/begivenheder/tilmeldinger/{id:int}"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IRegistrationData _db
+
+<h3>ListOfParticipants</h3>
+
+
+
+@if (Registrations == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fly reg.</th>
+                <th>Type</th>
+                <th>MTOW</th>
+                <th>Klub</th>
+                <th>Startdestination</th>
+                <th>Navn</th>
+                <th>E-mail</th>
+                <th>Mobilnummer</th>
+                <th>Deltager type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var registration in Registrations)
+            {
+                <tr>
+                    <td>@registration.FlightRegistrationNumber</td>
+                    <td>@registration.Type</td>
+                    <td>@registration.MaxTakeoffWeight</td>
+                    <td>@registration.Club</td>
+                    <td>@registration.StartDestination</td>
+                    <td>@registration.Name</td>
+                    <td>@registration.Email</td> <!-- Add if statement to hide email and phonenumber if not allowed by participant-->
+                    <td>@registration.Phonenumber</td>
+                    <td>@registration.ParticipantType</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    
+
+    private List<RegistrationModel> Registrations = new List<RegistrationModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Registrations = await _db.GetRegistrations();
+    }
+}

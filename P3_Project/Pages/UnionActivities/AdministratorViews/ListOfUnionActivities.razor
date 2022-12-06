@@ -59,6 +59,10 @@ else
                     </button>
                 </td>
                 <td>
+                    <button class="btn btn-primary" @onclick="() => GoToListOfParticipants(unionActivity.Id)">Tilmeldinger</button>
+                </td>
+
+                <td>
                     <button class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">
                         <i class="oi oi-trash"></i>
                     </button>
@@ -78,12 +82,15 @@ else
 @code {
 
     private List<UnionActivityModel> unionActivities;
-    
+
 
 
     protected override async Task OnInitializedAsync()
     {
-        unionActivities = await _db.GetUnionActivities();
+
+        //unionActivities = await _db.GetUnionActivities();
+        unionActivities = await _db.OrderActivities();
+
     }
 
 
@@ -128,5 +135,10 @@ else
             unionActivityToChangeVisibility.IsVisible = true;
             await _db.UpdateUnionActivity(unionActivityToChangeVisibility.Id, unionActivityToChangeVisibility);
         }
+    }
+
+    void GoToListOfParticipants(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/tilmeldinger/{id}");
     }
 }
