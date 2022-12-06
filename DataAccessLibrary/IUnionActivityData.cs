@@ -8,6 +8,6 @@ namespace DataAccessLibrary
         Task InsertUnionActivity(UnionActivityModel unionActivity);
         Task UpdateUnionActivity(int id, UnionActivityModel unionActivity);
         Task DeleteUnionActivity(int id, UnionActivityModel unionActivity);
-        Task<List<UnionActivityModel>> OrderActivities();
+        Task<List<UnionActivityModel>> OrderActivities(string column);
     }
 }

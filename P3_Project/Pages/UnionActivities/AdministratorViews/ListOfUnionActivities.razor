@@ -89,7 +89,7 @@ else
     {
 
         //unionActivities = await _db.GetUnionActivities();
-        unionActivities = await _db.OrderActivities();
+        unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
 
     }
 

@@ -51,9 +51,9 @@ namespace DataAccessLibrary
             return _db.SaveData(sql, unionActivity);
         }
 
-        public Task<List<UnionActivityModel>> OrderActivities()
+        public Task<List<UnionActivityModel>> OrderActivities(string column)
         {
-            string sql = "select * from dbo.UnionActivityData order by DateOfActivity;";
+            string sql = $"select * from dbo.UnionActivityData order by {column};";
 
             //await _db.SaveDataTest(sql, List);
             return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
