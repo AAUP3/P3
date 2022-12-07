@@ -9,7 +9,7 @@ namespace DataAccessLibrary.Models
 {
     public class RegistrationModel
     {
-        public string FlightRegistrationNumber { get; set; }
+        public string? FlightRegistrationNumber { get; set; }
         public string Type { get; set; }
         public int MaxTakeoffWeight { get; set; }
         public string Club { get; set; }

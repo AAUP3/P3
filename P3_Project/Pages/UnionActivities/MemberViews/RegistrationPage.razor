@@ -36,39 +36,45 @@
     </div>
     <br />
     <div>
+        @foreach (var registration in Registrations) {
         <div>
             <label for="name">Navn</label>
-            <InputText id="name" @bind-Value="Registration.Name"></InputText>
+            <InputText id="email" @bind-Value="registration.Name"></InputText>
         </div>
         <div>
             <label for="email">E-mail</label>
-            <InputText id="email" @bind-Value="Registration.Email"></InputText>
+            <InputText id="email" @bind-Value="registration.Email"></InputText>
         </div>
         <div>
-            <label for="email">Telefonnummer</label>
-            <InputText id="email" @bind-Value="Registration.Phonenumber"></InputText>
+            <label for="phonenumber">Telefonnummer</label>
+            <InputText id="phonenumber" @bind-Value="registration.Phonenumber"></InputText>
         </div>
         <div>
-            <label for="email">Deltagertype</label>
-            <InputSelect @bind-Value="Registration.ParticipantType">
+            <label for="participationtype">Deltagertype</label>
+            <InputSelect id="participationtype" @bind-Value="registration.ParticipantType">
                 <option value="" selected >-vælg type-</option>
                 <option value="PIC" >PIC</option>
                 <option value="COP" >COP</option>
                 <option value="PAX" >PAX</option>
             </InputSelect>
         </div>
+        }
+
+
     <div>
         <button type="submit" class="btn btn-primary">Tilmeld</button>
         <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
+        <button type="button" @onclick="Add">tilføj</button>
     </div>
+    </div>
+    
 
-    </div>
     <button type="button" @onclick="showNUmber">Nummer</button>
     @if (test)
     {
         @Registration.Phonenumber
     }
-</EditForm>
+</EditForm>j
 
 
 @code {
@@ -76,6 +82,8 @@
     public int Id { get; set; }
     string format = "## ## ## ##";
     public bool test = false;
+
+    public List<RegistrationModel> Registrations = new List<RegistrationModel>();
 
 
     // Only works one time, can't convert back and forth
@@ -94,10 +102,10 @@
 
     RegistrationModel Registration = new RegistrationModel();
 
+
     protected override void OnInitialized()
     {
-        RegistrationModel Registration = new RegistrationModel();
-
+        Registrations.Add(Registration);
     }
 
     public void AddParticipant()
@@ -107,15 +115,27 @@
 
     private async Task Submit()
     {
-        Registration.UnionActivityID = Id;
+        //Registration.UnionActivityID = Id;
         // Maybe to some testing that the phonenumber is the corret number of numbers???
-        Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
+        //Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
 
-        
+        foreach (var registration in Registrations)
+        {
+            registration.FlightRegistrationNumber = Registration.FlightRegistrationNumber;
+            registration.UnionActivityID = Id;
+            registration.Phonenumber = Convert.ToInt64(registration.Phonenumber).ToString(format);
+            await _db.InsertRegistration(registration);
+        }
 
-        await _db.InsertRegistration(Registration);
+
+        // await _db.InsertRegistration(Registration);
+
+
+
+        // for-loop running through all guests, inserting them if name is not null
 
         Registration = new RegistrationModel();
+
 
         NavigationManager.NavigateTo("/");
     }
@@ -124,5 +144,12 @@
     public void GoBack()
     {
         NavigationManager.NavigateTo("/");
+    }
+
+
+    void Add()
+    {
+        Registrations.Add(new RegistrationModel());
+        
     }
 }

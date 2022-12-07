@@ -38,7 +38,7 @@ else
                     <td>@registration.MaxTakeoffWeight</td>
                     <td>@registration.Club</td>
                     <td>@registration.StartDestination</td>
-                    <td>@registration.Name</td>
+                    <!--<td>@registration.Name</td>-->
                     <td>@registration.Email</td> <!-- Add if statement to hide email and phonenumber if not allowed by participant-->
                     <td>@registration.Phonenumber</td>
                     <td>@registration.ParticipantType</td>
@@ -63,6 +63,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // Registrations = await _db.GetRegistrations();
+        Registrations = await _db.GetRegistrations((int)Id);
     }
 }

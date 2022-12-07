@@ -16,10 +16,10 @@ namespace DataAccessLibrary
             _db = db;
         }
 
-
+        // Maybe order this based on FlightRegistrationNumber to group the participants by plane (Wanted by DMU).
         public Task<List<RegistrationModel>> GetRegistrations(int id)
         {
-            string sql = "select * from dbo.Registration where UnionActivityID=@id;";
+            string sql = $"select * from dbo.Registration where UnionActivityID={id};";
 
             return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
         }
