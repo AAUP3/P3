@@ -5,6 +5,7 @@
 @using P3_Project.Models
 
 @inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
 
 
 @if (unionActivity == null)
@@ -13,9 +14,23 @@
 }
 else
 {
-    <h1>@unionActivity.Name</h1>
-    <p>Beskrivelse</p>
-    <p>@unionActivity.Description</p>
+<div class="container col-lg-12 col-md-12 col-12" style="">
+        <h3>Tilmeld - @unionActivity.Name</h3>
+        <div class="row col-lg-12" style="">
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToMainMenu()" style="font-weight: bold;">
+                &lt; Tilbage
+            </div> <!--needs to be a link that sends you back to list of events-->
+            <div class="col-md-12 col-lg-12 active" style="background-color: #3846c0; border-radius: 10px;">
+                    <div class="col-12" style="padding-top: 10px; padding-bottom: 10px; font-size: 24px;">Beskrivelse</div>
+                    <div class="col-12" style="background-color: white; border-radius: 10px; padding-left: 10px; padding-right: 7px;"><p>@unionActivity.Description</p></div>
+                    <div class="col" style="" align="center">
+                    <button class="btn btn-primary" @onclick="() => GoToRegistration(unionActivity.Id)">
+                        Tilmeld</button>
+
+                    </div>              
+            </div>
+        </div>
+    </div>
 }
 
 
@@ -57,6 +72,14 @@ else
         return unionActivity;
     }
 
+
+    void GoToRegistration(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
+    }
+    void GoToMainMenu(){
+        NavigationManager.NavigateTo($"/");
+    }
 
     
 }
