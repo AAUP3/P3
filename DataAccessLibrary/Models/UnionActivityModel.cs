@@ -15,5 +15,7 @@ namespace DataAccessLibrary.Models
         public TimeSpan ActivityDuration { get; set; }
         public bool IsVisible { get; set; }
         public bool ActivationState { get; set; }
+        public string Information { get; set; }
+        public List<string> AllInformation = new List<string>();
     }
 }

@@ -55,8 +55,16 @@ namespace DataAccessLibrary
             }
         }
 
+        public async Task SaveDataTest(string sql)
+        {
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.ExecuteAsync(sql);
+            }
+        }
 
 
-        
     }
 }
