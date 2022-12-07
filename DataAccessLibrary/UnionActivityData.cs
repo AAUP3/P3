@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using Microsoft.VisualBasic;
 
 namespace DataAccessLibrary
 {
@@ -57,6 +58,13 @@ namespace DataAccessLibrary
 
             //await _db.SaveDataTest(sql, List);
             return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+        }
+
+        public Task CheckIfColumnExistsElseCreate(string column, string type)
+        {
+            string sql = $"if COL_LENGTH('dbo.Registration', '{column}') is null begin alter table Registration add {column} {type} null end;";
+            
+           return _db.SaveDataTest(sql);
         }
     }
 }

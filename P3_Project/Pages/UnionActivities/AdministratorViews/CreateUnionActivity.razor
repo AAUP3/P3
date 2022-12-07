@@ -11,30 +11,46 @@
 <h3>CreateUnionActivity</h3>
 
 <EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
-    <div>
-        <label for="name">Overskrift</label>
-        <InputText id="name" @bind-Value="newUnionActivity.Name"></InputText>
-    </div>
-    <div>
-        <label for="description">Beskrivelse</label>
-        <InputText id="description" @bind-Value="newUnionActivity.Description"></InputText>
-    </div>
-    <div>
-        <label for="dateofactivity">Dato for afholdelse</label>
-        <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
-    </div>
-    <div>
-        <label for="activityduration">Varighed</label>
-        
-    </div>
-    <div>
-        <label for="visibility"></label>
-        <InputRadioGroup @bind-Value="@newUnionActivity.IsVisible" id="visibility">
-            <InputRadio Value="true" /> Vis
-            <InputRadio Value="false" /> Skjul
-        </InputRadioGroup>
-    </div>
+    @if (FirstScreen)
+    {
+        <div>
+            <label for="name">Overskrift</label>
+            <InputText id="name" @bind-Value="newUnionActivity.Name"></InputText>
+        </div>
+        <div>
+            <label for="description">Beskrivelse</label>
+            <InputText id="description" @bind-Value="newUnionActivity.Description"></InputText>
+        </div>
+        <div>
+            <label for="dateofactivity">Dato for afholdelse</label>
+            <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
+        </div>
+        <div>
+            <label for="activityduration">Varighed</label>
 
+        </div>
+        <div>
+            <label for="visibility"></label>
+            <InputRadioGroup @bind-Value="@newUnionActivity.IsVisible" id="visibility">
+                <InputRadio Value="true" /> Vis
+                <InputRadio Value="false" /> Skjul
+            </InputRadioGroup>
+        </div>
+        <button type="button" @onclick="NextScreen">Næste</button>
+    }
+    @if (!FirstScreen)
+    {
+        <p>Personlig Information</p>
+        foreach (var activity in unionActivities)
+        {
+            <div>
+                <InputText @bind-Value="activity.Information"></InputText>
+            </div>
+            unionActivity.AllInformation.Add(activity.Information);
+        } 
+        <button type="button" @onclick="AddNewInformation">+</button>
+        <button type="button" @onclick="PreviousScreen">Forrige</button>
+    }
     <button type="submit" class="btn btn-primary">Tilføj</button>
 </EditForm>
 
@@ -42,6 +58,23 @@
 @code {
 
     private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
+
+    public UnionActivityModel unionActivity = new UnionActivityModel();
+    public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
+
+
+    public bool FirstScreen = true;
+
+
+    protected override void OnInitialized()
+    {
+        unionActivities.Add(unionActivity);
+    }
+
+    void AddNewInformation()
+    {
+        unionActivities.Add(new UnionActivityModel());
+    }
 
 
     private async Task InsertUnionActivity()
@@ -56,6 +89,12 @@
 
             };
 
+
+        foreach (var information in unionActivity.AllInformation)
+        {
+            await _db.CheckIfColumnExistsElseCreate(information, "");
+        }
+
         await _db.InsertUnionActivity(ua);
 
         newUnionActivity = new DisplayUnionActivityModel();
@@ -63,5 +102,15 @@
         NavigationManager.NavigateTo("begivenheder");
     }
 
-    
+
+    void NextScreen()
+    {
+        FirstScreen = false;
+    }
+
+    void PreviousScreen()
+    {
+        FirstScreen = true;
+    }
+
 }
