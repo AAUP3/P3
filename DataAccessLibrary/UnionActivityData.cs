@@ -60,11 +60,24 @@ namespace DataAccessLibrary
             return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
         }
 
-        public Task CheckIfColumnExistsElseCreate(string column, string type)
+        public Task CheckIfColumnExistsElseCreate(string column)
         {
-            string sql = $"if COL_LENGTH('dbo.Registration', '{column}') is null begin alter table Registration add {column} {type} null end;";
+            if (column == null)
+            {
+                throw new Exception("It's Britney B*tch");
+            }
+            else
+            {
+                string sql = $"if COL_LENGTH('dbo.Registration', '{column}') is null begin alter table Registration add {column} nvarchar(max) null end;";
+                return _db.SaveDataTest(sql);
+            }
             
-           return _db.SaveDataTest(sql);
+
+            
         }
+
+        
+
+
     }
 }

@@ -4,6 +4,8 @@
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
 @using P3_Project.Models
+@using System
+@using System.Data
 
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
@@ -45,8 +47,10 @@
         {
             <div>
                 <InputText @bind-Value="activity.Information"></InputText>
+                <button type="button" @onclick="() =>Add(activity.Information)" class="btn btn-primary">Tilføj</button>
             </div>
-            unionActivity.AllInformation.Add(activity.Information);
+            
+            
         } 
         <button type="button" @onclick="AddNewInformation">+</button>
         <button type="button" @onclick="PreviousScreen">Forrige</button>
@@ -68,7 +72,7 @@
 
     protected override void OnInitialized()
     {
-        unionActivities.Add(unionActivity);
+        //unionActivities.Add(unionActivity);
     }
 
     void AddNewInformation()
@@ -76,6 +80,10 @@
         unionActivities.Add(new UnionActivityModel());
     }
 
+    void Add(string information)
+    {
+        unionActivity.AllInformation.Add(information);
+    }
 
     private async Task InsertUnionActivity()
     {
@@ -92,7 +100,8 @@
 
         foreach (var information in unionActivity.AllInformation)
         {
-            await _db.CheckIfColumnExistsElseCreate(information, "");
+
+            await _db.CheckIfColumnExistsElseCreate(information);
         }
 
         await _db.InsertUnionActivity(ua);
@@ -101,6 +110,8 @@
 
         NavigationManager.NavigateTo("begivenheder");
     }
+
+    
 
 
     void NextScreen()

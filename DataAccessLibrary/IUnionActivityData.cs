@@ -1,4 +1,5 @@
 ﻿using DataAccessLibrary.Models;
+using System.Data;
 
 namespace DataAccessLibrary
 {
@@ -9,6 +10,7 @@ namespace DataAccessLibrary
         Task UpdateUnionActivity(int id, UnionActivityModel unionActivity);
         Task DeleteUnionActivity(int id, UnionActivityModel unionActivity);
         Task<List<UnionActivityModel>> OrderActivities(string column);
-        Task CheckIfColumnExistsElseCreate(string column, string type);
+        Task CheckIfColumnExistsElseCreate(string column);
+        
     }
 }

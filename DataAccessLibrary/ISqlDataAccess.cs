@@ -10,7 +10,7 @@ namespace DataAccessLibrary
         Task SaveData<T>(string sql, T parameters);
         Task<T> LoadDataSingle<T, U>(string sql, U parameters);
         Task SaveDataTest(string sql);
-
+        
 
     }
 }
