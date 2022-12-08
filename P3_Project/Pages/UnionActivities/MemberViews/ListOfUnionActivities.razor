@@ -1,6 +1,6 @@
-﻿@page "/"
+﻿@page "/begivenheder/listofUA"
 
-<h3>SkriveBord</h3>
+<h3>Begivenheder</h3>
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
@@ -11,7 +11,10 @@
 <div class="container col-lg-12" style="margin: 20px;">
     <div class="row col-lg-12" style="">
         <!--Box 1-->
-        <div class="col-md-4 col-lg-4" style="text-align: center;">
+        <div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToHome()" style="font-weight: bold;">
+                &lt; Tilbage
+            </div>
             <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
                 <div style="padding: 1px; margin: 10px;">
                     <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
@@ -30,16 +33,18 @@
                     {
                         <table class="table">
                             <tbody class="table-group-divider">
-                                @foreach (var unionActivity in unionActivities.Take(3))
+                                @foreach (var unionActivity in unionActivities.OrderBy(x => x.DateOfActivity))
                                 {
                                     if (unionActivity.IsVisible)
                                     {
                                         <tr>
                                             <th scope="row">
                                                 <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
-                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">@unionActivity.Name</div>
-                                                <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button>
-                                                <button class="btn btn-primary" @onclick="() => GoToRegistration(unionActivity.Id)">Tilmeld</button>
+                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">
+                                                        @unionActivity.Name
+                                                    <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
+                                                    <!--<button class="btn btn-primary float-end" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button> -->
+                                                </div>                                                
                                             </th>
                                         </tr>
                                     }
@@ -49,55 +54,8 @@
                     }
                 </div>
             </div>
-            <div class="h4" style="font-weight: bold; padding: 5px;">
-                Begivenheder
-            </div>
-        </div>
 
-        <!--Box 2-->
-        <div class="col-md-4 col-lg-4" style="text-align: center;">
-            <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
-                <div style="padding: 1px; margin: 10px;">
-                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
-                </div>
-
-                <!--TABLE-->
-                <div style="background-color: white; border-radius: 10px; margin: 10px;">
-                    @if (unionActivities == null)
-                    {
-                        <p>Loading...</p>
-                        <div class="spinner-border text-primary" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    }
-                    else
-                    {
-                        <table class="table">
-                            <tbody class="table-group-divider">
-                                @foreach (var unionActivity in unionActivities.OrderBy(x => x.DateOfActivity).Take(3))
-                                {
-                                    if (unionActivity.IsVisible)
-                                    {
-                                        <tr>
-                                            <th scope="row">
-                                                <div class="col-md-4 col-lg-4" style="text-align: left;" @onclick="() =>ShowUnionActivity(unionActivity.Id)">@unionActivity.DateOfActivity.ToShortDateString()</div>
-                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">@unionActivity.Name</div>
-                                                <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button>
-                                                <button class="btn btn-primary" @onclick="() => GoToRegistration(unionActivity.Id)">Tilmeld</button>
-                                            </th>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    }
-                </div>
-            </div>
-            <div class="h4" style="font-weight: bold; padding: 5px;">
-                Begivenheder
-            </div>
         </div>
-        <div class="col-md-4 col-lg-4">box 3</div>
     </div>
 </div>
 
@@ -124,6 +82,10 @@
     void GoToRegistration(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
+    }
+    void GoToHome()
+    {
+        NavigationManager.NavigateTo($"/");
     }
 
 }

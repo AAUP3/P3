@@ -66,3 +66,15 @@ a, .btn-link {
     background-color: aqua;
 }
 
+.box {
+    transition: box-shadow .3s;
+}
+
+.box:hover {
+    box-shadow: 0 0 20px rgba(0,0,30,.6);
+}
+
+.border-right {
+    border-right: 1px solid lightgrey; 
+}
+

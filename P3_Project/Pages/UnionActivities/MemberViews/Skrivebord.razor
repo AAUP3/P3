@@ -1,0 +1,163 @@
+﻿@page "/"
+
+<h3>Skrivebord</h3>
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
+
+<div class="container col-lg-12" style="margin: 20px;">
+    <div class="row col-lg-12" style="">
+        <!--Box 1-->
+        <div class="col-md-4 col-lg-4" style="text-align: center;">
+            <div class="box" @onclick="() => GoToUnionActivityList()" style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+                <div style="padding: 1px; margin: 10px;">
+                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
+                </div>
+
+                <!--TABLE-->
+                <div style="background-color: white; border-radius: 10px; margin: 10px;">
+                    @if (unionActivities == null)
+                    {
+                        <p>Loading...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <tbody class="table-group-divider">
+                                @foreach (var unionActivity in unionActivities.OrderBy(x => x.DateOfActivity).Take(3))
+                                {
+                                    if (unionActivity.IsVisible)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
+                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">@unionActivity.Name</div>
+                                            </th>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="h4" style="font-weight: bold; padding: 5px;">
+                Begivenheder
+            </div>
+        </div>
+
+        <!--Box 2-->
+        <div class="col-md-4 col-lg-4" style="text-align: center;">
+            <div class="box" style="background-color: #3abd4f; border-radius: 10px; padding: 5px;">
+                <div style="padding: 1px; margin: 10px;">
+                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Spørgeundersøgelse </p>
+                </div>
+
+                <!--TABLE-->
+                <div style="background-color: white; border-radius: 10px; margin: 10px;">
+                    @if (unionActivities == null)
+                    {
+                        <p>Loading...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <tbody class="table-group-divider">
+                                <tr>
+                                    <th scope="row">
+                                        <div style="text-align: left;">Spørgeundersøgelse</div>
+                                        <div class="h5" style="text-align: left;">Evaluering - Årstur 2022</div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <div style="text-align: left;">Anonym afstemning</div>
+                                        <div class="h5" style="text-align: left;">Destination - Årstur 2022</div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <div style="text-align: left;">Anonym afstemning</div>
+                                        <div class="h5" style="text-align: left;">Dato for teorikursus</div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="h4" style="font-weight: bold; padding: 5px;">
+                Feedback
+            </div>
+        </div>
+        <!--Box 3-->
+        <div class="col-md-4 col-lg-4"> 
+            <div class="box" style="background-color: #37a8c1; border-radius: 10px; padding: 5px;"> 
+                <div style="padding: 1px; margin: 10px;"> 
+                    <p class="h4" style="font-weight: bold; color: white;">Anholdt Flyveplads - EKAT</p>
+                </div>
+                <div style="background-color: white; border-radius: 10px; padding: 10px; height: 225px; margin: 10px;">
+                    <div> 
+                        <p class="h5 border-bottom" style="font-weight: bold; padding: 5px">Status: Åben</p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col border-right" style="height: 170px; text-align: center; line-height: 90px;"> 
+                                <i class="fa-solid fa-cloud-sun fs-1"></i>
+                                <p style="font-weight: bold;"> 5 km </p>
+                            </div> 
+                            <div class="col border-right" style="height: 170px; text-align: center; line-height: 90px;"> 
+                                <i class="fa-solid fa-temperature-quarter fs-1"></i>
+                                <p style="font-weight: bold;"> 1 &degC </p>
+                            </div>
+                            <div class="col" style="text-align: center; line-height: 90px;"> 
+                                <i class="fa-solid fa-wind fs-1"></i>
+                                <p style="font-weight: bold;"> 12 m/s </p>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <p class="h4" style="font-weight: bold; padding: 5 px">Flyvepladser</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    private List<UnionActivityModel> unionActivities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+    }
+
+
+    void ShowUnionActivity(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+
+    void GoToRegistration(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
+    }
+
+    void GoToUnionActivityList()
+    {
+        NavigationManager.NavigateTo($"/begivenheder/listofUA");
+    }
+
+}
