@@ -1,0 +1,91 @@
+﻿@page "/begivenheder/listofUA"
+
+<h3>Begivenheder</h3>
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+
+@inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
+
+<div class="container col-lg-12" style="margin: 20px;">
+    <div class="row col-lg-12" style="">
+        <!--Box 1-->
+        <div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToHome()" style="font-weight: bold;">
+                &lt; Tilbage
+            </div>
+            <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+                <div style="padding: 1px; margin: 10px;">
+                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
+                </div>
+
+                <!--TABLE-->
+                <div style="background-color: white; border-radius: 10px; margin: 10px;">
+                    @if (unionActivities == null)
+                    {
+                        <p>Loading...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <tbody class="table-group-divider">
+                                @foreach (var unionActivity in unionActivities)
+                                {
+                                    if (unionActivity.IsVisible)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
+                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">
+                                                        @unionActivity.Name
+                                                    <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
+                                                    <!--<button class="btn btn-primary float-end" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button> -->
+                                                </div>                                                
+                                            </th>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    private List<UnionActivityModel> unionActivities;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+    }
+
+
+
+    void ShowUnionActivity(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+
+
+    void GoToRegistration(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
+    }
+    void GoToHome()
+    {
+        NavigationManager.NavigateTo($"/");
+    }
+
+}

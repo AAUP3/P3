@@ -2,6 +2,7 @@
 
 @using DataAccessLibrary.Models
 @using DataAccessLibrary
+@using P3_Project.Models
 
 
 @inject NavigationManager NavigationManager
@@ -11,47 +12,50 @@
 
 <h3>Tilmeld</h3>
 
-<EditForm Model="@Registration" OnSubmit="@Submit" class="form-control">
+<EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="form-control">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
     <div>
         <div>
             <label for="flightno">Fly reg.</label>
-            <InputText id="flightno" @bind-Value="Registration.FlightRegistrationNumber"></InputText>
+            <InputText id="flightno" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
         </div>
         <div>
             <label for="type">Type</label>
-            <InputText id="type" @bind-Value="Registration.Type"></InputText>
+            <InputText id="type" @bind-Value="DisplayRegistration.Type"></InputText>
         </div>
         <div>
             <label for="mtow">MTOW</label>
-            <InputNumber id="mtow" @bind-Value="Registration.MaxTakeoffWeight"></InputNumber>
+            <InputNumber id="mtow" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
         </div>
         <div>
             <label for="club">Klub</label>
-            <InputText id="club" @bind-Value="Registration.Club"></InputText>
+            <InputText id="club" @bind-Value="DisplayRegistration.Club"></InputText>
         </div>
         <div>
             <label for="startdestination">Startdestination</label>
-            <InputText id="startdestination" @bind-Value="Registration.StartDestination"></InputText>
+            <InputText id="startdestination" @bind-Value="DisplayRegistration.StartDestination"></InputText>
         </div>
     </div>
     <br />
     <div>
-        @foreach (var registration in Registrations) {
+        @foreach (var displayRegistration in DisplayRegistrations) {
         <div>
             <label for="name">Navn</label>
-            <InputText id="email" @bind-Value="registration.Name"></InputText>
+            <InputText id="email" @bind-Value="displayRegistration.Name"></InputText>
         </div>
         <div>
             <label for="email">E-mail</label>
-            <InputText id="email" @bind-Value="registration.Email"></InputText>
+            <InputText id="email" @bind-Value="displayRegistration.Email"></InputText>
         </div>
         <div>
             <label for="phonenumber">Telefonnummer</label>
-            <InputText id="phonenumber" @bind-Value="registration.Phonenumber"></InputText>
+            <InputText id="phonenumber" @bind-Value="displayRegistration.Phonenumber"></InputText>
         </div>
         <div>
             <label for="participationtype">Deltagertype</label>
-            <InputSelect id="participationtype" @bind-Value="registration.ParticipantType">
+            <InputSelect id="participationtype" @bind-Value="displayRegistration.ParticipantType">
                 <option value="" selected >-vælg type-</option>
                 <option value="PIC" >PIC</option>
                 <option value="COP" >COP</option>
@@ -64,48 +68,52 @@
     <div>
         <button type="submit" class="btn btn-primary">Tilmeld</button>
         <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
-        <button type="button" @onclick="Add">tilføj</button>
+        <button type="button" @onclick="Add">Tilføj Deltager</button>
+            <button type="button" @onclick="Remove">Fjern Deltager</button>
     </div>
     </div>
     
 
-    <button type="button" @onclick="showNUmber">Nummer</button>
+   <!-- <button type="button" @onclick="showNUmber">Nummer</button>
     @if (test)
     {
-        @Registration.Phonenumber
-    }
+    @Registration.Phonenumber
+    }-->
 </EditForm>
 
 
 @code {
+
+    //RegistrationModel Registration = new RegistrationModel();
+    DisplayRegistrationModel DisplayRegistration = new DisplayRegistrationModel();
+
     [Parameter]
     public int Id { get; set; }
     string format = "## ## ## ##";
     public bool test = false;
 
     public List<RegistrationModel> Registrations = new List<RegistrationModel>();
+    public List<DisplayRegistrationModel> DisplayRegistrations = new List<DisplayRegistrationModel>();
 
 
     // Only works one time, can't convert back and forth
-    public void showNUmber()
-    {
-        if (test)
-        {
-            test = false;
-        }
-        else
-        {
-            test = true;
-            Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
-        }
-    }
-
-    RegistrationModel Registration = new RegistrationModel();
+    //public void showNUmber()
+    //{
+    //    if (test)
+    //    {
+    //        test = false;
+    //    }
+    //    else
+    //    {
+    //        test = true;
+    //        Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
+    //    }
+    //}
 
 
     protected override void OnInitialized()
     {
-        Registrations.Add(Registration);
+        //DisplayRegistrations.Add(DisplayRegistration);
     }
 
     public void AddParticipant()
@@ -119,13 +127,35 @@
         // Maybe to some testing that the phonenumber is the corret number of numbers???
         //Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
 
-        foreach (var registration in Registrations)
+        //Registration.FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber;
+        //Registration.Type = DisplayRegistration.Type;
+        //Registration.MaxTakeoffWeight = DisplayRegistration.MaxTakeoffWeight;
+        //Registration.Club = DisplayRegistration.Club;
+        //Registration.StartDestination = DisplayRegistration.StartDestination;
+        //await _db.InsertRegistration(Registration);
+
+
+        foreach (var displayRegistration in DisplayRegistrations)
         {
-            registration.FlightRegistrationNumber = Registration.FlightRegistrationNumber;
-            registration.UnionActivityID = Id;
-            registration.Phonenumber = Convert.ToInt64(registration.Phonenumber).ToString(format);
-            await _db.InsertRegistration(registration);
+            RegistrationModel r = new RegistrationModel
+            {
+                FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber,
+                Type = DisplayRegistration.Type,
+                MaxTakeoffWeight = DisplayRegistration.MaxTakeoffWeight,
+                Club = DisplayRegistration.Club,
+                StartDestination = DisplayRegistration.StartDestination,
+                UnionActivityID = Id,
+
+                Name = displayRegistration.Name,
+                Email = displayRegistration.Email,
+                Phonenumber = Convert.ToInt64(displayRegistration.Phonenumber).ToString(format),
+                ParticipantType = displayRegistration.ParticipantType
+            };
+
+            await _db.InsertRegistration(r);
+
         }
+
 
 
         // await _db.InsertRegistration(Registration);
@@ -134,7 +164,8 @@
 
         // for-loop running through all guests, inserting them if name is not null
 
-        Registration = new RegistrationModel();
+        //Registration = new RegistrationModel();
+        //DisplayRegistration = new DisplayRegistrationModel();
 
 
         NavigationManager.NavigateTo("/");
@@ -149,7 +180,14 @@
 
     void Add()
     {
-        Registrations.Add(new RegistrationModel());
-        
+        DisplayRegistrations.Add(new DisplayRegistrationModel());
+
+    }
+
+    void Remove()
+    {
+        int count = DisplayRegistrations.Count;
+        DisplayRegistrations.RemoveAt(count - 1);
+
     }
 }
