@@ -11,169 +11,175 @@
 
 
 
-<h3>Tilmeld "@unionActivity.Name"</h3>
+<h3>Tilmeld "@unionActivity.Name"</h3> <!--not sure "" are needed here-->
 @if (unionActivity == null)
 {
     <p>Loading...</p>
 }
 else
 {
-    <EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="form-control">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+    <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+        <EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
-        @if (unionActivity.RequireName)
-        {
-            <div>
-                <label for="name">Navn</label>
-                <InputText id="name" @bind-Value="DisplayRegistration.Name"></InputText>
-            </div>
-        }
-        @if (unionActivity.RequireEmail)
-        {
-            <div>
-                <label for="email">Email</label>
-                <InputText id="email" @bind-Value="DisplayRegistration.Email"></InputText>
-            </div>
-        }
-        @if (unionActivity.RequirePhonenumber)
-        {
-            <div>
-                <label for="phonenumber">Telefonnummer</label>
-                <InputText id="phonenumber" @bind-Value="DisplayRegistration.Phonenumber"></InputText>
-            </div>
-        }
-        @if (unionActivity.Information1 != "")
-        {
-            <div>
-                <label for="information1">@unionActivity.Information1</label>
-                <InputText id="information1" @bind-Value="DisplayRegistration.Information1"></InputText>
-            </div>
-        }
-        @if (unionActivity.Information2 != "")
-        {
-            <div>
-                <label for="information2">@unionActivity.Information2</label>
-                <InputText id="information2" @bind-Value="DisplayRegistration.Information2"></InputText>
-            </div>
-        }
-        @if (unionActivity.Information3 != "")
-        {
-            <div>
-                <label for="information3">@unionActivity.Information3</label>
-                <InputText id="information3" @bind-Value="DisplayRegistration.Information3"></InputText>
-            </div>
-        }
-        @if (unionActivity.Information4 != "")
-        {
-            <div>
-                <label for="information4">@unionActivity.Information4</label>
-                <InputText id="information4" @bind-Value="DisplayRegistration.Information4"></InputText>
-            </div>
-        }
-        @if (unionActivity.Information5 != "")
-        {
-            <div>
-                <label for="information5">@unionActivity.Information5</label>
-                <InputText id="information5" @bind-Value="DisplayRegistration.Information5"></InputText>
-            </div>
-        }
-        @if (unionActivity.IsYearlyActivity && unionActivity.AllowGroupRegistration)
-        {
-            <div>
+            <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
+            @if (unionActivity.RequireName)
+            {
                 <div>
-                    <label for="flightno">Fly reg.</label>
-                    <InputText id="flightno" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
+                    <label for="name">Navn</label>
+                    <InputText id="name" class="form-control" @bind-Value="DisplayRegistration.Name"></InputText>
                 </div>
+            }
+            @if (unionActivity.RequireEmail)
+            {
                 <div>
-                    <label for="type">Type</label>
-                    <InputText id="type" @bind-Value="DisplayRegistration.Type"></InputText>
+                    <label for="email">Email</label>
+                    <InputText id="email" class="form-control" @bind-Value="DisplayRegistration.Email"></InputText>
                 </div>
+            }
+            @if (unionActivity.RequirePhonenumber)
+            {
                 <div>
-                    <label for="mtow">MTOW</label>
-                    <InputNumber id="mtow" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
+                    <label for="phonenumber">Telefonnummer</label>
+                    <InputText id="phonenumber" class="form-control form-style" @bind-Value="DisplayRegistration.Phonenumber"></InputText>
                 </div>
+            }
+            @if (unionActivity.Information1 != "")
+            {
                 <div>
-                    <label for="club">Klub</label>
-                    <InputText id="club" @bind-Value="DisplayRegistration.Club"></InputText>
+                    <label for="information1">@unionActivity.Information1</label>
+                    <InputText id="information1" class="form-control form-style" @bind-Value="DisplayRegistration.Information1"></InputText>
                 </div>
+            }
+            @if (unionActivity.Information2 != "")
+            {
                 <div>
-                    <label for="startdestination">Startdestination</label>
-                    <InputText id="startdestination" @bind-Value="DisplayRegistration.StartDestination"></InputText>
+                    <label for="information2">@unionActivity.Information2</label>
+                    <InputText id="information2" class="form-control form-style" @bind-Value="DisplayRegistration.Information2"></InputText>
                 </div>
-            </div>
-            <br />
-            <div>
-                @foreach (var displayRegistration in DisplayRegistrations)
-                {
+            }
+            @if (unionActivity.Information3 != "")
+            {
+                <div>
+                    <label for="information3">@unionActivity.Information3</label>
+                    <InputText id="information3" class="form-control form-style" @bind-Value="DisplayRegistration.Information3"></InputText>
+                </div>
+            }
+            @if (unionActivity.Information4 != "")
+            {
+                <div>
+                    <label for="information4">@unionActivity.Information4</label>
+                    <InputText id="information4" class="form-control form-style" @bind-Value="DisplayRegistration.Information4"></InputText>
+                </div>
+            }
+            @if (unionActivity.Information5 != "")
+            {
+                <div>
+                    <label for="information5">@unionActivity.Information5</label>
+                    <InputText id="information5" class="form-control form-style" @bind-Value="DisplayRegistration.Information5"></InputText>
+                </div>
+            }
+            @if (unionActivity.IsYearlyActivity && unionActivity.AllowGroupRegistration)
+            {
+                <div>
                     <div>
-                        <label for="name">Navn</label>
-                        <InputText id="email" @bind-Value="displayRegistration.Name"></InputText>
+                        <label for="flightno">Fly reg.</label>
+                        <InputText id="flightno" class="form-control form-style" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
                     </div>
                     <div>
-                        <label for="email">E-mail</label>
-                        <InputText id="email" @bind-Value="displayRegistration.Email"></InputText>
+                        <label for="type">Type</label>
+                        <InputText id="type" class="form-control form-style" @bind-Value="DisplayRegistration.Type"></InputText>
                     </div>
                     <div>
-                        <label for="phonenumber">Telefonnummer</label>
-                        <InputText id="phonenumber" @bind-Value="displayRegistration.Phonenumber"></InputText>
+                        <label for="mtow">MTOW</label>
+                        <InputNumber id="mtow" class="form-control form-style" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
                     </div>
                     <div>
-                        <label for="participationtype">Deltagertype</label>
-                        <InputSelect id="participationtype" @bind-Value="displayRegistration.ParticipantType">
-                            <option value="" selected>-vælg type-</option>
-                            <option value="PIC">PIC</option>
-                            <option value="COP">COP</option>
-                            <option value="PAX">PAX</option>
-                        </InputSelect>
+                        <label for="club">Klub</label>
+                        <InputText id="club" class="form-control form-style" @bind-Value="DisplayRegistration.Club"></InputText>
                     </div>
-                }
+                    <div>
+                        <label for="startdestination">Startdestination</label>
+                        <InputText id="startdestination" class="form-control form-style" @bind-Value="DisplayRegistration.StartDestination"></InputText>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    @foreach (var displayRegistration in DisplayRegistrations)
+                    {
+                        <div>
+                            <label for="name">Navn</label>
+                            <InputText id="email" class="form-control form-style" @bind-Value="displayRegistration.Name"></InputText>
+                        </div>
+                        <div>
+                            <label for="email">E-mail</label>
+                            <InputText id="email" class="form-control form-style" @bind-Value="displayRegistration.Email"></InputText>
+                        </div>
+                        <div>
+                            <label for="phonenumber">Telefonnummer</label>
+                            <InputText id="phonenumber" class="form-control form-style" @bind-Value="displayRegistration.Phonenumber"></InputText>
+                        </div>
+                        <div>
+                            <label for="participationtype">Deltagertype</label>
+                            <InputSelect id="participationtype" class="form-control" style="max-width: 10%; min-width: 100px;" @bind-Value="displayRegistration.ParticipantType">
+                                <option value="" selected>-vælg type-</option>
+                                <option value="PIC">PIC</option>
+                                <option value="COP">COP</option>
+                                <option value="PAX">PAX</option>
+                            </InputSelect>
+                        </div>
+                    }
 
 
+                    <div class="" style="text-align: center;">
+                        <button type="button" class="btn btn-success" @onclick="Add">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Tilføj Deltager
+                        </button>
+                        <button type="button" class="btn btn-warning" @onclick="Remove">
+                            <i class="fa-solid fa-user-minus"></i>
+                            Fjern Deltager
+                        </button>
+                    </div>
+                </div>
+            }
+            else if (unionActivity.IsYearlyActivity && unionActivity.AllowRegistration)
+            {
                 <div>
+                    <div>
+                        <label for="flightno">Fly reg.</label>
+                        <InputText id="flightno" class="form-control form-style" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
+                    </div>
+                    <div>
+                        <label for="type">Type</label>
+                        <InputText id="type" class="form-control" @bind-Value="DisplayRegistration.Type"></InputText>
+                    </div>
+                    <div>
+                        <label for="mtow">MTOW</label>
+                        <InputNumber id="mtow" class="form-control form-style" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
+                    </div>
+                    <div>
+                        <label for="club">Klub</label>
+                        <InputText id="club" class="form-control" @bind-Value="DisplayRegistration.Club"></InputText>
+                    </div>
+                    <div>
+                        <label for="startdestination">Startdestination</label>
+                        <InputText id="startdestination" class="form-control" @bind-Value="DisplayRegistration.StartDestination"></InputText>
+                    </div>
+                </div>
+            }
 
 
-                    <button type="button" @onclick="Add">Tilføj Deltager</button>
-                    <button type="button" @onclick="Remove">Fjern Deltager</button>
-                </div>
-            </div>
-        }
-        else if (unionActivity.IsYearlyActivity && unionActivity.AllowRegistration)
-        {
-            <div>
-                <div>
-                    <label for="flightno">Fly reg.</label>
-                    <InputText id="flightno" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
-                </div>
-                <div>
-                    <label for="type">Type</label>
-                    <InputText id="type" @bind-Value="DisplayRegistration.Type"></InputText>
-                </div>
-                <div>
-                    <label for="mtow">MTOW</label>
-                    <InputNumber id="mtow" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
-                </div>
-                <div>
-                    <label for="club">Klub</label>
-                    <InputText id="club" @bind-Value="DisplayRegistration.Club"></InputText>
-                </div>
-                <div>
-                    <label for="startdestination">Startdestination</label>
-                    <InputText id="startdestination" @bind-Value="DisplayRegistration.StartDestination"></InputText>
-                </div>
-            </div>
-        }
-
-
-        <button type="submit" class="btn btn-primary">Tilmeld</button>
-        <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
-        <!-- <button type="button" @onclick="showNUmber">Nummer</button>
-        @if (test)
-        {
-        @Registration.Phonenumber
-        }-->
-    </EditForm>
+            <button type="submit" class="btn btn-primary">Tilmeld</button>
+            <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
+            <!-- <button type="button" @onclick="showNUmber">Nummer</button>
+            @if (test)
+            {
+            @Registration.Phonenumber
+            }-->
+        </EditForm>
+    </div>
 }
 
 
@@ -194,7 +200,7 @@ else
     public List<DisplayRegistrationModel> DisplayRegistrations = new List<DisplayRegistrationModel>();
 
 
-    
+
 
 
     // Only works one time, can't convert back and forth
@@ -246,19 +252,19 @@ else
         foreach (var displayRegistration in DisplayRegistrations)
         {
             RegistrationModel r = new RegistrationModel
-            {
-                FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber,
-                Type = DisplayRegistration.Type,
-                MaxTakeoffWeight = DisplayRegistration.MaxTakeoffWeight,
-                Club = DisplayRegistration.Club,
-                StartDestination = DisplayRegistration.StartDestination,
-                UnionActivityID = Id,
+                {
+                    FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber,
+                    Type = DisplayRegistration.Type,
+                    MaxTakeoffWeight = DisplayRegistration.MaxTakeoffWeight,
+                    Club = DisplayRegistration.Club,
+                    StartDestination = DisplayRegistration.StartDestination,
+                    UnionActivityID = Id,
 
-                Name = displayRegistration.Name,
-                Email = displayRegistration.Email,
-                Phonenumber = Convert.ToInt64(displayRegistration.Phonenumber).ToString(format),
-                ParticipantType = displayRegistration.ParticipantType
-            };
+                    Name = displayRegistration.Name,
+                    Email = displayRegistration.Email,
+                    Phonenumber = Convert.ToInt64(displayRegistration.Phonenumber).ToString(format),
+                    ParticipantType = displayRegistration.ParticipantType
+                };
 
             await _db.InsertRegistration(r);
 

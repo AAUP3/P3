@@ -87,5 +87,8 @@ InputTextArea {
 .border-right {
     border-right: 1px solid lightgrey; 
 }
+.form-style {
+    max-width: 98.5%;
+}
 
 
