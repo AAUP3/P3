@@ -119,6 +119,7 @@ else
     async void DeleteUnionActivity(int id, UnionActivityModel unionActivityToDelete)
     {
         await _db.DeleteUnionActivity(id, unionActivityToDelete);
+        NavigationManager.NavigateTo($"begivenheder/", true);
     }
 
 
