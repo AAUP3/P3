@@ -29,9 +29,18 @@ namespace DataAccessLibrary
         }
 
 
+        public Task<UnionActivityModel> GetSingleUnionActivity(int id)
+        {
+            string sql = $"select * from dbo.UnionActivityData where Id={id};";
+
+            return _db.LoadDataSingle<UnionActivityModel, dynamic>(sql, new { });
+        }
+
+
         public Task InsertUnionActivity(UnionActivityModel unionActivity)
         {
-            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible) values (@Name, @Description, @DateOfActivity, @IsVisible);";
+            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, Information1, Information2, Information3, Information4, Information5) 
+                                                     values (@Name, @Description, @DateOfActivity, @IsVisible, @RequireName, @RequireEmail, @RequirePhonenumber, @Information1, @Information2, @Information3, @Information4, @Information5);";
 
             return _db.SaveData(sql, unionActivity);
         }

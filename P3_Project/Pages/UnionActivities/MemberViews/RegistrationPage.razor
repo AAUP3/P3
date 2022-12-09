@@ -7,15 +7,89 @@
 
 @inject NavigationManager NavigationManager
 @inject IRegistrationData _db
+@inject IUnionActivityData _ua
 
 
 
-<h3>Tilmeld</h3>
-
-<EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="form-control">
+<h3>Tilmeld "@unionActivity.Name"</h3>
+@if (unionActivity == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="form-control">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
+    <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
+    
+        @if (unionActivity.RequireName)
+        {
+            <div>
+                <label for="name">Navn</label>
+                <InputText id="name" @bind-Value="DisplayRegistration.Name"></InputText>
+            </div>
+        }
+        @if (unionActivity.RequireEmail)
+        {
+            <div>
+                <label for="email">Email</label>
+                <InputText id="email" @bind-Value="DisplayRegistration.Email"></InputText>
+            </div>
+        }
+        @if (unionActivity.RequirePhonenumber)
+        {
+            <div>
+                <label for="phonenumber">Telefonnummer</label>
+                <InputText id="phonenumber" @bind-Value="DisplayRegistration.Phonenumber"></InputText>
+            </div>
+        }
+        @if (unionActivity.Information1 != null)
+        {
+            <div>
+                <label for="information1">@unionActivity.Information1</label>
+                <InputText id="information1" @bind-Value="DisplayRegistration.Information1"></InputText>
+            </div>
+        }
+        @if (unionActivity.Information2 != null)
+        {
+            <div>
+                <label for="information2">@unionActivity.Information2</label>
+                <InputText id="information2" @bind-Value="DisplayRegistration.Information2"></InputText>
+            </div>
+        }
+        @if (unionActivity.Information3 != null)
+        {
+            <div>
+                <label for="information3">@unionActivity.Information3</label>
+                <InputText id="information3" @bind-Value="DisplayRegistration.Information3"></InputText>
+            </div>
+        }
+        @if (unionActivity.Information4 != null)
+        {
+            <div>
+                <label for="information4">@unionActivity.Information4</label>
+                <InputText id="information4" @bind-Value="DisplayRegistration.Information4"></InputText>
+            </div>
+        }
+        @if (unionActivity.Information5 != null)
+        {
+            <div>
+                <label for="information5">@unionActivity.Information5</label>
+                <InputText id="information5" @bind-Value="DisplayRegistration.Information5"></InputText>
+            </div>
+        }
+
+    
+
+
+
+
+
+
+
+    <!--Maybe change this to only be added if the acitivitytype is set as the yearly activity-->
     <div>
         <div>
             <label for="flightno">Fly reg.</label>
@@ -39,6 +113,7 @@
         </div>
     </div>
     <br />
+    <!--Change this to be added if group-registration is allowed-->
     <div>
         @foreach (var displayRegistration in DisplayRegistrations) {
         <div>
@@ -80,6 +155,9 @@
     @Registration.Phonenumber
     }-->
 </EditForm>
+}
+
+
 
 
 @code {
@@ -92,8 +170,12 @@
     string format = "## ## ## ##";
     public bool test = false;
 
-    public List<RegistrationModel> Registrations = new List<RegistrationModel>();
+    public UnionActivityModel unionActivity = new UnionActivityModel();
+    public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
     public List<DisplayRegistrationModel> DisplayRegistrations = new List<DisplayRegistrationModel>();
+
+
+    
 
 
     // Only works one time, can't convert back and forth
@@ -111,9 +193,11 @@
     //}
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         //DisplayRegistrations.Add(DisplayRegistration);
+        unionActivities = await _ua.GetUnionActivities();
+        unionActivity = await _ua.GetSingleUnionActivity((int)Id);
     }
 
     public void AddParticipant()
@@ -133,6 +217,11 @@
         //Registration.Club = DisplayRegistration.Club;
         //Registration.StartDestination = DisplayRegistration.StartDestination;
         //await _db.InsertRegistration(Registration);
+
+
+
+        //Maybe add an if-statement checking for if the activity is the yearly, this will prevent us from executing the foreach loop everytime.
+
 
 
         foreach (var displayRegistration in DisplayRegistrations)

@@ -39,5 +39,10 @@ namespace P3_Project.Models
         public string ParticipantType { get; set; }
 
         public int UnionActivityID { get; set; }
+        public string Information1 { get; set; }
+        public string Information2 { get; set; }
+        public string Information3 { get; set; }
+        public string Information4 { get; set; }
+        public string Information5 { get; set; }
     }
 }

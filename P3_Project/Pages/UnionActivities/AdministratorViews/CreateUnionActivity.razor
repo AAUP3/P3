@@ -43,19 +43,93 @@
     @if (!FirstScreen)
     {
         <p>Personlig Information</p>
-        foreach (var activity in unionActivities)
+        <div>
+            <label for="requirename">Navn</label>
+            <InputCheckbox @bind-Value="newUnionActivity.RequireName" id="requirename"></InputCheckbox>
+        </div>
+        <div>
+            <label for="requireemail">E-mail</label>
+            <InputCheckbox @bind-Value="newUnionActivity.RequireEmail" id="requireemail"></InputCheckbox>
+        </div>
+        <div>
+            <label for="requirephone">Telefonnummer</label>
+            <InputCheckbox @bind-Value="newUnionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
+        </div>
+
+        @if (NumberOfInformation >= 1)
         {
             <div>
-                <InputText @bind-Value="activity.Information"></InputText>
-                <button type="button" @onclick="() =>Add(activity.Information)" class="btn btn-primary">Tilføj</button>
+                <InputText @bind-Value="newUnionActivity.Information1"></InputText>
+                @if (NumberOfInformation == 1)
+                {
+                    <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                }
             </div>
             
+        }
+        @if (NumberOfInformation >= 2)
+        {
+            <div>
+                <InputText @bind-Value="newUnionActivity.Information2"></InputText>
+                @if (NumberOfInformation == 2)
+                {
+                    <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                }
+            </div>
             
-        } 
+        }
+        @if (NumberOfInformation >= 3)
+        {
+            <div>
+                <InputText @bind-Value="newUnionActivity.Information3"></InputText>
+                @if (NumberOfInformation == 3)
+                {
+                    <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                }
+            </div>
+            
+        }
+        @if (NumberOfInformation >= 4)
+        {
+            <div>
+                <InputText @bind-Value="newUnionActivity.Information4"></InputText>
+                @if (NumberOfInformation == 4)
+                {
+                    <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                }
+            </div>
+            
+        }
+        @if (NumberOfInformation >= 5)
+        {
+            <div>
+                <InputText @bind-Value="newUnionActivity.Information5"></InputText>
+                @if (NumberOfInformation == 5)
+                {
+                    <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
+                        <i class="oi oi-trash"></i>
+                    </button>
+                }
+            </div>
+            
+        }
+
+        
+         
         <button type="button" @onclick="AddNewInformation">+</button>
         <button type="button" @onclick="PreviousScreen">Forrige</button>
+
+        <button type="submit" class="btn btn-primary">Tilføj</button>
     }
-    <button type="submit" class="btn btn-primary">Tilføj</button>
+    
 </EditForm>
 
 
@@ -63,8 +137,8 @@
 
     private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
 
-    public UnionActivityModel unionActivity = new UnionActivityModel();
-    public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
+    private int NumberOfInformation = 0;
+
 
 
     public bool FirstScreen = true;
@@ -77,12 +151,23 @@
 
     void AddNewInformation()
     {
-        unionActivities.Add(new UnionActivityModel());
+        if (NumberOfInformation < 5)
+        {
+            NumberOfInformation++;
+        }
+    }
+
+    void RemoveInformation()
+    {
+        if (NumberOfInformation > 0)
+        {
+            NumberOfInformation--;
+        }
     }
 
     void Add(string information)
     {
-        unionActivity.AllInformation.Add(information);
+        
     }
 
     private async Task InsertUnionActivity()
@@ -93,16 +178,19 @@
                 Name = newUnionActivity.Name,
                 Description = newUnionActivity.Description,
                 DateOfActivity = newUnionActivity.DateOfActivity,
-                IsVisible = newUnionActivity.IsVisible
-
+                IsVisible = newUnionActivity.IsVisible,
+                RequireName = newUnionActivity.RequireName,
+                RequireEmail = newUnionActivity.RequireEmail,
+                RequirePhonenumber = newUnionActivity.RequirePhonenumber,
+                Information1 = newUnionActivity.Information1,
+                Information2 = newUnionActivity.Information2,
+                Information3 = newUnionActivity.Information3,
+                Information4 = newUnionActivity.Information4,
+                Information5 = newUnionActivity.Information5
             };
 
 
-        foreach (var information in unionActivity.AllInformation)
-        {
-
-            await _db.CheckIfColumnExistsElseCreate(information);
-        }
+        
 
         await _db.InsertUnionActivity(ua);
 

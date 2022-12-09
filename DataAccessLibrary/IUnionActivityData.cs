@@ -11,6 +11,8 @@ namespace DataAccessLibrary
         Task DeleteUnionActivity(int id, UnionActivityModel unionActivity);
         Task<List<UnionActivityModel>> OrderActivities(string column);
         Task CheckIfColumnExistsElseCreate(string column);
-        
+        Task<UnionActivityModel> GetSingleUnionActivity(int id);
+
+
     }
 }
