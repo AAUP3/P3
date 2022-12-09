@@ -33,7 +33,7 @@
                     {
                         <table class="table">
                             <tbody class="table-group-divider">
-                                @foreach (var unionActivity in unionActivities.OrderBy(x => x.DateOfActivity))
+                                @foreach (var unionActivity in unionActivities)
                                 {
                                     if (unionActivity.IsVisible)
                                     {
@@ -68,7 +68,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        unionActivities = await _db.GetUnionActivities();
+        unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
     }
 
 

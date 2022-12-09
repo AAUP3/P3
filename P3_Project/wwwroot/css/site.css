@@ -11,6 +11,16 @@ h1:focus {
 a, .btn-link {
     color: #0071c1;
 }
+InputTextArea {
+    height: 100px;
+}
+
+.textBoxSize {
+    height: 250px;
+}
+.InputField {
+    padding-bottom: 15px;
+}
 
 .btn-primary {
     color: #fff;
@@ -77,4 +87,5 @@ a, .btn-link {
 .border-right {
     border-right: 1px solid lightgrey; 
 }
+
 
