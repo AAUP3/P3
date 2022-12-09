@@ -26,3 +26,5 @@ P3_Project/obj/Debug/net6.0/P3_Project.pdb
 P3_Project/obj/Debug/net6.0/ref/P3_Project.dll
 P3_Project/obj/Debug/net6.0/refint/P3_Project.dll
 P3_Project/obj/staticwebassets.pack.sentinel
+*.v2
+*.v2
