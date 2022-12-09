@@ -8,7 +8,6 @@ namespace DataAccessLibrary.Models
 {
     public class UnionActivityModel
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -16,8 +15,6 @@ namespace DataAccessLibrary.Models
         public TimeSpan ActivityDuration { get; set; }
         public bool IsVisible { get; set; }
         public bool ActivationState { get; set; }
-        public string Information { get; set; }
-        public List<string> AllInformation = new List<string>();
         public bool RequireName { get; set; }
         public bool RequireEmail { get; set; }
         public bool RequirePhonenumber { get; set; }

@@ -2732,37 +2732,19 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\rasmu\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\Kira\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
->>>>>>> origin/savebjørn
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\AOPA DMU Projekt\\P3\\P3_Project\\P3_Project.csproj",
       "projectName": "P3_Project",
       "projectPath": "C:\\AOPA DMU Projekt\\P3\\P3_Project\\P3_Project.csproj",
       "packagesPath": "C:\\Users\\rasmu\\.nuget\\packages\\",
       "outputPath": "C:\\AOPA DMU Projekt\\P3\\P3_Project\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj",
-      "projectName": "P3_Project",
-      "projectPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj",
-      "packagesPath": "C:\\Users\\Kira\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\P3_Project\\obj\\",
->>>>>>> origin/savebjørn
       "projectStyle": "PackageReference",
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\rasmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\Kira\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> origin/savebjørn
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2776,13 +2758,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-<<<<<<< HEAD
             "C:\\AOPA DMU Projekt\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
               "projectPath": "C:\\AOPA DMU Projekt\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj"
-=======
-            "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
-              "projectPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj"
->>>>>>> origin/savebjørn
             }
           }
         }

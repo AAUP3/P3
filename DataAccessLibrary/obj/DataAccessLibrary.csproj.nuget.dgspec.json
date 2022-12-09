@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\AOPA DMU Projekt\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {}
   },
   "projects": {
@@ -13,27 +12,9 @@
         "projectPath": "C:\\AOPA DMU Projekt\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
         "packagesPath": "C:\\Users\\rasmu\\.nuget\\packages\\",
         "outputPath": "C:\\AOPA DMU Projekt\\P3\\DataAccessLibrary\\obj\\",
-=======
-    "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
-        "projectName": "DataAccessLibrary",
-        "projectPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
-        "packagesPath": "C:\\Users\\Kira\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\obj\\",
->>>>>>> origin/savebjørn
         "projectStyle": "PackageReference",
         "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\rasmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\Kira\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> origin/savebjørn
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
