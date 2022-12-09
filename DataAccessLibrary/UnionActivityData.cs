@@ -39,8 +39,8 @@ namespace DataAccessLibrary
 
         public Task InsertUnionActivity(UnionActivityModel unionActivity)
         {
-            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, Information1, Information2, Information3, Information4, Information5) 
-                                                     values (@Name, @Description, @DateOfActivity, @IsVisible, @RequireName, @RequireEmail, @RequirePhonenumber, @Information1, @Information2, @Information3, @Information4, @Information5);";
+            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, Information1, Information2, Information3, Information4, Information5, IsYearlyActivity, AllowRegistration, AllowGroupRegistration) 
+                                                     values (@Name, @Description, @DateOfActivity, @IsVisible, @RequireName, @RequireEmail, @RequirePhonenumber, @Information1, @Information2, @Information3, @Information4, @Information5, @IsYearlyActivity, @AllowRegistration, @AllowGroupRegistration);";
 
             return _db.SaveData(sql, unionActivity);
         }

@@ -16,29 +16,34 @@
 <div>
     <div style="background-color: blue; border-radius: 10px; padding-left: 10px; padding-top: 5px;">
     <EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
-        @if (FirstScreen)
-        {
+            @if (FirstScreen)
+            {
                 <div class="InputField" style="max-width: 98.5%;">
-                <label for="name">Overskrift</label>
-               <InputText id="name" class="form-control" @bind-Value="newUnionActivity.Name"></InputText>
-            </div>
-            <div class="InputField" style="max-width: 98.5%;">
-                <label for="description">Beskrivelse</label>
-                <InputTextArea id="description" class="form-control textBoxSize" @bind-Value="newUnionActivity.Description"></InputTextArea>
-            </div>
-            <div class="InputField">
-                <label for="dateofactivity">Dato for afholdelse</label>
-                <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
-            </div>
-            <div class="InputField">
-                <label for="visibility"></label>
-                <InputRadioGroup @bind-Value="@newUnionActivity.IsVisible" id="visibility">
-                    <InputRadio Value="true" /> Vis
-                    <InputRadio Value="false" /> Skjul
-                </InputRadioGroup>
-            </div>
-            <button type="button" @onclick="NextScreen">Næste</button>
-        }
+                    <label for="name">Overskrift</label>
+                    <InputText id="name" class="form-control" @bind-Value="newUnionActivity.Name"></InputText>
+                </div>
+                <div class="InputField" style="max-width: 98.5%;">
+                    <label for="description">Beskrivelse</label>
+                    <InputTextArea id="description" class="form-control textBoxSize" @bind-Value="newUnionActivity.Description"></InputTextArea>
+                </div>
+                <div class="InputField">
+                    <label for="dateofactivity">Dato for afholdelse</label>
+                    <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
+                </div>
+                <div class="InputField">
+                    <label for="isyearlyactivity">Årstur</label>
+                    <InputCheckbox @bind-Value="newUnionActivity.IsYearlyActivity" id="isyearlyactivity"></InputCheckbox>
+                </div>
+                <div class="InputField">
+                    <label for="allowregistration">Tilmelding tilladt</label>
+                    <InputCheckbox @bind-Value="newUnionActivity.AllowRegistration" id="allowregistration"></InputCheckbox>
+                </div>
+                <div class="InputField">
+                    <label for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
+                    <InputCheckbox @bind-Value="newUnionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
+                </div>
+                <button type="button" @onclick="NextScreen">Næste</button>
+            }
         @if (!FirstScreen)
         {
             <p>Personlig Information</p>
@@ -55,92 +60,44 @@
                 <InputCheckbox @bind-Value="newUnionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
             </div>
 
-            @if (NumberOfInformation >= 1)
-            {
-                <div>
-                    <InputText @bind-Value="newUnionActivity.Information1"></InputText>
-                    @if (NumberOfInformation == 1)
-                    {
-                        <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
-                            <i class="oi oi-trash"></i>
-                        </button>
-                    }
-                </div>
-            
-            }
-            @if (NumberOfInformation >= 2)
-            {
-                <div>
-                    <InputText @bind-Value="newUnionActivity.Information2"></InputText>
-                    @if (NumberOfInformation == 2)
-                    {
-                        <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
-                            <i class="oi oi-trash"></i>
-                        </button>
-                    }
-                </div>
-            
-            }
-            @if (NumberOfInformation >= 3)
-            {
-                <div>
-                    <InputText @bind-Value="newUnionActivity.Information3"></InputText>
-                    @if (NumberOfInformation == 3)
-                    {
-                        <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
-                            <i class="oi oi-trash"></i>
-                        </button>
-                    }
-                </div>
-            
-            }
-            @if (NumberOfInformation >= 4)
-            {
-                <div>
-                    <InputText @bind-Value="newUnionActivity.Information4"></InputText>
-                    @if (NumberOfInformation == 4)
-                    {
-                        <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
-                            <i class="oi oi-trash"></i>
-                        </button>
-                    }
-                </div>
-            
-            }
-            @if (NumberOfInformation >= 5)
-            {
-                <div>
-                    <InputText @bind-Value="newUnionActivity.Information5"></InputText>
-                    @if (NumberOfInformation == 5)
-                    {
-                        <button type="button" @onclick="RemoveInformation" class="btn btn-danger">
-                            <i class="oi oi-trash"></i>
-                        </button>
-                    }
-                </div>
-            
+                @foreach (var infoField in infoFields)
+                {
+
+                    <div>
+                        <InputText class="form-control" @bind-Value="infoField.Name"></InputText>
+
+                    </div>
+
+                }
+
+
+
+
+                <button type="button" @onclick="AddNewInformation">Tilføj felt</button>
+
+                <button type="button" @onclick="RemoveInformation2" class="btn btn-danger">Fjern felt</button>
+
+                <button type="button" @onclick="PreviousScreen">Forrige</button>
+
+                <button type="submit" class="btn btn-primary">Færdiggør</button>
             }
 
-        
-         
-            <button type="button" @onclick="AddNewInformation">+</button>
-            <button type="button" @onclick="PreviousScreen">Forrige</button>
-
-            <button type="submit" class="btn btn-primary">Tilføj</button>
-        }
-    
-    </EditForm>
+        </EditForm>
     </div> <!--blue box end-->
 </div> <!--container end-->
+
 
 @code {
 
     
 
+    public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
+
+
     private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
 
     private int NumberOfInformation = 0;
-
+    private int infoCount;
 
 
     public bool FirstScreen = true;
@@ -154,9 +111,12 @@
 
     void AddNewInformation()
     {
+       // unionActivities.Add(new UnionActivityModel()); old???
         if (NumberOfInformation < 5)
         {
             NumberOfInformation++;
+            infoFields.Add(new InformationFieldModel());
+
         }
     }
 
@@ -165,6 +125,16 @@
         if (NumberOfInformation > 0)
         {
             NumberOfInformation--;
+        }
+
+    }
+    void RemoveInformation2()
+    {
+        if (NumberOfInformation > 0)
+        {
+            NumberOfInformation--;
+            infoCount = infoFields.Count;
+            infoFields.RemoveAt(infoCount - 1);
         }
     }
 
@@ -175,29 +145,41 @@
 
     private async Task InsertUnionActivity()
     {
+        //infoCount = infoFields.Count;
+
+        string[] info = new string[] { "", "", "", "", "" };
+        for (int i = 0; i < infoCount; i++)
+        {
+            info[i] = infoFields[i].Name;
+        }
         UnionActivityModel ua = new UnionActivityModel
             {
-                Id = newUnionActivity.Id,
                 Name = newUnionActivity.Name,
                 Description = newUnionActivity.Description,
                 DateOfActivity = newUnionActivity.DateOfActivity,
-                IsVisible = newUnionActivity.IsVisible,
+                //IsVisible = newUnionActivity.IsVisible
+                IsVisible = false,
                 RequireName = newUnionActivity.RequireName,
                 RequireEmail = newUnionActivity.RequireEmail,
                 RequirePhonenumber = newUnionActivity.RequirePhonenumber,
-                Information1 = newUnionActivity.Information1,
-                Information2 = newUnionActivity.Information2,
-                Information3 = newUnionActivity.Information3,
-                Information4 = newUnionActivity.Information4,
-                Information5 = newUnionActivity.Information5
+                Information1 = info[0],
+                Information2 = info[1],
+                Information3 = info[2],
+                Information4 = info[3],
+                Information5 = info[4],
+                IsYearlyActivity = newUnionActivity.IsYearlyActivity,
+                AllowRegistration = newUnionActivity.AllowRegistration,
+                AllowGroupRegistration = newUnionActivity.AllowGroupRegistration
             };
 
 
-        
+
 
         await _db.InsertUnionActivity(ua);
 
         newUnionActivity = new DisplayUnionActivityModel();
+        infoFields = new List<InformationFieldModel>();
+        //info = new string[] { "", "", "", "", ""};
 
         NavigationManager.NavigateTo("begivenheder");
     }
