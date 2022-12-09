@@ -31,11 +31,16 @@
                 <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
             </div>
             <div class="InputField">
-                <label for="visibility"></label>
-                <InputRadioGroup @bind-Value="@newUnionActivity.IsVisible" id="visibility">
-                    <InputRadio Value="true" /> Vis
-                    <InputRadio Value="false" /> Skjul
-                </InputRadioGroup>
+                <label for="isyearlyactivity">Årstur</label>
+                <InputCheckbox @bind-Value="newUnionActivity.IsYearlyActivity" id="isyearlyactivity"></InputCheckbox>
+            </div>
+            <div class="InputField">
+                <label for="allowregistration">Tilmelding tilladt</label>
+                <InputCheckbox @bind-Value="newUnionActivity.AllowRegistration" id="allowregistration"></InputCheckbox>
+            </div>
+            <div class="InputField">
+                <label for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
+                <InputCheckbox @bind-Value="newUnionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
             </div>
             <button type="button" @onclick="NextScreen">Næste</button>
         }
@@ -181,7 +186,7 @@
                 Name = newUnionActivity.Name,
                 Description = newUnionActivity.Description,
                 DateOfActivity = newUnionActivity.DateOfActivity,
-                IsVisible = newUnionActivity.IsVisible,
+                IsVisible = false,
                 RequireName = newUnionActivity.RequireName,
                 RequireEmail = newUnionActivity.RequireEmail,
                 RequirePhonenumber = newUnionActivity.RequirePhonenumber,
@@ -189,7 +194,10 @@
                 Information2 = newUnionActivity.Information2,
                 Information3 = newUnionActivity.Information3,
                 Information4 = newUnionActivity.Information4,
-                Information5 = newUnionActivity.Information5
+                Information5 = newUnionActivity.Information5,
+                IsYearlyActivity = newUnionActivity.IsYearlyActivity,
+                AllowRegistration = newUnionActivity.AllowRegistration,
+                AllowGroupRegistration = newUnionActivity.AllowGroupRegistration
             };
 
 

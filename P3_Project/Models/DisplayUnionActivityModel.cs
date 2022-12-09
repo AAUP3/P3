@@ -12,6 +12,9 @@
         public bool RequireName { get; set; }
         public bool RequireEmail { get; set; }
         public bool RequirePhonenumber { get; set; }
+        public bool IsYearlyActivity { get; set; }
+        public bool AllowRegistration { get; set; }
+        public bool AllowGroupRegistration { get; set; }
         public string Information1 { get; set; }
         public string Information2 { get; set; }
         public string Information3 { get; set; }

@@ -88,67 +88,94 @@ else
 
 
 
-
-    <!--Maybe change this to only be added if the acitivitytype is set as the yearly activity-->
-    <div>
+        @if (unionActivity.IsYearlyActivity && unionActivity.AllowGroupRegistration)
+        {
+            <div>
+                <div>
+                    <label for="flightno">Fly reg.</label>
+                    <InputText id="flightno" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
+                </div>
+                <div>
+                    <label for="type">Type</label>
+                    <InputText id="type" @bind-Value="DisplayRegistration.Type"></InputText>
+                </div>
+                <div>
+                    <label for="mtow">MTOW</label>
+                    <InputNumber id="mtow" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
+                </div>
+                <div>
+                    <label for="club">Klub</label>
+                    <InputText id="club" @bind-Value="DisplayRegistration.Club"></InputText>
+                </div>
+                <div>
+                    <label for="startdestination">Startdestination</label>
+                    <InputText id="startdestination" @bind-Value="DisplayRegistration.StartDestination"></InputText>
+                </div>
+            </div>
+            <br />
         <div>
-            <label for="flightno">Fly reg.</label>
-            <InputText id="flightno" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
-        </div>
-        <div>
-            <label for="type">Type</label>
-            <InputText id="type" @bind-Value="DisplayRegistration.Type"></InputText>
-        </div>
-        <div>
-            <label for="mtow">MTOW</label>
-            <InputNumber id="mtow" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
-        </div>
-        <div>
-            <label for="club">Klub</label>
-            <InputText id="club" @bind-Value="DisplayRegistration.Club"></InputText>
-        </div>
-        <div>
-            <label for="startdestination">Startdestination</label>
-            <InputText id="startdestination" @bind-Value="DisplayRegistration.StartDestination"></InputText>
-        </div>
-    </div>
-    <br />
-    <!--Change this to be added if group-registration is allowed-->
-    <div>
-        @foreach (var displayRegistration in DisplayRegistrations) {
-        <div>
-            <label for="name">Navn</label>
-            <InputText id="email" @bind-Value="displayRegistration.Name"></InputText>
-        </div>
-        <div>
-            <label for="email">E-mail</label>
-            <InputText id="email" @bind-Value="displayRegistration.Email"></InputText>
-        </div>
-        <div>
-            <label for="phonenumber">Telefonnummer</label>
-            <InputText id="phonenumber" @bind-Value="displayRegistration.Phonenumber"></InputText>
-        </div>
-        <div>
-            <label for="participationtype">Deltagertype</label>
-            <InputSelect id="participationtype" @bind-Value="displayRegistration.ParticipantType">
-                <option value="" selected >-vælg type-</option>
-                <option value="PIC" >PIC</option>
-                <option value="COP" >COP</option>
-                <option value="PAX" >PAX</option>
-            </InputSelect>
-        </div>
+                @foreach (var displayRegistration in DisplayRegistrations) {
+                <div>
+                    <label for="name">Navn</label>
+                    <InputText id="email" @bind-Value="displayRegistration.Name"></InputText>
+                </div>
+                <div>
+                    <label for="email">E-mail</label>
+                    <InputText id="email" @bind-Value="displayRegistration.Email"></InputText>
+                </div>
+                <div>
+                    <label for="phonenumber">Telefonnummer</label>
+                    <InputText id="phonenumber" @bind-Value="displayRegistration.Phonenumber"></InputText>
+                </div>
+                <div>
+                    <label for="participationtype">Deltagertype</label>
+                    <InputSelect id="participationtype" @bind-Value="displayRegistration.ParticipantType">
+                        <option value="" selected >-vælg type-</option>
+                        <option value="PIC" >PIC</option>
+                        <option value="COP" >COP</option>
+                        <option value="PAX" >PAX</option>
+                    </InputSelect>
+                </div>
+                } 
+        
+            
+            
+            <div>
+        
+        
+                <button type="button" @onclick="Add">Tilføj Deltager</button>
+                    <button type="button" @onclick="Remove">Fjern Deltager</button>
+            </div>
+            </div>
+        } else if (unionActivity.IsYearlyActivity && unionActivity.AllowRegistration)
+        {
+            <div>
+                <div>
+                    <label for="flightno">Fly reg.</label>
+                    <InputText id="flightno" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
+                </div>
+                <div>
+                    <label for="type">Type</label>
+                    <InputText id="type" @bind-Value="DisplayRegistration.Type"></InputText>
+                </div>
+                <div>
+                    <label for="mtow">MTOW</label>
+                    <InputNumber id="mtow" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
+                </div>
+                <div>
+                    <label for="club">Klub</label>
+                    <InputText id="club" @bind-Value="DisplayRegistration.Club"></InputText>
+                </div>
+                <div>
+                    <label for="startdestination">Startdestination</label>
+                    <InputText id="startdestination" @bind-Value="DisplayRegistration.StartDestination"></InputText>
+                </div>
+            </div>
         }
-
-
-    <div>
+        
+    
         <button type="submit" class="btn btn-primary">Tilmeld</button>
         <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
-        <button type="button" @onclick="Add">Tilføj Deltager</button>
-            <button type="button" @onclick="Remove">Fjern Deltager</button>
-    </div>
-    </div>
-    
-
    <!-- <button type="button" @onclick="showNUmber">Nummer</button>
     @if (test)
     {
