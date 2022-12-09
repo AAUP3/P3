@@ -94,7 +94,6 @@ else
     }
 
 
-
     void GoToMakeUnionActivity()
     {
         NavigationManager.NavigateTo("begivenheder/opretbegivenhed");
@@ -106,12 +105,15 @@ else
     {
         NavigationManager.NavigateTo($"begivenheder/{id}");
     }
-
+    void reloadpage(){
+       NavigationManager.NavigateTo($"/begivenheder"); 
+    }
 
 
     async void UpdateUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/redigerbegivenhed/{id}");
+        
     }
 
 
@@ -119,6 +121,7 @@ else
     async void DeleteUnionActivity(int id, UnionActivityModel unionActivityToDelete)
     {
         await _db.DeleteUnionActivity(id, unionActivityToDelete);
+        NavigationManager.NavigateTo($"/begivenheder", true); 
     }
 
 
@@ -128,7 +131,6 @@ else
         if (unionActivityToChangeVisibility.IsVisible == true)
         {
             unionActivityToChangeVisibility.IsVisible = false;
-            await _db.UpdateUnionActivity(unionActivityToChangeVisibility.Id, unionActivityToChangeVisibility);
         }
         else
         {
