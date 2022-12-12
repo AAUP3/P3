@@ -4,9 +4,17 @@
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
-
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<IdentityUser> _UserManager
+@inject IHttpContextAccessor httpContextAccessor
 @inject IUnionActivityData _db
+@inject IRegistrationData _rdb
 @inject NavigationManager NavigationManager
+
+@if (currentUserName != null)
+{
+    <p>@currentUserName</p>
+}
 
 <div class="container col-lg-12" style="margin: 20px;">
     <div class="row col-lg-12" style="">
@@ -41,10 +49,19 @@
                                             <th scope="row">
                                                 <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
                                                 <div class="col-md-12 col-lg-12 h5" style="text-align: left;">
-                                                        @unionActivity.Name
-                                                    <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
+                                                    @unionActivity.Name
+                                                    @if (IsRegistered(unionActivity.Id))
+                                                    {
+                                                        <button class="btn btn-danger float-end" style="padding-left: 10px;" @onclick="() => CancelRegistration(unionActivity.Id)">Afmeld</button>
+                                                    }
+                                                    else if (DateTime.Today <= unionActivity.DateOfActivity && unionActivity.AllowRegistration && !IsRegistered(unionActivity.Id))
+                                                    {
+                                                        <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
+                                                    }
+
+
                                                     <!--<button class="btn btn-primary float-end" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button> -->
-                                                </div>                                                
+                                                </div>
                                             </th>
                                         </tr>
                                     }
@@ -63,15 +80,33 @@
 @code {
 
     private List<UnionActivityModel> unionActivities;
+    private List<RegistrationModel> CurrentUserRegistrations;
+    private RegistrationModel Delete;
+    private string currentUserName;
 
 
 
     protected override async Task OnInitializedAsync()
     {
         unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
+        currentUserName = _UserManager.GetUserId(httpContextAccessor.HttpContext.User);
+
+
+        CurrentUserRegistrations = await _rdb.GetCurrentUserRegistrations(currentUserName);
+
     }
 
-
+    private bool IsRegistered(int unionActivityId)
+    {
+        foreach (var registration in CurrentUserRegistrations)
+        {
+            if (registration.UnionActivityID == unionActivityId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     void ShowUnionActivity(int id)
     {
@@ -87,5 +122,15 @@
     {
         NavigationManager.NavigateTo($"/");
     }
+
+
+    async void CancelRegistration(int unionActivityId)
+    {
+
+        await _rdb.CancelRegistration(currentUserName, unionActivityId);
+
+        NavigationManager.NavigateTo("begivenheder/listofUA", true);
+    }
+
 
 }

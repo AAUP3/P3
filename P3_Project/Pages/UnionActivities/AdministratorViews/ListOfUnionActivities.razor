@@ -19,58 +19,62 @@
 }
 else
 {
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Overskrift</th>
-            <th>Beskrivelse</th>
-            <th>Dato</th>
-            <th>Varighed</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var unionActivity in unionActivities)
-        {
-            <tr>
-                <td>@unionActivity.Id</td>
-                <td>@unionActivity.Name</td>
-                <td>@unionActivity.Description</td>
-                <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
-                <td>@unionActivity.ActivityDuration</td>
-                <td>
-                    @if (unionActivity.IsVisible) 
+    <div class="" style="background-color: #3846c0; border-radius: 10px; padding: 10px">
+        <div style="background-color: white; border-radius 10px; margin: 20px;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Overskrift</th>
+                        <th>Beskrivelse</th>
+                        <th>Dato</th>
+                        <th>Varighed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var unionActivity in unionActivities)
                     {
-                        <button class="btn btn-primary" @onclick="() => ChangeVisibility(unionActivity)">Skjul</button>
-                    }
-                    else
-                    {
-                        <button class="btn btn-primary" @onclick="() => ChangeVisibility(unionActivity)">Vis</button>
-                    }
-                </td>
-                <td>
-                    <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)">
-                            <i class="oi oi-info"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-primary" @onclick="() => UpdateUnionActivity(unionActivity.Id)">
-                            <i class="oi oi-pencil"></i>
-                    </button>
-                </td>
-                <td>
-                    <button class="btn btn-primary" @onclick="() => GoToListOfParticipants(unionActivity.Id)">Tilmeldinger</button>
-                </td>
+                        <tr>
+                            <td>@unionActivity.Id</td>
+                            <td>@unionActivity.Name</td>
+                            <td>@unionActivity.Description</td>
+                            <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
+                            <td>@unionActivity.ActivityDuration</td>
+                            <td>
+                                @if (unionActivity.IsVisible)
+                                {
+                                    <button class="btn btn-primary" @onclick="() => ChangeVisibility(unionActivity)">Skjul</button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-primary" @onclick="() => ChangeVisibility(unionActivity)">Vis</button>
+                                }
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" @onclick="() => ShowUnionActivity(unionActivity.Id)">
+                                    <i class="oi oi-info"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" @onclick="() => UpdateUnionActivity(unionActivity.Id)">
+                                    <i class="oi oi-pencil"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" @onclick="() => GoToListOfParticipants(unionActivity.Id)">Tilmeldinger</button>
+                            </td>
 
-                <td>
-                    <button class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">
-                        <i class="oi oi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>  
+                            <td>
+                                <button class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">
+                                    <i class="oi oi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 }
 
 
