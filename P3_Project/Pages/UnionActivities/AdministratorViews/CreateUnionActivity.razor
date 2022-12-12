@@ -14,7 +14,7 @@
 
 
 <div>
-    <div style="background-color: blue; border-radius: 10px; padding-left: 10px; padding-top: 5px;">
+    <div style="background-color: #3846c0; border-radius: 10px; padding-left: 10px; padding-top: 5px;">
     <EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
             @if (FirstScreen)
             {
@@ -46,7 +46,22 @@
             }
         @if (!FirstScreen)
         {
-            <p>Personlig Information</p>
+            <p>Generel Information</p>
+            @foreach (var infoField in infoFields)
+            {
+
+                <div>
+                    <InputText class="form-control" @bind-Value="infoField.Name"></InputText>
+                </div>
+
+            }
+
+            <div style="padding-top: 1%;">
+                    <button type="button" @onclick="AddNewInformation" class="btn btn-light">Tilføj felt</button>
+                    <button type="button" @onclick="RemoveInformation" class="btn btn-light">Fjern felt</button>
+                </div>
+
+            <p style="padding-top: 2%">Personlig Information</p>
             <div>
                 <label for="requirename">Navn</label>
                 <InputCheckbox @bind-Value="newUnionActivity.RequireName" id="requirename"></InputCheckbox>
@@ -60,26 +75,32 @@
                 <InputCheckbox @bind-Value="newUnionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
             </div>
 
-                @foreach (var infoField in infoFields)
-                {
 
-                    <div>
-                        <InputText class="form-control" @bind-Value="infoField.Name"></InputText>
-
-                    </div>
-
-                }
+            @foreach (var pInfoField in pInfoFields)
+            {
 
 
+                <div>
+                    <InputText class="form-control" @bind-Value="pInfoField.Name"></InputText>
+                </div>
+
+            }
+               
 
 
-                <button type="button" @onclick="AddNewInformation">Tilføj felt</button>
 
-                <button type="button" @onclick="RemoveInformation2" class="btn btn-danger">Fjern felt</button>
+                <div style="padding-top: 1%;">
+                    <button type="button" @onclick="AddNewPInformation" class="btn btn-light">Tilføj felt</button>
+                    <button type="button" @onclick="RemovePInformation" class="btn btn-light">Fjern felt</button>
+                </div>
 
-                <button type="button" @onclick="PreviousScreen">Forrige</button>
+                <div style="padding-top: 2%; padding-bottom: 0.5%">
+                    <button type="button" @onclick="PreviousScreen" class="btn btn-light">Forrige</button>
+                    <button type="submit" class="btn btn-light">Færdiggør</button>
+                </div>
 
-                <button type="submit" class="btn btn-primary">Færdiggør</button>
+
+
             }
 
         </EditForm>
@@ -91,13 +112,21 @@
 
     
 
-    public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
 
+ 
+
+
+
+    public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
+    public List<InformationFieldModel> pInfoFields = new List<InformationFieldModel>();
 
     private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
 
     private int NumberOfInformation = 0;
+    private int NumberOfPInformation = 0;
     private int infoCount;
+    private int pInfoCount;
+
 
 
     public bool FirstScreen = true;
@@ -109,9 +138,15 @@
         newUnionActivity.DateOfActivity = DateTime.Today;
     }
 
+
+    
+
+
+    
+
     void AddNewInformation()
     {
-       // unionActivities.Add(new UnionActivityModel()); old???
+        // unionActivities.Add(new UnionActivityModel()); old???
         if (NumberOfInformation < 5)
         {
             NumberOfInformation++;
@@ -120,15 +155,28 @@
         }
     }
 
-    void RemoveInformation()
+    void AddNewPInformation()
     {
-        if (NumberOfInformation > 0)
+        // unionActivities.Add(new UnionActivityModel()); old???
+        if (NumberOfPInformation < 5)
         {
-            NumberOfInformation--;
+            NumberOfPInformation++;
+            pInfoFields.Add(new InformationFieldModel());
+
+        }
+    }
+
+    void RemovePInformation()
+    {
+        if (NumberOfPInformation > 0)
+        {
+            NumberOfPInformation--;
+            pInfoCount = pInfoFields.Count;
+            pInfoFields.RemoveAt(pInfoCount - 1);
         }
 
     }
-    void RemoveInformation2()
+    void RemoveInformation()
     {
         if (NumberOfInformation > 0)
         {
@@ -140,17 +188,23 @@
 
     void Add(string information)
     {
-        
+
     }
 
     private async Task InsertUnionActivity()
     {
         infoCount = infoFields.Count;
+        pInfoCount = pInfoFields.Count;
 
         string[] info = new string[] { "", "", "", "", "" };
         for (int i = 0; i < infoCount; i++)
         {
             info[i] = infoFields[i].Name;
+        }
+        string[] pInfo = new string[] { "", "", "", "", "" };
+        for (int i = 0; i < pInfoCount; i++)
+        {
+            pInfo[i] = pInfoFields[i].Name;
         }
         UnionActivityModel ua = new UnionActivityModel
             {
@@ -167,6 +221,11 @@
                 Information3 = info[2],
                 Information4 = info[3],
                 Information5 = info[4],
+                PInformation1 = pInfo[0],
+                PInformation2 = pInfo[1],
+                PInformation3 = pInfo[2],
+                PInformation4 = pInfo[3],
+                PInformation5 = pInfo[4],
                 IsYearlyActivity = newUnionActivity.IsYearlyActivity,
                 AllowRegistration = newUnionActivity.AllowRegistration,
                 AllowGroupRegistration = newUnionActivity.AllowGroupRegistration
@@ -179,6 +238,7 @@
 
         newUnionActivity = new DisplayUnionActivityModel();
         infoFields = new List<InformationFieldModel>();
+        pInfoFields = new List<InformationFieldModel>();
         //info = new string[] { "", "", "", "", ""};
 
         NavigationManager.NavigateTo("begivenheder");

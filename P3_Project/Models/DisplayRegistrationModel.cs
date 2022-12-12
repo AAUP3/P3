@@ -9,19 +9,19 @@ namespace P3_Project.Models
 {
     public class DisplayRegistrationModel
     {
-        [Required(ErrorMessage = "Indtast venligst flyets registreringsnummer.")]
+        //[Required(ErrorMessage = "Indtast venligst flyets registreringsnummer.")]
         public string? FlightRegistrationNumber { get; set; }
 
-        [Required(ErrorMessage = "Indtast venligst flyets type.")]
+        //[Required(ErrorMessage = "Indtast venligst flyets type.")]
         public string Type { get; set; }
 
-        [Required(ErrorMessage = "Indtast venligst flyets MTOW.")]
+        //[Required(ErrorMessage = "Indtast venligst flyets MTOW.")]
         public int MaxTakeoffWeight { get; set; }
 
-        [Required(ErrorMessage = "Indtast venligst flyveklub.")]
+        //[Required(ErrorMessage = "Indtast venligst flyveklub.")]
         public string Club { get; set; }
 
-        [Required(ErrorMessage ="Indtast venligst en start distination.")]
+        //[Required(ErrorMessage ="Indtast venligst en start distination.")]
         public string StartDestination { get; set; }
         
         //[Required(ErrorMessage ="Indtast venligst et gyldigt navn.")]
@@ -37,6 +37,7 @@ namespace P3_Project.Models
         
         //[Required(ErrorMessage ="Vælg en deltager rolle.")]
         public string ParticipantType { get; set; }
+        public string UserId { get; set; }
 
         public int UnionActivityID { get; set; }
         public string Information1 { get; set; }
@@ -44,5 +45,10 @@ namespace P3_Project.Models
         public string Information3 { get; set; }
         public string Information4 { get; set; }
         public string Information5 { get; set; }
+        public string PInformation1 { get; set; }
+        public string PInformation2 { get; set; }
+        public string PInformation3 { get; set; }
+        public string PInformation4 { get; set; }
+        public string PInformation5 { get; set; }
     }
 }

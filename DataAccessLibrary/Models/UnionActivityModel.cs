@@ -29,5 +29,10 @@ namespace DataAccessLibrary.Models
         public string Information3 { get; set; }
         public string Information4 { get; set; }
         public string Information5 { get; set; }
+        public string PInformation1 { get; set; }
+        public string PInformation2 { get; set; }
+        public string PInformation3 { get; set; }
+        public string PInformation4 { get; set; }
+        public string PInformation5 { get; set; }
     }
 }
