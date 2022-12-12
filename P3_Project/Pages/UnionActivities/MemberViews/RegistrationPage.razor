@@ -3,15 +3,17 @@
 @using DataAccessLibrary.Models
 @using DataAccessLibrary
 @using P3_Project.Models
+@using Microsoft.AspNetCore.Identity;
 
-
+@inject UserManager<IdentityUser> _UserManager
 @inject NavigationManager NavigationManager
 @inject IRegistrationData _db
 @inject IUnionActivityData _ua
+@inject IHttpContextAccessor httpContextAccessor
 
 
 
-<h3>Tilmeld "@unionActivity.Name"</h3> <!--not sure "" are needed here-->
+<h3>Tilmeld @unionActivity.Name</h3>
 @if (unionActivity == null)
 {
     <p>Loading...</p>
@@ -171,14 +173,17 @@ else
 
 
                     <div class="" style="text-align: center;">
-                        <button type="button" class="btn btn-success" @onclick="Add">
+                        <button type="button" class="btn btn-light" @onclick="Add">
                             <i class="fa-solid fa-user-plus"></i>
                             Tilføj Deltager
                         </button>
-                        <button type="button" class="btn btn-warning" @onclick="Remove">
+                        @if(DisplayRegistrations.Count>1)
+                        {
+                        <button type="button" class="btn btn-light" @onclick="Remove">
                             <i class="fa-solid fa-user-minus"></i>
                             Fjern Deltager
                         </button>
+                        }
                     </div>
                 </div>
             }
@@ -281,6 +286,7 @@ else
     //phone number formating
     string format = "## ## ## ##";
     public bool test = false;
+    private string userId;
 
     public UnionActivityModel unionActivity = new UnionActivityModel();
     public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
@@ -312,6 +318,7 @@ else
         unionActivities = await _ua.GetUnionActivities();
         unionActivity = await _ua.GetSingleUnionActivity((int)Id);
         DisplayRegistrations.Add(new DisplayRegistrationModel());
+        userId = _UserManager.GetUserId(httpContextAccessor.HttpContext.User);
     }
 
     public void AddParticipant()
@@ -344,6 +351,7 @@ else
                 RegistrationModel r = new RegistrationModel
                     {
                         UnionActivityID = Id,
+                        UserId = userId,
 
                         //Plane information
                         FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber,
@@ -388,6 +396,7 @@ else
             RegistrationModel r = new RegistrationModel
                 {
                     UnionActivityID = Id,
+                    UserId = userId,
 
                     //Plane information
                     FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber,

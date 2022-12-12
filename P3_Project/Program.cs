@@ -25,6 +25,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddTransient<IUnionActivityData, UnionActivityData>();
 builder.Services.AddTransient<IRegistrationData, RegistrationData>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
