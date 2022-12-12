@@ -28,6 +28,7 @@ else
             <!--General information-->
             @if (unionActivity.Information1 != "")
             {
+                <p>General Information</p>
                 <div>
                     <label for="information1">@unionActivity.Information1</label>
                     <InputText id="information1" class="form-control form-style" @bind-Value="DisplayRegistration.Information1"></InputText>
@@ -63,8 +64,9 @@ else
             }
 
             <!--Plane information-->
-            @if(unionActivity.IsYearlyActivity && unionActivity.AllowRegistration)
+            @if(unionActivity.IsYearlyActivity)
             {
+                <p style="padding-top: 2%">Flyinformation</p>
                 <div>
                     <div>
                         <label for="flightno">Fly reg.</label>
@@ -90,11 +92,13 @@ else
             }
 
             <!--Personal information-->
-            @if (unionActivity.IsYearlyActivity && unionActivity.AllowGroupRegistration)
+            @if (unionActivity.AllowGroupRegistration)
             {
+                <p style="padding-top: 2%">Personlig Information</p>
                 <div>
                     @foreach (var displayRegistration in DisplayRegistrations)
                     {
+                        <p style="padding-top: 1%">Person</p>
                         @if (unionActivity.RequireName)
                         {
                             <div>
@@ -178,9 +182,9 @@ else
                     </div>
                 </div>
             }
-            else if (unionActivity.IsYearlyActivity && unionActivity.AllowRegistration)
+            else
             {
-                
+                <p style="padding-top: 2%">Personlig Information</p>
                 @if (unionActivity.RequireName)
                 {
                     <div>
@@ -307,6 +311,7 @@ else
         //DisplayRegistrations.Add(DisplayRegistration);
         unionActivities = await _ua.GetUnionActivities();
         unionActivity = await _ua.GetSingleUnionActivity((int)Id);
+        DisplayRegistrations.Add(new DisplayRegistrationModel());
     }
 
     public void AddParticipant()
@@ -316,23 +321,10 @@ else
 
     private async Task Submit()
     {
-        //Registration.UnionActivityID = Id;
-        // Maybe to some testing that the phonenumber is the corret number of numbers???
-        //Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
-
-        //Registration.FlightRegistrationNumber = DisplayRegistration.FlightRegistrationNumber;
-        //Registration.Type = DisplayRegistration.Type;
-        //Registration.MaxTakeoffWeight = DisplayRegistration.MaxTakeoffWeight;
-        //Registration.Club = DisplayRegistration.Club;
-        //Registration.StartDestination = DisplayRegistration.StartDestination;
-        //await _db.InsertRegistration(Registration);
-
-        //Maybe add an if-statement checking for if the activity is the yearly, this will prevent us from executing the foreach loop everytime.
-
-
         string[] info = new string[] { "", "", "", "", "" };
         string[] pInfo = new string[] { "", "", "", "", "" };
 
+        //put existing information fields in string array
         if (DisplayRegistration.Information1 != null) { info[0] = DisplayRegistration.Information1; }
         if (DisplayRegistration.Information2 != null) { info[1] = DisplayRegistration.Information2; }
         if (DisplayRegistration.Information3 != null) { info[2] = DisplayRegistration.Information3; }
@@ -342,6 +334,7 @@ else
         if (unionActivity.AllowGroupRegistration) {
             foreach (var displayRegistration in DisplayRegistrations)
             {
+                //put existing personal information fields in string array
                 if (displayRegistration.PInformation1 != null) { pInfo[0] = displayRegistration.PInformation1; }
                 if (displayRegistration.PInformation2 != null) { pInfo[1] = displayRegistration.PInformation2; }
                 if (displayRegistration.PInformation3 != null) { pInfo[2] = displayRegistration.PInformation3; }
@@ -385,6 +378,7 @@ else
         }
         else
         {
+            //put existing personal information fields in string array
             if (DisplayRegistration.PInformation1 != null) { pInfo[0] = DisplayRegistration.PInformation1; }
             if (DisplayRegistration.PInformation2 != null) { pInfo[1] = DisplayRegistration.PInformation2; }
             if (DisplayRegistration.PInformation3 != null) { pInfo[2] = DisplayRegistration.PInformation3; }
@@ -446,8 +440,11 @@ else
 
     void Remove()
     {
+        if(DisplayRegistrations.Count>1)
+        {
         int count = DisplayRegistrations.Count;
         DisplayRegistrations.RemoveAt(count - 1);
-
+        }
     }
 }
+
