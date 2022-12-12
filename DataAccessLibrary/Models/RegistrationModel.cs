@@ -15,9 +15,7 @@ namespace DataAccessLibrary.Models
         public string Club { get; set; }
         public string StartDestination { get; set; }
         public string Name { get; set; }
-        [EmailAddress]
         public string Email { get; set; }
-        [Phone]
         public string Phonenumber { get; set; }
         public string ParticipantType { get; set; }
         public int UnionActivityID { get; set; }

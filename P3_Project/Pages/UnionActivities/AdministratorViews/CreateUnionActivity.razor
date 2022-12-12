@@ -196,6 +196,7 @@
         infoCount = infoFields.Count;
         pInfoCount = pInfoFields.Count;
 
+        //make information lists into arrays with 5 strings
         string[] info = new string[] { "", "", "", "", "" };
         for (int i = 0; i < infoCount; i++)
         {
@@ -206,6 +207,7 @@
         {
             pInfo[i] = pInfoFields[i].Name;
         }
+        //create union activity object that is sent to the database
         UnionActivityModel ua = new UnionActivityModel
             {
                 Name = newUnionActivity.Name,
@@ -236,6 +238,7 @@
 
         await _db.InsertUnionActivity(ua);
 
+        //reset used models and containers
         newUnionActivity = new DisplayUnionActivityModel();
         infoFields = new List<InformationFieldModel>();
         pInfoFields = new List<InformationFieldModel>();
