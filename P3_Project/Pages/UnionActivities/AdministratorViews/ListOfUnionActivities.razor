@@ -7,7 +7,7 @@
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
 
-<h1>Begivenheder</h1>
+<h1>Administrer Begivenheder</h1>
 
 
 <button type="button" @onclick="GoToMakeUnionActivity">Opret</button>
@@ -113,7 +113,7 @@ else
 
 
 
-    async void UpdateUnionActivity(int id)
+    void UpdateUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/redigerbegivenhed/{id}");
     }
