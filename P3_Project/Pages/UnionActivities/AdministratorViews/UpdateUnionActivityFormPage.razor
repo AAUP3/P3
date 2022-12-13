@@ -7,7 +7,7 @@
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
 
-
+<h3>UpdateUnionActivity</h3>
 
 
 @if (unionActivity == null)
@@ -16,102 +16,30 @@
 }
 else
 {
-    <h3>Opdater @unionActivity.Name</h3>
     <EditForm Model="@unionActivity" OnSubmit="() => UpdateUnionActivity(unionActivity.Id, unionActivity)">
-        @if (FirstScreen)
-        {
-            <div class="InputField" style="max-width: 98.5%;">
-                <label for="name">Overskrift</label>
-                <InputText id="name" class="form-control" @bind-Value="unionActivity.Name"></InputText>
-            </div>
-            <div class="InputField" style="max-width: 98.5%;">
-                <label for="description">Beskrivelse</label>
-                <InputTextArea id="description" class="form-control textBoxSize" @bind-Value="unionActivity.Description"></InputTextArea>
-            </div>
-            <div class="InputField">
-                <label for="dateofactivity">Dato for afholdelse</label>
-                <InputDate id="dateofactivity" @bind-Value="unionActivity.DateOfActivity"></InputDate>
-            </div>
-            <div class="InputField">
-                <label for="isyearlyactivity">Årstur</label>
-                <InputCheckbox @bind-Value="unionActivity.IsYearlyActivity" id="isyearlyactivity"></InputCheckbox>
-            </div>
-            <div class="InputField">
-                <label for="allowregistration">Tilmelding tilladt</label>
-                <InputCheckbox @bind-Value="unionActivity.AllowRegistration" id="allowregistration"></InputCheckbox>
-            </div>
-            <div class="InputField">
-                <label for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
-                <InputCheckbox @bind-Value="unionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
-            </div>
-            <div>
-                <label for="visibility"></label>
-                    <InputRadioGroup @bind-Value="@unionActivity.IsVisible" id="visibility">
-                        <InputRadio Value="true" /> Vis
-                        <InputRadio Value="false" /> Skjul
-                    </InputRadioGroup>
-            </div>
-            <button type="button" @onclick="NextScreen">Næste</button>
-        }
-        
-        @if (!FirstScreen)
-        {
-            <p>Generel Information</p>
-            @foreach (var infoField in infoFields)
-            {
+        <div>
+            <label for="name">Overskrift</label>
+            <InputText id="name" @bind-Value="unionActivity.Name" class="form-control"></InputText>
+        </div>
+        <div>
+            <label for="description">Beskrivelse</label>
+            <InputText id="description" @bind-Value="unionActivity.Description" class="form-control"></InputText>
+        </div>
+        <div>
+            <label for="dateofactivity">Dato for afholdelse</label>
+            <InputDate id="dateofactivity" @bind-Value="unionActivity.DateOfActivity" class="form-control"></InputDate>
+        </div>
+        <div>
+            <label for="activityduration">Varighed</label>
+        </div>
+        <div>
+        <label for="visibility"></label>
+            <InputRadioGroup @bind-Value="@unionActivity.IsVisible" id="visibility">
+                <InputRadio Value="true" /> Vis
+                <InputRadio Value="false" /> Skjul
+            </InputRadioGroup>
+        </div>
 
-                <div>
-                    <InputText class="form-control" @bind-Value="infoField.Name"></InputText>
-                </div>
-
-            }
-
-            <div style="padding-top: 1%;">
-                <button type="button" @onclick="AddNewInformation" class="btn btn-light">Tilføj felt</button>
-                <button type="button" @onclick="RemoveInformation" class="btn btn-light">Fjern felt</button>
-            </div>
-
-            <p style="padding-top: 2%">Personlig Information</p>
-            <div>
-                <label for="requirename">Navn</label>
-                <InputCheckbox @bind-Value="unionActivity.RequireName" id="requirename"></InputCheckbox>
-            </div>
-            <div>
-                <label for="requireemail">E-mail</label>
-                <InputCheckbox @bind-Value="unionActivity.RequireEmail" id="requireemail"></InputCheckbox>
-            </div>
-            <div>
-                <label for="requirephone">Telefonnummer</label>
-                <InputCheckbox @bind-Value="unionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
-            </div>
-
-            <p>Personlig Information</p>
-            @foreach (var pInfoField in pInfoFields)
-            {
-
-
-                <div>
-                    <InputText class="form-control" @bind-Value="pInfoField.Name"></InputText>
-                </div>
-
-            }
-
-
-
-
-            <div style="padding-top: 1%;">
-                <button type="button" @onclick="AddNewPInformation" class="btn btn-light">Tilføj felt</button>
-                <button type="button" @onclick="RemovePInformation" class="btn btn-light">Fjern felt</button>
-            </div>
-
-            <div style="padding-top: 2%; padding-bottom: 0.5%">
-                <button type="button" @onclick="PreviousScreen" class="btn btn-light">Forrige</button>
-                
-            </div>
-
-
-
-        }
         <div>
             <button type="submit" class="btn btn-primary">Opdater begivenhed</button>
             <button type="button" class="btn btn-danger" @onclick="() => DeleteUnionActivity(unionActivity.Id, unionActivity)">Slet begivenhed</button>
@@ -123,24 +51,17 @@ else
     [Parameter]
     public int? Id { get; set; }
 
-    private int NumberOfInformation = 0;
-    private int NumberOfPInformation = 0;
-    private int infoCount;
-    private int pInfoCount;
-    public bool FirstScreen = true;
+
+
     private UnionActivityModel unionActivity;
     private List<UnionActivityModel> unionActivities;
-    public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
-    public List<InformationFieldModel> pInfoFields = new List<InformationFieldModel>();
 
 
 
     protected override async Task OnInitializedAsync()
     {
-
         unionActivities = await _db.GetUnionActivities();
         unionActivity = GetSingleUnionActivity((int)Id);
-        LoadInformationFields();
     }
 
 
@@ -148,20 +69,6 @@ else
     async Task UpdateUnionActivity(int id, UnionActivityModel unionActivityToUpdate)
     {
         await _db.UpdateUnionActivity(id, unionActivityToUpdate);
-        for (int i = 1; i <= infoFields.Count; i++) {
-            await _db.SaveSingle("Information", i, id, Convert.ToString(infoFields[i-1].Name));
-        }
-        for (int i = infoFields.Count + 1; i <= 5; i++)
-        {
-            await _db.SaveSingle("Information", i, id, "");
-        }
-        for (int j = 1; j <= pInfoFields.Count; j++) {
-            await _db.SaveSingle("PInformation", j, id, Convert.ToString(pInfoFields[j - 1].Name));
-        }
-        for (int i = pInfoFields.Count + 1; i <= 5; i++)
-        {
-            await _db.SaveSingle("PInformation", i, id, "");
-        }
 
         NavigationManager.NavigateTo("/begivenheder");
     }
@@ -184,7 +91,7 @@ else
             if (unionActivity.Id == id)
             {
                 return unionActivity;
-
+                break;
             }
             else
             {
@@ -192,103 +99,5 @@ else
             }
         }
         return unionActivity;
-    }
-
-
-    void NextScreen()
-    {
-        FirstScreen = false;
-
-    }
-
-    void PreviousScreen()
-    {
-        FirstScreen = true;
-    }
-
-
-
-    void AddNewInformation()
-    {
-        // unionActivities.Add(new UnionActivityModel()); old???
-        if (NumberOfInformation < 5)
-        {
-            NumberOfInformation++;
-            infoFields.Add(new InformationFieldModel(""));
-
-        }
-    }
-
-    void AddNewPInformation()
-    {
-        // unionActivities.Add(new UnionActivityModel()); old???
-        if (NumberOfPInformation < 5)
-        {
-            NumberOfPInformation++;
-            pInfoFields.Add(new InformationFieldModel(""));
-
-        }
-    }
-
-    void RemovePInformation()
-    {
-        if (NumberOfPInformation > 0)
-        {
-            NumberOfPInformation--;
-            pInfoCount = pInfoFields.Count;
-            pInfoFields.RemoveAt(pInfoCount - 1);
-        }
-
-    }
-    void RemoveInformation()
-    {
-        if (NumberOfInformation > 0)
-        {
-            NumberOfInformation--;
-            infoCount = infoFields.Count;
-            infoFields.RemoveAt(infoCount - 1);
-        }
-    }
-
-
-    void LoadInformationFields() {
-        if (unionActivity.Information1 != "") {
-            infoFields.Add(new InformationFieldModel(unionActivity.Information1));
-        }
-        if (unionActivity.Information2 != "") {
-            infoFields.Add(new InformationFieldModel(unionActivity.Information2));
-        }
-        if (unionActivity.Information3 != "") {
-            infoFields.Add(new InformationFieldModel(unionActivity.Information3));
-        }
-        if (unionActivity.Information4 != "") {
-            infoFields.Add(new InformationFieldModel(unionActivity.Information4));
-        }
-        if (unionActivity.Information5 != "")
-        {
-            infoFields.Add(new InformationFieldModel(unionActivity.Information5));
-        }
-        if (unionActivity.PInformation1 != "")
-        {
-            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation1));
-        }
-        if (unionActivity.PInformation2 != "")
-        {
-            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation2));
-        }
-        if (unionActivity.PInformation3 != "")
-        {
-            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation3));
-        }
-        if (unionActivity.PInformation4 != "")
-        {
-            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation4));
-        }
-        if (unionActivity.PInformation5 != "")
-        {
-            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation5));
-        }
-        NumberOfInformation = infoFields.Count;
-        NumberOfPInformation = pInfoFields.Count;
     }
 }
