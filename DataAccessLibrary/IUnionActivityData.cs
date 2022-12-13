@@ -12,7 +12,7 @@ namespace DataAccessLibrary
         Task<List<UnionActivityModel>> OrderActivities(string column);
         Task CheckIfColumnExistsElseCreate(string column);
         Task<UnionActivityModel> GetSingleUnionActivity(int id);
-
+        Task SaveSingle(string column, int i, int id, string value);
 
     }
 }
