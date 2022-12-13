@@ -1,7 +1,5 @@
 ﻿@page "/begivenheder/listofUA"
 
-<h3>Begivenheder</h3>
-
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
 @using Microsoft.AspNetCore.Identity;
@@ -32,7 +30,7 @@
                                         Opret begivenhed
                                     </button>
 
-                                    <button class="btn btn-primary" type="button" style="margin: 3px;">
+                                    <button class="btn btn-primary" type="button" style="margin: 3px;" @onclick="GoToUnionActivityAdmin">
                                         <i class="fa fa-cog" aria-hidden="true"></i>
                                         Rediger begivenheder
                                     </button>
@@ -199,6 +197,9 @@
     void ShowUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/{id}");
+    }
+    void GoToUnionActivityAdmin(){
+        NavigationManager.NavigateTo($"/begivenheder");
     }
 
 
