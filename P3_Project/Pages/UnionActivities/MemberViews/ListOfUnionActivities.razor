@@ -1,6 +1,6 @@
 ﻿@page "/begivenheder/listofUA"
 
-
+<h3>Begivenheder</h3>
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
@@ -11,162 +11,70 @@
 @inject IRegistrationData _rdb
 @inject NavigationManager NavigationManager
 
+@if (currentUserName != null)
+{
+    <p>@currentUserName</p>
+}
 
+<div class="container col-lg-12" style="margin: 20px;">
+    <div class="row col-lg-12" style="">
+        <!--Box 1-->
+        <div class="col-md-12 col-lg-12">
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToHome()" style="font-weight: bold;">
+                &lt; Tilbage
+            </div>
+            <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+                <div style="padding: 1px; margin: 10px;">
+                    <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
+                </div>
 
-<AuthorizeView>
-    <Authorized>
-        <h3>Begivenheder</h3>
-        @if (context.User.IsInRole("Administrators"))
-        {
-            <!--Admin view html-->
-            <div class="container col-lg-12" style="margin: 20px;">
-                <div class="row col-lg-12" style="">
-                    <!--Box 1-->
-                    <div class="col-md-12 col-lg-12">
-                        <div class="row">
-                            <div class="row" style="margin-left: 10px; margin-right: 20px; padding-bottom: 10px;">
-                                <div class="col-7" @onclick="() => GoToHome()" style="font-weight: bold;">
-                                    &lt; Tilbage
-                                </div>
-                                <div class="col" style="">
-                                    <button class="btn btn-primary" type="button" style="margin: 3px;" @onclick="GoToMakeUnionActivity">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                        Opret begivenhed
-                                    </button>
-
-                                    <button class="btn btn-primary" type="button" style="margin: 3px;">
-                                        <i class="fa fa-cog" aria-hidden="true"></i>
-                                        Rediger begivenheder
-                                    </button>                                
-                                </div>
-                            </div>
+                <!--TABLE-->
+                <div style="background-color: white; border-radius: 10px; margin: 10px;">
+                    @if (unionActivities == null)
+                    {
+                        <p>Loading...</p>
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                        
-                        <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
-                            <div style="padding: 1px; margin: 10px;">
-                                <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
-                            </div>
-
-                            <!--TABLE-->
-                            <div style="background-color: white; border-radius: 10px; margin: 10px;">
-                                @if (unionActivities == null)
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <tbody class="table-group-divider">
+                                @foreach (var unionActivity in unionActivities)
                                 {
-                                    <p>Loading...</p>
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <table class="table">
-                                        <tbody class="table-group-divider">
-                                            @foreach (var unionActivity in unionActivities)
-                                            {
-                                                if (unionActivity.IsVisible)
-                                                {
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
-                                                            <div class="col-md-12 col-lg-12 h5" style="text-align: left;">
-                                                                @unionActivity.Name
-                                                                @if (IsRegistered(unionActivity.Id))
-                                                                {
-                                                                    <button class="btn btn-danger float-end" style="padding-left: 10px;" @onclick="() => CancelRegistration(unionActivity.Id)">Afmeld</button>
-                                                                }
-                                                                else if (DateTime.Today <= unionActivity.DateOfActivity && unionActivity.AllowRegistration && !IsRegistered(unionActivity.Id))
-                                                                {
-                                                                    <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
-                                                                }
+                                    if (unionActivity.IsVisible)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
+                                                <div class="col-md-12 col-lg-12 h5" style="text-align: left;">
+                                                    @unionActivity.Name
+                                                    @if (IsRegistered(unionActivity.Id))
+                                                    {
+                                                        <button class="btn btn-danger float-end" style="padding-left: 10px;" @onclick="() => CancelRegistration(unionActivity.Id)">Afmeld</button>
+                                                    }
+                                                    else if (DateTime.Today <= unionActivity.DateOfActivity && unionActivity.AllowRegistration && !IsRegistered(unionActivity.Id))
+                                                    {
+                                                        <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
+                                                    }
 
 
-                                                                <!--<button class="btn btn-primary float-end" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button> -->
-                                                            </div>
-                                                        </th>
-                                                    </tr>
-                                                }
-                                            }
-                                        </tbody>
-                                    </table>
+                                                    <!--<button class="btn btn-primary float-end" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button> -->
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    }
                                 }
-                            </div>
-                        </div>
-                    </div>
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
-        }
-        else
-        {
-            <!--Member view-->
-            @if (currentUserName != null)
-            {
-                <p>@currentUserName</p>
-            }
 
-            <div class="container col-lg-12" style="margin: 20px;">
-                <div class="row col-lg-12" style="">
-                    <!--Box 1-->
-                    <div class="col-md-12 col-lg-12">
-                        <div class="col-md-12 col-lg-12" @onclick="() => GoToHome()" style="font-weight: bold;">
-                            &lt; Tilbage
-                        </div>
-                        <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
-                            <div style="padding: 1px; margin: 10px;">
-                                <p class="h4" style="text-align: left; font-weight: bold; color: white;">Kommende begivenheder </p>
-                            </div>
-
-                            <!--TABLE-->
-                            <div style="background-color: white; border-radius: 10px; margin: 10px;">
-                                @if (unionActivities == null)
-                                {
-                                    <p>Loading...</p>
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <table class="table">
-                                        <tbody class="table-group-divider">
-                                            @foreach (var unionActivity in unionActivities)
-                                            {
-                                                if (unionActivity.IsVisible)
-                                                {
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="col-md-4 col-lg-4" style="text-align: left;">@unionActivity.DateOfActivity.ToShortDateString()</div>
-                                                            <div class="col-md-12 col-lg-12 h5" style="text-align: left;">
-                                                                @unionActivity.Name
-                                                                @if (IsRegistered(unionActivity.Id))
-                                                                {
-                                                                    <button class="btn btn-danger float-end" style="padding-left: 10px;" @onclick="() => CancelRegistration(unionActivity.Id)">Afmeld</button>
-                                                                }
-                                                                else if (DateTime.Today <= unionActivity.DateOfActivity && unionActivity.AllowRegistration && !IsRegistered(unionActivity.Id))
-                                                                {
-                                                                    <button class="btn btn-primary float-end" style="padding-left: 10px;" @onclick="() => ShowUnionActivity(unionActivity.Id)">Tilmeld</button>
-                                                                }
-
-
-                                                                <!--<button class="btn btn-primary float-end" @onclick="() => ShowUnionActivity(unionActivity.Id)"><i class="oi oi-info"></i></button> -->
-                                                            </div>
-                                                        </th>
-                                                    </tr>
-                                                }
-                                            }
-                                        </tbody>
-                                    </table>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </Authorized>
-    <NotAuthorized>
-        <p>You're not loggged in.</p>
-    </NotAuthorized>
-</AuthorizeView>
-
+        </div>
+    </div>
+</div>
 
 
 @code {
@@ -203,10 +111,6 @@
     void ShowUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/{id}");
-    }
-    void GoToMakeUnionActivity()
-    {
-        NavigationManager.NavigateTo("begivenheder/opretbegivenhed");
     }
 
 
