@@ -1,3 +1,5 @@
+using Bunit;
+
 namespace Testing
 {
     public class UnitTest1
