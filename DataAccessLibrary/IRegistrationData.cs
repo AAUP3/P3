@@ -11,5 +11,6 @@ namespace DataAccessLibrary
         Task<RegistrationModel> GetSingleUserRegistration(string userId, int unionActivityId);
         Task CancelRegistration(string userId, int unionActivityId);
         Task<List<RegistrationModel>> GetAllRegistrations();
+        Task DeleteAllRegistrationsOfUnionActivity(int unionActivityId);
     }
 }

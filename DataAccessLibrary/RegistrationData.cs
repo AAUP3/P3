@@ -61,6 +61,13 @@ namespace DataAccessLibrary
             return _db.SaveDataTest(sql);
         }
 
+        public Task DeleteAllRegistrationsOfUnionActivity(int unionActivityId)
+        {
+            string sql = $"delete from dbo.Registration where UnionActivityID={unionActivityId};";
+
+            return _db.SaveDataTest(sql);
+        }
+
 
         //public Task UpdateUnionActivity(int id, UnionActivityModel unionActivity)
         //{
