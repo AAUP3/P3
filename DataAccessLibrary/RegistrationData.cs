@@ -24,6 +24,13 @@ namespace DataAccessLibrary
             return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
         }
 
+        public Task<List<RegistrationModel>> GetAllRegistrations()
+        {
+            string sql = $"select * from dbo.Registration;";
+
+            return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
+        }
+
 
         public Task InsertRegistration(RegistrationModel registration)
         {
