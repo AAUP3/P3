@@ -39,8 +39,14 @@ namespace DataAccessLibrary
 
         public Task InsertUnionActivity(UnionActivityModel unionActivity)
         {
-            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, Information1, Information2, Information3, Information4, Information5, IsYearlyActivity, AllowRegistration, AllowGroupRegistration, PInformation1, PInformation2, PInformation3, PInformation4, PInformation5) 
-                                                     values (@Name, @Description, @DateOfActivity, @IsVisible, @RequireName, @RequireEmail, @RequirePhonenumber, @Information1, @Information2, @Information3, @Information4, @Information5, @IsYearlyActivity, @AllowRegistration, @AllowGroupRegistration, @PInformation1, @PInformation2, @PInformation3, @PInformation4, @PInformation5);";
+            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, 
+                                                            Information1, Information2, Information3, Information4, Information5, IsYearlyActivity, 
+                                                            AllowRegistration, AllowGroupRegistration, PInformation1, PInformation2, PInformation3, 
+                                                            PInformation4, PInformation5) 
+                                                     values (@Name, @Description, @DateOfActivity, @IsVisible, @RequireName, @RequireEmail, @RequirePhonenumber, 
+                                                            @Information1, @Information2, @Information3, @Information4, @Information5, @IsYearlyActivity, 
+                                                            @AllowRegistration, @AllowGroupRegistration, @PInformation1, @PInformation2, @PInformation3, 
+                                                            @PInformation4, @PInformation5);";
 
             return _db.SaveData(sql, unionActivity);
         }
@@ -48,7 +54,10 @@ namespace DataAccessLibrary
 
         public Task UpdateUnionActivity(int id, UnionActivityModel unionActivity)
         {
-            string sql = @"update dbo.UnionActivityData set Name=@Name, Description=@Description, DateOfActivity=@DateOfActivity, IsVisible=@IsVisible where Id=@id;";
+            string sql = @"update dbo.UnionActivityData set Name=@Name, Description=@Description, DateOfActivity=@DateOfActivity, IsVisible=@IsVisible, 
+                                                            RequireName=@RequireName, RequireEmail=@RequireEmail, RequirePhonenumber=@RequirePhonenumber, 
+                                                            IsYearlyActivity=@IsYearlyActivity, AllowRegistration=@AllowRegistration, 
+                                                            AllowGroupRegistration=@AllowGroupRegistration where Id=@id;";
 
             return _db.SaveData(sql, unionActivity);
         }
@@ -67,6 +76,13 @@ namespace DataAccessLibrary
 
             //await _db.SaveDataTest(sql, List);
             return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+        }
+
+        public Task SaveSingle(string column ,int i, int id, string value)
+        {
+            string sql = $"update dbo.UnionActivityData set {column}{i}='{value}' where Id={id};";
+
+            return _db.SaveDataTest(sql);
         }
 
         public Task CheckIfColumnExistsElseCreate(string column)

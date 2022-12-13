@@ -10,5 +10,9 @@ namespace DataAccessLibrary.Models
     {
         //public int Number { get; set; }
         public string Name { get; set; }
+        public InformationFieldModel(string name)
+        {
+            Name = name;
+        }
     }
 }
