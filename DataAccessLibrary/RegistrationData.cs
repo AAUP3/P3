@@ -49,7 +49,7 @@ namespace DataAccessLibrary
 
         public Task CancelRegistration(string userId, int unionActivityId)
         {
-            string sql = $"delete from dbo.Registration where UserId={userId} and UnionActivityID={unionActivityId};";
+            string sql = $"delete from dbo.Registration where UserId='{userId}' and UnionActivityID={unionActivityId};";
 
             return _db.SaveDataTest(sql);
         }
