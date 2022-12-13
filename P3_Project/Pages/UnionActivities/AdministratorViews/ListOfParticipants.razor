@@ -4,44 +4,105 @@
 @using DataAccessLibrary.Models
 
 @inject IRegistrationData _db
+@inject IUnionActivityData _udb
 
 <h3>ListOfParticipants</h3>
 
 
 
-@if (Registrations == null)
+@if (Registrations == null && unionActivity == null)
 {
     <p>Loading...</p>
 }
-else
+else if (unionActivity != null)
 {
     <table class="table table-striped">
         <thead>
             <tr>
+                @if (unionActivity.IsYearlyActivity) {
                 <th>Fly reg.</th>
                 <th>Type</th>
                 <th>MTOW</th>
                 <th>Klub</th>
                 <th>Startdestination</th>
-                <th>Navn</th>
-                <th>E-mail</th>
-                <th>Mobilnummer</th>
                 <th>Deltager type</th>
+                }
+                @if (unionActivity.RequireName) {
+                    <th>Navn</th>
+                }
+                @if (unionActivity.RequireEmail)
+                {
+                    <th>E-mail</th>
+                }
+                @if (unionActivity.RequirePhonenumber)
+                {
+                    <th>Mobilnummer</th>
+                }
+                @foreach (var infoField in infoFields) {
+                    <th>@infoField.Name</th>
+                }
+                @foreach (var pInfoField in pInfoFields) {
+                    <th>@pInfoField.Name</th>
+                }   
             </tr>
         </thead>
         <tbody>
             @foreach (var registration in Registrations)
             {
                 <tr>
-                    <td>@registration.FlightRegistrationNumber</td>
-                    <td>@registration.Type</td>
-                    <td>@registration.MaxTakeoffWeight</td>
-                    <td>@registration.Club</td>
-                    <td>@registration.StartDestination</td>
-                    <!--<td>@registration.Name</td>-->
-                    <td>@registration.Email</td> <!-- Add if statement to hide email and phonenumber if not allowed by participant-->
-                    <td>@registration.Phonenumber</td>
-                    <td>@registration.ParticipantType</td>
+                    @if (unionActivity.IsYearlyActivity)
+                    {
+                        <td>@registration.FlightRegistrationNumber</td>
+                        <td>@registration.Type</td>
+                        <td>@registration.MaxTakeoffWeight</td>
+                        <td>@registration.Club</td>
+                        <td>@registration.StartDestination</td>
+                        <td>@registration.ParticipantType</td>
+                    }
+                    @if (unionActivity.RequireName)
+                    {
+                        <td>@registration.Name</td>
+                    }
+                    @if (unionActivity.RequireEmail)
+                    {
+                        <td>@registration.Email</td>
+                    }
+                    @if (unionActivity.RequirePhonenumber)
+                    {
+                        <td>@registration.Phonenumber</td>
+                    }
+                    @if (unionActivity.Information1 != "") {
+                        <td>@registration.Information1</td>
+                    }
+                    @if (unionActivity.Information2 != "") {
+                        <td>@registration.Information2</td>
+                    }
+                    @if (unionActivity.Information3 != "") {
+                        <td>@registration.Information3</td>
+                    }
+                    @if (unionActivity.Information4 != "") {
+                        <td>@registration.Information4</td>
+                    }
+                    @if (unionActivity.Information5 != "")
+                    {
+                        <td>@registration.Information5</td>
+                    }
+                    @if (unionActivity.PInformation1 != "") {
+                        <td>@registration.PInformation1</td>
+                    }
+                    @if (unionActivity.PInformation2 != "") {
+                        <td>@registration.PInformation2</td>
+                    }
+                    @if (unionActivity.PInformation3 != "") {
+                        <td>@registration.PInformation3</td>
+                    }
+                    @if (unionActivity.PInformation4 != "") {
+                        <td>@registration.PInformation4</td>
+                    }
+                    @if (unionActivity.PInformation5 != "")
+                    {
+                        <td>@registration.PInformation5</td>
+                    }
                 </tr>
             }
         </tbody>
@@ -57,12 +118,73 @@ else
 @code {
     [Parameter]
     public int Id { get; set; }
+
+    private int NumberOfInformation = 0;
+    private int NumberOfPInformation = 0;
+    private int infoCount;
+    private int pInfoCount;
     
+    private UnionActivityModel unionActivity;
+    
+
+    public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
+    public List<InformationFieldModel> pInfoFields = new List<InformationFieldModel>();
+
 
     private List<RegistrationModel> Registrations = new List<RegistrationModel>();
 
     protected override async Task OnInitializedAsync()
     {
+        
         Registrations = await _db.GetRegistrations((int)Id);
+        unionActivity = await _udb.GetSingleUnionActivity((int)Id);
+        LoadInformationFields();
+    }
+
+
+    void LoadInformationFields()
+    {
+        if (unionActivity.Information1 != "")
+        {
+            infoFields.Add(new InformationFieldModel(unionActivity.Information1));
+        }
+        if (unionActivity.Information2 != "")
+        {
+            infoFields.Add(new InformationFieldModel(unionActivity.Information2));
+        }
+        if (unionActivity.Information3 != "")
+        {
+            infoFields.Add(new InformationFieldModel(unionActivity.Information3));
+        }
+        if (unionActivity.Information4 != "")
+        {
+            infoFields.Add(new InformationFieldModel(unionActivity.Information4));
+        }
+        if (unionActivity.Information5 != "")
+        {
+            infoFields.Add(new InformationFieldModel(unionActivity.Information5));
+        }
+        if (unionActivity.PInformation1 != "")
+        {
+            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation1));
+        }
+        if (unionActivity.PInformation2 != "")
+        {
+            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation2));
+        }
+        if (unionActivity.PInformation3 != "")
+        {
+            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation3));
+        }
+        if (unionActivity.PInformation4 != "")
+        {
+            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation4));
+        }
+        if (unionActivity.PInformation5 != "")
+        {
+            pInfoFields.Add(new InformationFieldModel(unionActivity.PInformation5));
+        }
+        NumberOfInformation = infoFields.Count;
+        NumberOfPInformation = pInfoFields.Count;
     }
 }
