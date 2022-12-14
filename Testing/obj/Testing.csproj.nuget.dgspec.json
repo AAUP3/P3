@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nanna\\Documents\\GitHub\\P3\\Testing\\Testing.csproj": {}
+    "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\Testing\\Testing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
+    "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
         "projectName": "DataAccessLibrary",
-        "projectPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
-        "packagesPath": "C:\\Users\\nanna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\obj\\",
+        "projectPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
+        "packagesPath": "C:\\Users\\rasmu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\nanna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rasmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -78,24 +77,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\nanna\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj": {
+    "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\P3_Project\\P3_Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj",
+        "projectUniqueName": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\P3_Project\\P3_Project.csproj",
         "projectName": "P3_Project",
-        "projectPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj",
-        "packagesPath": "C:\\Users\\nanna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\P3_Project\\obj\\",
+        "projectPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\P3_Project\\P3_Project.csproj",
+        "packagesPath": "C:\\Users\\rasmu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\P3_Project\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\nanna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rasmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -104,15 +103,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
-                "projectPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj"
+              "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
+                "projectPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj"
               }
             }
           }
@@ -167,24 +165,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\nanna\\Documents\\GitHub\\P3\\Testing\\Testing.csproj": {
+    "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\Testing\\Testing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\Testing\\Testing.csproj",
+        "projectUniqueName": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\Testing\\Testing.csproj",
         "projectName": "Testing",
-        "projectPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\Testing\\Testing.csproj",
-        "packagesPath": "C:\\Users\\nanna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\Testing\\obj\\",
+        "projectPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\Testing\\Testing.csproj",
+        "packagesPath": "C:\\Users\\rasmu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\Testing\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\nanna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rasmu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -193,18 +191,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
-                "projectPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj"
+              "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
+                "projectPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj"
               },
-              "C:\\Users\\nanna\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj": {
-                "projectPath": "C:\\Users\\nanna\\Documents\\GitHub\\P3\\P3_Project\\P3_Project.csproj"
+              "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\P3_Project\\P3_Project.csproj": {
+                "projectPath": "C:\\Users\\rasmu\\OneDrive\\Skrivebord\\P3\\P3 2.0\\P3\\P3_Project\\P3_Project.csproj"
               }
             }
           }
@@ -219,9 +216,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Autofac.Extras.Moq": {
+              "target": "Package",
+              "version": "[6.1.0, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.3.2, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.3, )"
             },
             "bunit": {
               "target": "Package",
@@ -260,7 +265,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
