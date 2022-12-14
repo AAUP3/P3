@@ -1,7 +1,9 @@
 using Autofac.Extras.Moq;
 using Bunit;
+using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
 using System;
 using Xunit; 
 
@@ -35,7 +37,8 @@ namespace Testing
         {
             string sql = "select * from dbo.UnionActivityData";
 
-            return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+            //return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+            return null;
         }
 
 
@@ -51,7 +54,7 @@ namespace Testing
 
 
 
-        private List<UnionActivityModel> LoadSampleActivities()
+        private async Task<List<UnionActivityModel>> LoadSampleActivities()
         {
             List<UnionActivityModel> output = new List<UnionActivityModel>
             {
@@ -70,6 +73,34 @@ namespace Testing
                 }
             };
             return output;
+        }
+
+        [Fact]
+        public async void LoadActivities_ValidCall()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<ISqlDataAccess>()
+                    .Setup(x => x.LoadData<UnionActivityModel, dynamic > ("select * from dbo.UnionActivityData", new { }))
+                    .Returns(LoadSampleActivities());
+
+                var cls = mock.Create<UnionActivityData>();
+                var expected = LoadSampleActivities();
+
+                var expected2 = cls.GetUnionActivities();
+                var actual = cls.GetUnionActivities();
+                
+                Assert.True(actual != null);
+               // Assert.Equal(expected, 2);
+                Assert.Equal(expected, actual);
+                
+
+                for (int i = 0; i < 2; i++)
+                {
+                   // Assert.Equal(expected[i], actual[i]);
+                }
+            }
+            
         }
     }
 }
