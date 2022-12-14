@@ -35,3 +35,9 @@ P3_Project/obj/staticwebassets.pack.sentinel
 *.2
 *.1
 *.dll
+*.json
+*.props
+*.cache
+*.editorconfig
+*.suo
+*.v2
