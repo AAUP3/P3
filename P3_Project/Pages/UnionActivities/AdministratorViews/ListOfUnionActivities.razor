@@ -1,4 +1,4 @@
-﻿@page "/begivenheder"
+﻿@page "/begivenheder/rediger_begivenheder"
 
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
@@ -9,6 +9,9 @@
 @inject NavigationManager NavigationManager
 
 <h3>Rediger Begivenheder</h3>
+<div  @onclick="() => GoToListOfUA()" style="font-weight: bold; padding-bottom: 10px;">
+    &lt; Tilbage
+</div>
 
 @if (unionActivities == null)
 {
@@ -18,13 +21,14 @@ else
 {
     <div class="" style="background-color: #3846c0; border-radius: 10px; padding: 10px">
         <div style="background-color: white; border-radius 10px; margin: 20px;">
+            
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Overskrift</th>
                         <th>Dato</th>
-                        <th>Varighed</th>
+                        <!--<th>Varighed</th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -34,7 +38,7 @@ else
                             <td>@unionActivity.Id</td>
                             <td>@unionActivity.Name</td>
                             <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
-                            <td>@unionActivity.ActivityDuration</td>
+                            <!--<td>@unionActivity.ActivityDuration</td>-->
                             <td>
                                 @if (unionActivity.IsVisible)
                                 {
@@ -61,7 +65,7 @@ else
                                 
                             </td>
                             <td>
-                                <button class="btn btn-primary" @onclick="() => UpdateUnionActivity(unionActivity.Id)">
+                                <button class="btn btn-primary" @onclick="() => GoToUpdateUnionActivity(unionActivity.Id)">
                                     <i class="oi oi-pencil"></i>
                                 </button>
                             </td>
@@ -125,7 +129,7 @@ else
 
 
 
-    void UpdateUnionActivity(int id)
+    void GoToUpdateUnionActivity(int id)
     {
         NavigationManager.NavigateTo($"begivenheder/redigerbegivenhed/{id}");
     }
@@ -170,6 +174,11 @@ else
         return false;
     }
 
+
+    void GoToListOfUA()
+    {
+        NavigationManager.NavigateTo($"begivenheder");
+    }
 
     
 }

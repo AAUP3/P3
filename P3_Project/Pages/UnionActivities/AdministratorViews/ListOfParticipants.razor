@@ -5,10 +5,13 @@
 
 @inject IRegistrationData _db
 @inject IUnionActivityData _udb
+@inject NavigationManager NavigationManager
 
 <h3>ListOfParticipants</h3>
 
-
+<div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
+    &lt; Tilbage
+    </div>
 
 @if (Registrations == null && unionActivity == null)
 {
@@ -20,23 +23,23 @@ else if (unionActivity != null)
         <thead>
             <tr>
                 @if (unionActivity.IsYearlyActivity) {
-                <th>Fly reg.</th>
-                <th>Type</th>
-                <th>MTOW</th>
-                <th>Klub</th>
-                <th>Startdestination</th>
-                <th>Deltager type</th>
+                    <th @onclick="() => sortBy(0, (int)Id)">Fly reg.</th>
+                    <th @onclick="() => sortBy(1, (int)Id)">Type</th>
+                    <th @onclick="() => sortBy(2, (int)Id)">MTOW</th>
+                    <th @onclick="() => sortBy(3, (int)Id)">Klub</th>
+                    <th @onclick="() => sortBy(4, (int)Id)">Startdestination</th>
+                    <th @onclick="() => sortBy(5, (int)Id)">Deltager type</th>
                 }
                 @if (unionActivity.RequireName) {
-                    <th>Navn</th>
+                    <th @onclick="() => sortBy(6, (int)Id)">Navn</th>
                 }
                 @if (unionActivity.RequireEmail)
                 {
-                    <th>E-mail</th>
+                    <th @onclick="() => sortBy(7, (int)Id)">E-mail</th>
                 }
                 @if (unionActivity.RequirePhonenumber)
                 {
-                    <th>Mobilnummer</th>
+                    <th @onclick="() => sortBy(8, (int)Id)">Mobilnummer</th>
                 }
                 @foreach (var infoField in infoFields) {
                     <th>@infoField.Name</th>
@@ -123,9 +126,14 @@ else if (unionActivity != null)
     private int NumberOfPInformation = 0;
     private int infoCount;
     private int pInfoCount;
-    
+
+
+
     private UnionActivityModel unionActivity;
-    
+
+    private string[] staticColumns = new string[] { "FlightRegistrationNumber", "Type", "MTOW", "Club", "StartDestination", "ParticipantType", "Name", "Email", "Phonenumber" };
+    private string column = "FlightRegistrationNumber";
+
 
     public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
     public List<InformationFieldModel> pInfoFields = new List<InformationFieldModel>();
@@ -136,11 +144,23 @@ else if (unionActivity != null)
     protected override async Task OnInitializedAsync()
     {
         
-        Registrations = await _db.GetRegistrations((int)Id);
+        Registrations = await _db.OrderRegistrations((int)Id, column);
         unionActivity = await _udb.GetSingleUnionActivity((int)Id);
         LoadInformationFields();
+
     }
 
+    async void sortBy(int index, int ID)
+    {
+        column = staticColumns[index];
+        Registrations = await _db.OrderRegistrations((int)Id, column);
+        //NavigationManager.NavigateTo($"/begivenheder/tilmeldinger/{(int)Id}", true);
+    }
+
+    void GoToUAOverview()
+    {
+        NavigationManager.NavigateTo($"/begivenheder/rediger_begivenheder");
+    }
 
     void LoadInformationFields()
     {

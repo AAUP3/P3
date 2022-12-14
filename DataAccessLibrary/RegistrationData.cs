@@ -31,6 +31,13 @@ namespace DataAccessLibrary
             return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
         }
 
+        public Task<List<RegistrationModel>> OrderRegistrations(int id, string column)
+        {
+            string sql = $"select * from dbo.Registration where UnionActivityID={id} order by {column};";
+
+            //await _db.SaveDataTest(sql, List);
+            return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
+        }
 
         public Task InsertRegistration(RegistrationModel registration)
         {

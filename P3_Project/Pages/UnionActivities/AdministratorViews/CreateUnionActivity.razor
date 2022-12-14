@@ -12,37 +12,41 @@
 
 <h3>Opret begivenhed</h3>
 
+<div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
+    &lt; Tilbage
+</div>
 
-<div>
-    <div style="background-color: #3846c0; border-radius: 10px; padding-left: 10px; padding-top: 5px;">
+<div style="padding-bottom: 20px">
+    <div style="background-color: #3846c0; border-radius: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 10px">
     <EditForm Model="@newUnionActivity" OnSubmit="@InsertUnionActivity">
             @if (FirstScreen)
             {
                 <div class="InputField" style="max-width: 98.5%;">
-                    <label for="name">Overskrift</label>
+                    <label style="color:white;font-weight:600;padding:5px;" for="name">Overskrift</label>
                     <InputText id="name" class="form-control" @bind-Value="newUnionActivity.Name"></InputText>
                 </div>
                 <div class="InputField" style="max-width: 98.5%;">
-                    <label for="description">Beskrivelse</label>
+                    <label style="color:white;font-weight:600;padding:5px;" for="description">Beskrivelse</label>
                     <InputTextArea id="description" class="form-control textBoxSize" @bind-Value="newUnionActivity.Description"></InputTextArea>
                 </div>
                 <div class="InputField">
-                    <label for="dateofactivity">Dato for afholdelse</label>
+                    <label style="color:white;font-weight:600;padding:5px;" for="dateofactivity">Dato for afholdelse</label>
                     <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
                 </div>
-                <div class="InputField">
-                    <label for="isyearlyactivity">Årstur</label>
+
+                <div class="form-check InputField">
                     <InputCheckbox @bind-Value="newUnionActivity.IsYearlyActivity" id="isyearlyactivity"></InputCheckbox>
+                    <label style="color:white;font-weight:600;padding:5px;" for="isyearlyactivity">Årstur</label>
                 </div>
-                <div class="InputField">
-                    <label for="allowregistration">Tilmelding tilladt</label>
+                <div class="form-check InputField">
                     <InputCheckbox @bind-Value="newUnionActivity.AllowRegistration" id="allowregistration"></InputCheckbox>
+                    <label style="color:white;font-weight:600;padding:5px;" for="allowregistration">Tilmelding tilladt</label>
                 </div>
-                <div class="InputField">
-                    <label for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
+                <div class="form-check InputField">
                     <InputCheckbox @bind-Value="newUnionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
+                    <label style="color:white;font-weight:600;padding:5px;" for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
                 </div>
-                <button type="button" @onclick="NextScreen">Næste</button>
+                <button style="padding-bottom:10px" class="btn btn-primary" type="button" @onclick="NextScreen">Næste</button>
             }
         @if (!FirstScreen)
         {
@@ -247,7 +251,11 @@
         NavigationManager.NavigateTo("begivenheder");
     }
 
-    
+
+    void GoToUAOverview()
+    {
+        NavigationManager.NavigateTo($"/begivenheder");
+    }
 
 
     void NextScreen()

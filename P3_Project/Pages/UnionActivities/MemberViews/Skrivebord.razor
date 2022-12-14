@@ -142,6 +142,15 @@
     protected override async Task OnInitializedAsync()
     {
         unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
+        foreach(var unionActivity in unionActivities)
+        {
+            if (DateTime.Today > unionActivity.DateOfActivity && unionActivity.IsVisible)
+            {
+                unionActivity.IsVisible = false;
+                await _db.UpdateUnionActivity(unionActivity.Id, unionActivity);
+            }   
+        }
+
     }
 
 
@@ -157,7 +166,7 @@
 
     void GoToUnionActivityList()
     {
-        NavigationManager.NavigateTo($"/begivenheder/listofUA");
+        NavigationManager.NavigateTo($"/begivenheder");
     }
 
 }

@@ -17,6 +17,9 @@
 else
 {
     <h3>Opdater @unionActivity.Name</h3>
+    <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
+    &lt; Tilbage
+    </div>
     <EditForm Model="@unionActivity" OnSubmit="() => UpdateUnionActivity(unionActivity.Id, unionActivity)">
         @if (FirstScreen)
         {
@@ -163,7 +166,7 @@ else
             await _db.SaveSingle("PInformation", i, id, "");
         }
 
-        NavigationManager.NavigateTo("/begivenheder");
+        NavigationManager.NavigateTo("/begivenheder/rediger_begivenheder");
     }
 
 
@@ -172,7 +175,7 @@ else
     {
         await _db.DeleteUnionActivity(id, unionActivityToDelete);
 
-        NavigationManager.NavigateTo("/begivenheder");
+        NavigationManager.NavigateTo("/begivenheder/rediger_begivenheder");
     }
 
 
@@ -206,7 +209,10 @@ else
         FirstScreen = true;
     }
 
-
+        void GoToUAOverview()
+    {
+        NavigationManager.NavigateTo($"/begivenheder/rediger_begivenheder");
+    }
 
     void AddNewInformation()
     {
