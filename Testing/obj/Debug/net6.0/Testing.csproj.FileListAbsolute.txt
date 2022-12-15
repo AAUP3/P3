@@ -473,3 +473,7 @@ C:\Users\night\Documents\GitHub\P3\Testing\obj\Debug\net6.0\Testing.dll
 C:\Users\night\Documents\GitHub\P3\Testing\obj\Debug\net6.0\refint\Testing.dll
 C:\Users\night\Documents\GitHub\P3\Testing\obj\Debug\net6.0\Testing.genruntimeconfig.cache
 C:\Users\night\Documents\GitHub\P3\Testing\obj\Debug\net6.0\ref\Testing.dll
+C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\Testing\bin\Debug\net6.0\Autofac.dll
+C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\Testing\bin\Debug\net6.0\Autofac.Extras.Moq.dll
+C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\Testing\bin\Debug\net6.0\Castle.Core.dll
+C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\Testing\bin\Debug\net6.0\Moq.dll

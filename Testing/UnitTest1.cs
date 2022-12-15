@@ -4,7 +4,10 @@ using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
+using Microsoft.IdentityModel.Tokens;
+using Moq;
 using System;
+using System.Diagnostics;
 using Xunit; 
 
 namespace Testing
@@ -54,7 +57,7 @@ namespace Testing
 
 
 
-        private async Task<List<UnionActivityModel>> LoadSampleActivities()
+        private List<UnionActivityModel> LoadSampleActivities()
         {
             List<UnionActivityModel> output = new List<UnionActivityModel>
             {
@@ -75,6 +78,36 @@ namespace Testing
             return output;
         }
 
+
+
+        [Fact]
+        public void Load_valid()
+        {
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<ISqlDataAccess>()
+                    .Setup(x => x.LoadDataNew<UnionActivityModel>("select * from dbo.UnionActivityData;"))
+                    .Returns(LoadSampleActivities());
+
+                var cls = mock.Create<UnionActivityData>();
+                var expected = LoadSampleActivities();
+
+                var actual = cls.GetUnionActivitiesTest();
+
+                Assert.True(actual != null);
+                Assert.True(expected != null);
+                Assert.Equal(expected.Count, actual.Count);
+                for (int i = 0; i < expected.Count; i++)
+                {
+                    Assert.Equal(expected[i].Name, actual[i].Name);
+                    Debug.WriteLine("Test");
+                    
+                }
+            }
+            
+            
+        }
+        /*
         [Fact]
         public async void LoadActivities_ValidCall()
         {
@@ -91,8 +124,10 @@ namespace Testing
                 var actual = cls.GetUnionActivities();
                 
                 Assert.True(actual != null);
+                Assert.True(expected != null);
+                Assert.Equal(actual.Result, expected.Result);
                // Assert.Equal(expected, 2);
-                Assert.Equal(expected, actual);
+                //Assert.Equal(expected, actual);
                 
 
                 for (int i = 0; i < 2; i++)
@@ -101,6 +136,6 @@ namespace Testing
                 }
             }
             
-        }
+        }*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using DataAccessLibrary.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,42 @@ namespace DataAccessLibrary
                 await connection.ExecuteAsync(sql);
             }
         }
-        
+
+
+        public List<UnionActivityModel> LoadDataTest(string sql)
+        {
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
+
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                var data = connection.Query(sql);
+
+                //data = data.ToList();
+
+                //return (List<UnionActivityModel>)data;
+                if (data != null)
+                {
+                    return data.OfType<UnionActivityModel>().ToList();
+                }
+                else
+                {
+                    throw new Exception("Tom");
+                }
+            }
+        }
+
+
+        public List<T> LoadDataNew<T>(string sql)
+        {
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
+
+            using (IDbConnection cnn = new SqlConnection(connectionString))
+            {
+                var output = cnn.Query<T>(sql, new DynamicParameters());
+                return output.ToList();
+            }
+        }
+
 
     }
 }

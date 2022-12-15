@@ -8,6 +8,17 @@
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
 
+
+@if (unionActivities == null) {
+    <p>Loading...</p>
+}
+else {
+    foreach (var activity in unionActivities) {
+        <p>@activity.Name</p>
+    }
+}
+
+
 <div class="container col-lg-12" style="margin: 20px;">
     <div class="row col-lg-12" style="">
         <!--Box 1-->
@@ -135,14 +146,19 @@
 </div>
 
 
+
 @code {
 
-    private List<UnionActivityModel> unionActivities;
+    private List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
 
-    protected override async Task OnInitializedAsync()
-    {
-        unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
+    protected override async Task OnInitializedAsync() {
+        unionActivities = _db.GetUnionActivitiesTest().OfType<UnionActivityModel>().ToList();   // OfType<UnionActivityModel>().ToList();
+        if (unionActivities == null) {
+            throw new Exception("Tom");
+        }
     }
+        // unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
+        
 
 
     void ShowUnionActivity(int id)

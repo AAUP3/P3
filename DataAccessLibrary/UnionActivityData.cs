@@ -85,7 +85,23 @@ namespace DataAccessLibrary
             
         }
 
-        
+
+        public List<UnionActivityModel> GetUnionActivitiesTest()
+        {
+            string sql = "select * from dbo.UnionActivityData;";
+
+            List<UnionActivityModel> data =  _db.LoadDataNew<UnionActivityModel>(sql);
+
+            //return (List<UnionActivityModel>)data;
+            if (data != null)
+            {
+                return data.OfType<UnionActivityModel>().ToList();
+            }
+            else
+            {
+                throw new Exception("Tom");
+            }
+        }
 
 
     }
