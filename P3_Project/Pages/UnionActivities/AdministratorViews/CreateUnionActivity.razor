@@ -13,12 +13,12 @@
 
 
 
-    public List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
-    public List<InformationFieldModel> pInfoFields = new List<InformationFieldModel>();
+    private List<InformationFieldModel> infoFields = new List<InformationFieldModel>();
+    private List<InformationFieldModel> pInfoFields = new List<InformationFieldModel>();
 
-    public DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
+    private DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel();
     //used for unit test
-    public UnionActivityModel testUnionActivity = new UnionActivityModel();
+    private UnionActivityModel testUnionActivity = new UnionActivityModel();
 
 
     private int NumberOfInformation = 0;
@@ -90,7 +90,7 @@
 
     }
 
-    public async Task InsertUnionActivity()
+    public static UnionActivityModel InsertUnionActivity(int infoCount, int pInfoCount, List<InformationFieldModel> infoFields, List<InformationFieldModel> pInfoFields, DisplayUnionActivityModel newUnionActivity, UnionActivityModel testUnionActivity)
     {
         infoCount = infoFields.Count;
         pInfoCount = pInfoFields.Count;
@@ -135,13 +135,12 @@
 
         //unit testing
         testUnionActivity = ua;
-
         //await _db.InsertUnionActivity(ua);
-
+        return ua;
         //reset used models and containers
-        newUnionActivity = new DisplayUnionActivityModel();
-        infoFields = new List<InformationFieldModel>();
-        pInfoFields = new List<InformationFieldModel>();
+        //newUnionActivity = new DisplayUnionActivityModel();
+        //infoFields = new List<InformationFieldModel>();
+        //pInfoFields = new List<InformationFieldModel>();
         //info = new string[] { "", "", "", "", ""};
 
         //NavigationManager.NavigateTo("begivenheder");
