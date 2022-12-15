@@ -65,7 +65,7 @@ namespace TestProject
         {
             //act
 
-            testUnionActivity = CreateUnionActivity.InsertUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity);
+            testUnionActivity = CreateUnionActivity.SubmitUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity);
 
             //assert
             Assert.Equal(newUnionActivity.Name, testUnionActivity.Name);
