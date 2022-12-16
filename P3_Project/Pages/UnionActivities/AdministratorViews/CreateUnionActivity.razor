@@ -10,106 +10,129 @@
 @inject IUnionActivityData _db
 @inject NavigationManager NavigationManager
 
-<h3>Opret begivenhed</h3>
-
-<div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
-    &lt; Tilbage
-</div>
-
-<div style="padding-bottom: 20px">
-    <div style="background-color: #3846c0; border-radius: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 10px">
-        <EditForm Model="@newUnionActivity" OnSubmit="() => _db.InsertUnionActivity(SubmitUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity))">
-            @if (FirstScreen)
-            {
-                <div class="InputField" style="max-width: 98.5%;">
-                    <label style="color:white;font-weight:600;padding:5px;" for="name">Overskrift</label>
-                    <InputText id="name" class="form-control" @bind-Value="newUnionActivity.Name"></InputText>
-                </div>
-                <div class="InputField" style="max-width: 98.5%;">
-                    <label style="color:white;font-weight:600;padding:5px;" for="description">Beskrivelse</label>
-                    <InputTextArea id="description" class="form-control textBoxSize" @bind-Value="newUnionActivity.Description"></InputTextArea>
-                </div>
-                <div class="InputField">
-                    <label style="color:white;font-weight:600;padding:5px;" for="dateofactivity">Dato for afholdelse</label>
-                    <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
-                </div>
-
-                <div class="form-check InputField">
-                    <InputCheckbox @bind-Value="newUnionActivity.IsYearlyActivity" id="isyearlyactivity"></InputCheckbox>
-                    <label style="color:white;font-weight:600;padding:5px;" for="isyearlyactivity">Årstur</label>
-                </div>
-                <div class="form-check InputField">
-                    <InputCheckbox @bind-Value="newUnionActivity.AllowRegistration" id="allowregistration"></InputCheckbox>
-                    <label style="color:white;font-weight:600;padding:5px;" for="allowregistration">Tilmelding tilladt</label>
-                </div>
-                <div class="form-check InputField">
-                    <InputCheckbox @bind-Value="newUnionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
-                    <label style="color:white;font-weight:600;padding:5px;" for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
-                </div>
-                <button style="padding-bottom:10px" class="btn btn-primary" type="button" @onclick="NextScreen">Næste</button>
-            }
-            @if (!FirstScreen)
-            {
-                <p>Generel Information</p>
-                @foreach (var infoField in infoFields)
-                {
-
-                    <div>
-                        <InputText class="form-control" @bind-Value="infoField.Name"></InputText>
-                    </div>
-
-                }
-
-                <div style="padding-top: 1%;">
-                    <button type="button" @onclick="AddNewInformation" class="btn btn-light">Tilføj felt</button>
-                    <button type="button" @onclick="RemoveInformation" class="btn btn-light">Fjern felt</button>
-                </div>
-
-                <p style="padding-top: 2%">Personlig Information</p>
-                <div>
-                    <label for="requirename">Navn</label>
-                    <InputCheckbox @bind-Value="newUnionActivity.RequireName" id="requirename"></InputCheckbox>
-                </div>
-                <div>
-                    <label for="requireemail">E-mail</label>
-                    <InputCheckbox @bind-Value="newUnionActivity.RequireEmail" id="requireemail"></InputCheckbox>
-                </div>
-                <div>
-                    <label for="requirephone">Telefonnummer</label>
-                    <InputCheckbox @bind-Value="newUnionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
-                </div>
-
-
-                @foreach (var pInfoField in pInfoFields)
-                {
-
-
-                    <div>
-                        <InputText class="form-control" @bind-Value="pInfoField.Name"></InputText>
-                    </div>
-
-                }
 
 
 
+<AuthorizeView>
+    <Authorized>
+        @if (context.User.IsInRole("Administrators"))
+        {
+            <h3>Opret begivenhed</h3>
 
-                <div style="padding-top: 1%;">
-                    <button type="button" @onclick="AddNewPInformation" class="btn btn-light">Tilføj felt</button>
-                    <button type="button" @onclick="RemovePInformation" class="btn btn-light">Fjern felt</button>
-                </div>
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
+                &lt; Tilbage
+            </div>
 
-                <div style="padding-top: 2%; padding-bottom: 0.5%">
-                    <button type="button" @onclick="PreviousScreen" class="btn btn-light">Forrige</button>
-                    <button type="submit" class="btn btn-light" @onclick="GoToUAOverview">Færdiggør</button>
-                </div>
+            <div style="padding-bottom: 20px">
+                <div style="background-color: #3846c0; border-radius: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 10px">
+                    <EditForm Model="@newUnionActivity" OnSubmit="() => _db.InsertUnionActivity(SubmitUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity))">
+                        @if (FirstScreen)
+                        {
+                            <div class="InputField" style="max-width: 98.5%;">
+                                <label style="color:white;font-weight:600;padding:5px;" for="name">Overskrift</label>
+                                <InputText id="name" class="form-control" @bind-Value="newUnionActivity.Name"></InputText>
+                            </div>
+                            <div class="InputField" style="max-width: 98.5%;">
+                                <label style="color:white;font-weight:600;padding:5px;" for="description">Beskrivelse</label>
+                                <InputTextArea id="description" class="form-control textBoxSize" @bind-Value="newUnionActivity.Description"></InputTextArea>
+                            </div>
+                            <div class="InputField">
+                                <label style="color:white;font-weight:600;padding:5px;" for="dateofactivity">Dato for afholdelse</label>
+                                <InputDate id="dateofactivity" @bind-Value="newUnionActivity.DateOfActivity"></InputDate>
+                            </div>
+
+                            <div class="form-check InputField">
+                                <InputCheckbox @bind-Value="newUnionActivity.IsYearlyActivity" id="isyearlyactivity"></InputCheckbox>
+                                <label style="color:white;font-weight:600;padding:5px;" for="isyearlyactivity">Årstur</label>
+                            </div>
+                            <div class="form-check InputField">
+                                <InputCheckbox @bind-Value="newUnionActivity.AllowRegistration" id="allowregistration"></InputCheckbox>
+                                <label style="color:white;font-weight:600;padding:5px;" for="allowregistration">Tilmelding tilladt</label>
+                            </div>
+                            <div class="form-check InputField">
+                                <InputCheckbox @bind-Value="newUnionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
+                                <label style="color:white;font-weight:600;padding:5px;" for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
+                            </div>
+                            <button style="padding-bottom:10px" class="btn btn-primary" type="button" @onclick="NextScreen">Næste</button>
+                        }
+                        @if (!FirstScreen)
+                        {
+                            <p>Generel Information</p>
+                            @foreach (var infoField in infoFields)
+                            {
+
+                                <div>
+                                    <InputText class="form-control" @bind-Value="infoField.Name"></InputText>
+                                </div>
+
+                            }
+
+                            <div style="padding-top: 1%;">
+                                <button type="button" @onclick="AddNewInformation" class="btn btn-light">Tilføj felt</button>
+                                <button type="button" @onclick="RemoveInformation" class="btn btn-light">Fjern felt</button>
+                            </div>
+
+                            <p style="padding-top: 2%">Personlig Information</p>
+                            <div>
+                                <label for="requirename">Navn</label>
+                                <InputCheckbox @bind-Value="newUnionActivity.RequireName" id="requirename"></InputCheckbox>
+                            </div>
+                            <div>
+                                <label for="requireemail">E-mail</label>
+                                <InputCheckbox @bind-Value="newUnionActivity.RequireEmail" id="requireemail"></InputCheckbox>
+                            </div>
+                            <div>
+                                <label for="requirephone">Telefonnummer</label>
+                                <InputCheckbox @bind-Value="newUnionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
+                            </div>
+
+
+                            @foreach (var pInfoField in pInfoFields)
+                            {
+
+
+                                <div>
+                                    <InputText class="form-control" @bind-Value="pInfoField.Name"></InputText>
+                                </div>
+
+                            }
 
 
 
-            }
 
-        </EditForm>
-    </div> <!--blue box end-->
-</div>
+                            <div style="padding-top: 1%;">
+                                <button type="button" @onclick="AddNewPInformation" class="btn btn-light">Tilføj felt</button>
+                                <button type="button" @onclick="RemovePInformation" class="btn btn-light">Fjern felt</button>
+                            </div>
+
+                            <div style="padding-top: 2%; padding-bottom: 0.5%">
+                                <button type="button" @onclick="PreviousScreen" class="btn btn-light">Forrige</button>
+                                <button type="submit" class="btn btn-light" @onclick="GoToUAOverview">Færdiggør</button>
+                            </div>
+
+
+
+                        }
+
+                    </EditForm>
+                </div> <!--blue box end-->
+            </div>
+        }
+        else
+        {
+            <p>You do not have access to this page.</p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You're not logged in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+
+
+
 
 
 @code {

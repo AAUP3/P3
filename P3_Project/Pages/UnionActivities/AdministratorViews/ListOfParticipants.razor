@@ -7,112 +7,137 @@
 @inject IUnionActivityData _udb
 @inject NavigationManager NavigationManager
 
-<h3>ListOfParticipants</h3>
 
-<div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
-    &lt; Tilbage
-    </div>
+<AuthorizeView>
+    <Authorized>
+        @if (context.User.IsInRole("Administrators"))
+        {
+            <h3>ListOfParticipants</h3>
 
-@if (Registrations == null && unionActivity == null)
-{
-    <p>Loading...</p>
-}
-else if (unionActivity != null)
-{
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                @if (unionActivity.IsYearlyActivity) {
-                    <th @onclick="() => sortBy(0, (int)Id)">Fly reg.</th>
-                    <th @onclick="() => sortBy(1, (int)Id)">Type</th>
-                    <th @onclick="() => sortBy(2, (int)Id)">MTOW</th>
-                    <th @onclick="() => sortBy(3, (int)Id)">Klub</th>
-                    <th @onclick="() => sortBy(4, (int)Id)">Startdestination</th>
-                    <th @onclick="() => sortBy(5, (int)Id)">Deltager type</th>
-                }
-                @if (unionActivity.RequireName) {
-                    <th @onclick="() => sortBy(6, (int)Id)">Navn</th>
-                }
-                @if (unionActivity.RequireEmail)
-                {
-                    <th @onclick="() => sortBy(7, (int)Id)">E-mail</th>
-                }
-                @if (unionActivity.RequirePhonenumber)
-                {
-                    <th @onclick="() => sortBy(8, (int)Id)">Mobilnummer</th>
-                }
-                @foreach (var infoField in infoFields) {
-                    <th>@infoField.Name</th>
-                }
-                @foreach (var pInfoField in pInfoFields) {
-                    <th>@pInfoField.Name</th>
-                }   
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var registration in Registrations)
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
+                &lt; Tilbage
+            </div>
+
+            @if (Registrations == null && unionActivity == null)
             {
-                <tr>
-                    @if (unionActivity.IsYearlyActivity)
-                    {
-                        <td>@registration.FlightRegistrationNumber</td>
-                        <td>@registration.Type</td>
-                        <td>@registration.MaxTakeoffWeight</td>
-                        <td>@registration.Club</td>
-                        <td>@registration.StartDestination</td>
-                        <td>@registration.ParticipantType</td>
-                    }
-                    @if (unionActivity.RequireName)
-                    {
-                        <td>@registration.Name</td>
-                    }
-                    @if (unionActivity.RequireEmail)
-                    {
-                        <td>@registration.Email</td>
-                    }
-                    @if (unionActivity.RequirePhonenumber)
-                    {
-                        <td>@registration.Phonenumber</td>
-                    }
-                    @if (unionActivity.Information1 != "") {
-                        <td>@registration.Information1</td>
-                    }
-                    @if (unionActivity.Information2 != "") {
-                        <td>@registration.Information2</td>
-                    }
-                    @if (unionActivity.Information3 != "") {
-                        <td>@registration.Information3</td>
-                    }
-                    @if (unionActivity.Information4 != "") {
-                        <td>@registration.Information4</td>
-                    }
-                    @if (unionActivity.Information5 != "")
-                    {
-                        <td>@registration.Information5</td>
-                    }
-                    @if (unionActivity.PInformation1 != "") {
-                        <td>@registration.PInformation1</td>
-                    }
-                    @if (unionActivity.PInformation2 != "") {
-                        <td>@registration.PInformation2</td>
-                    }
-                    @if (unionActivity.PInformation3 != "") {
-                        <td>@registration.PInformation3</td>
-                    }
-                    @if (unionActivity.PInformation4 != "") {
-                        <td>@registration.PInformation4</td>
-                    }
-                    @if (unionActivity.PInformation5 != "")
-                    {
-                        <td>@registration.PInformation5</td>
-                    }
-                </tr>
+                <p>Loading...</p>
             }
-        </tbody>
-    </table>
-}
-
-
+            else if (unionActivity != null)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            @if (unionActivity.IsYearlyActivity)
+                            {
+                                <th @onclick="() => sortBy(0, (int)Id)">Fly reg.</th>
+                                <th @onclick="() => sortBy(1, (int)Id)">Type</th>
+                                <th @onclick="() => sortBy(2, (int)Id)">MTOW</th>
+                                <th @onclick="() => sortBy(3, (int)Id)">Klub</th>
+                                <th @onclick="() => sortBy(4, (int)Id)">Startdestination</th>
+                                <th @onclick="() => sortBy(5, (int)Id)">Deltager type</th>
+                            }
+                            @if (unionActivity.RequireName)
+                            {
+                                <th @onclick="() => sortBy(6, (int)Id)">Navn</th>
+                            }
+                            @if (unionActivity.RequireEmail)
+                            {
+                                <th @onclick="() => sortBy(7, (int)Id)">E-mail</th>
+                            }
+                            @if (unionActivity.RequirePhonenumber)
+                            {
+                                <th @onclick="() => sortBy(8, (int)Id)">Mobilnummer</th>
+                            }
+                            @foreach (var infoField in infoFields)
+                            {
+                                <th>@infoField.Name</th>
+                            }
+                            @foreach (var pInfoField in pInfoFields)
+                            {
+                                <th>@pInfoField.Name</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var registration in Registrations)
+                        {
+                            <tr>
+                                @if (unionActivity.IsYearlyActivity)
+                                {
+                                    <td>@registration.FlightRegistrationNumber</td>
+                                    <td>@registration.Type</td>
+                                    <td>@registration.MaxTakeoffWeight</td>
+                                    <td>@registration.Club</td>
+                                    <td>@registration.StartDestination</td>
+                                    <td>@registration.ParticipantType</td>
+                                }
+                                @if (unionActivity.RequireName)
+                                {
+                                    <td>@registration.Name</td>
+                                }
+                                @if (unionActivity.RequireEmail)
+                                {
+                                    <td>@registration.Email</td>
+                                }
+                                @if (unionActivity.RequirePhonenumber)
+                                {
+                                    <td>@registration.Phonenumber</td>
+                                }
+                                @if (unionActivity.Information1 != "")
+                                {
+                                    <td>@registration.Information1</td>
+                                }
+                                @if (unionActivity.Information2 != "")
+                                {
+                                    <td>@registration.Information2</td>
+                                }
+                                @if (unionActivity.Information3 != "")
+                                {
+                                    <td>@registration.Information3</td>
+                                }
+                                @if (unionActivity.Information4 != "")
+                                {
+                                    <td>@registration.Information4</td>
+                                }
+                                @if (unionActivity.Information5 != "")
+                                {
+                                    <td>@registration.Information5</td>
+                                }
+                                @if (unionActivity.PInformation1 != "")
+                                {
+                                    <td>@registration.PInformation1</td>
+                                }
+                                @if (unionActivity.PInformation2 != "")
+                                {
+                                    <td>@registration.PInformation2</td>
+                                }
+                                @if (unionActivity.PInformation3 != "")
+                                {
+                                    <td>@registration.PInformation3</td>
+                                }
+                                @if (unionActivity.PInformation4 != "")
+                                {
+                                    <td>@registration.PInformation4</td>
+                                }
+                                @if (unionActivity.PInformation5 != "")
+                                {
+                                    <td>@registration.PInformation5</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        else
+        {
+            <p>You do not have access to this page.</p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You're not logged in.</p>
+    </NotAuthorized>
+</AuthorizeView>
 
 
 
