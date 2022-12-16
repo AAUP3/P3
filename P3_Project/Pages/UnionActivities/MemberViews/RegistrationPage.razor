@@ -12,124 +12,211 @@
 @inject IHttpContextAccessor httpContextAccessor
 
 
-
-<h3>Tilmeld @unionActivity.Name</h3>
-<div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
-    &lt; Tilbage
-</div>
-@if (unionActivity == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
-        <EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
-            <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
-
-            <!--General information-->
-            @if (unionActivity.Information1 != "")
-            {
-                <h4 style ="color:white;font-weight:600;padding-top:10px;">General Information</h4>
-                <div>
-                    <label style="color:white;font-weight:600; padding:5px;" for="information1">@unionActivity.Information1</label>
-                    <InputText id="information1" class="form-control form-style" @bind-Value="DisplayRegistration.Information1"></InputText>
-                </div>
-            }
-            @if (unionActivity.Information2 != "")
-            {
-                <div>
-                    <label style="color:white;font-weight:600;padding:5px;" for="information2">@unionActivity.Information2</label>
-                    <InputText id="information2" class="form-control form-style" @bind-Value="DisplayRegistration.Information2"></InputText>
-                </div>
-            }
-            @if (unionActivity.Information3 != "")
-            {
-                <div>
-                    <label style="color:white;font-weight:600;padding:5px;" for="information3">@unionActivity.Information3</label>
-                    <InputText id="information3" class="form-control form-style" @bind-Value="DisplayRegistration.Information3"></InputText>
-                </div>
-            }
-            @if (unionActivity.Information4 != "")
-            {
-                <div>
-                    <label style="color:white;font-weight:600;padding:5px;" for="information4">@unionActivity.Information4</label>
-                    <InputText id="information4" class="form-control form-style" @bind-Value="DisplayRegistration.Information4"></InputText>
-                </div>
-            }
-            @if (unionActivity.Information5 != "")
-            {
-                <div>
-                    <label style="color:white;font-weight:600;padding:5px;" for="information5">@unionActivity.Information5</label>
-                    <InputText id="information5" class="form-control form-style" @bind-Value="DisplayRegistration.Information5"></InputText>
-                </div>
-            }
-
-            <!--Plane information-->
-            @if(unionActivity.IsYearlyActivity)
-            {
-                <h4 style="color:white;font-weight:600; padding-top: 2%">Flyinformation</h4>
-                <div>
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="flightno">Fly reg.</label>
-                        <InputText id="flightno" class="form-control form-style" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
-                    </div>
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="type">Type</label>
-                        <InputText id="type" class="form-control form-style" @bind-Value="DisplayRegistration.Type"></InputText>
-                    </div>
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="mtow">MTOW</label>
-                        <InputNumber id="mtow" class="form-control form-style" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
-                    </div>
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="club">Klub</label>
-                        <InputText id="club" class="form-control form-style" @bind-Value="DisplayRegistration.Club"></InputText>
-                    </div>
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="startdestination">Startdestination</label>
-                        <InputText id="startdestination" class="form-control form-style" @bind-Value="DisplayRegistration.StartDestination"></InputText>
-                    </div>
-                </div>
-            }
-
-            <!--Personal information-->
-            @if (unionActivity.AllowGroupRegistration)
-            {
-                <h4 style ="color:white;font-weight:600; padding-top: 2%">Personlig Information</h4>
-                <div>
-                    @foreach (var displayRegistration in DisplayRegistrations)
+<AuthorizeView>
+    <Authorized>
+        <h3>Tilmeld @unionActivity.Name</h3>
+        <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
+            &lt; Tilbage
+        </div>
+        @if (unionActivity == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
+                <EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
+                    <!--General information-->
+                    @if (unionActivity.Information1 != "")
                     {
-                        <h5 style="color:white; font-weight:500; padding-top: 1%">Person</h5>
+                        <h4 style ="color:white;font-weight:600;padding-top:10px;">General Information</h4>
+                        <div>
+                            <label style="color:white;font-weight:600; padding:5px;" for="information1">@unionActivity.Information1</label>
+                            <InputText id="information1" class="form-control form-style" @bind-Value="DisplayRegistration.Information1"></InputText>
+                        </div>
+                    }
+                    @if (unionActivity.Information2 != "")
+                    {
+                        <div>
+                            <label style="color:white;font-weight:600;padding:5px;" for="information2">@unionActivity.Information2</label>
+                            <InputText id="information2" class="form-control form-style" @bind-Value="DisplayRegistration.Information2"></InputText>
+                        </div>
+                    }
+                    @if (unionActivity.Information3 != "")
+                    {
+                        <div>
+                            <label style="color:white;font-weight:600;padding:5px;" for="information3">@unionActivity.Information3</label>
+                            <InputText id="information3" class="form-control form-style" @bind-Value="DisplayRegistration.Information3"></InputText>
+                        </div>
+                    }
+                    @if (unionActivity.Information4 != "")
+                    {
+                        <div>
+                            <label style="color:white;font-weight:600;padding:5px;" for="information4">@unionActivity.Information4</label>
+                            <InputText id="information4" class="form-control form-style" @bind-Value="DisplayRegistration.Information4"></InputText>
+                        </div>
+                    }
+                    @if (unionActivity.Information5 != "")
+                    {
+                        <div>
+                            <label style="color:white;font-weight:600;padding:5px;" for="information5">@unionActivity.Information5</label>
+                            <InputText id="information5" class="form-control form-style" @bind-Value="DisplayRegistration.Information5"></InputText>
+                        </div>
+                    }
+
+                    <!--Plane information-->
+                    @if(unionActivity.IsYearlyActivity)
+                    {
+                        <h4 style="color:white;font-weight:600; padding-top: 2%">Flyinformation</h4>
+                        <div>
+                            <div>
+                                <label style="color:white;font-weight:600;padding:5px;" for="flightno">Fly reg.</label>
+                                <InputText id="flightno" class="form-control form-style" @bind-Value="DisplayRegistration.FlightRegistrationNumber"></InputText>
+                            </div>
+                            <div>
+                                <label style="color:white;font-weight:600;padding:5px;" for="type">Type</label>
+                                <InputText id="type" class="form-control form-style" @bind-Value="DisplayRegistration.Type"></InputText>
+                            </div>
+                            <div>
+                                <label style="color:white;font-weight:600;padding:5px;" for="mtow">MTOW</label>
+                                <InputNumber id="mtow" class="form-control form-style" @bind-Value="DisplayRegistration.MaxTakeoffWeight"></InputNumber>
+                            </div>
+                            <div>
+                                <label style="color:white;font-weight:600;padding:5px;" for="club">Klub</label>
+                                <InputText id="club" class="form-control form-style" @bind-Value="DisplayRegistration.Club"></InputText>
+                            </div>
+                            <div>
+                                <label style="color:white;font-weight:600;padding:5px;" for="startdestination">Startdestination</label>
+                                <InputText id="startdestination" class="form-control form-style" @bind-Value="DisplayRegistration.StartDestination"></InputText>
+                            </div>
+                        </div>
+                    }
+
+                    <!--Personal information-->
+                    @if (unionActivity.AllowGroupRegistration)
+                    {
+                        <h4 style ="color:white;font-weight:600; padding-top: 2%">Personlig Information</h4>
+                        <div>
+                            @foreach (var displayRegistration in DisplayRegistrations)
+                            {
+                                <h5 style="color:white; font-weight:500; padding-top: 1%">Person</h5>
+                                @if (unionActivity.RequireName)
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="name">Navn</label>
+                                        <InputText id="name" class="form-control form-style" @bind-Value="displayRegistration.Name"></InputText>
+                                    </div>
+                                }
+                                @if (unionActivity.RequireEmail)
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="email">Email</label>
+                                        <InputText id="email" class="form-control form-style" @bind-Value="displayRegistration.Email"></InputText>
+                                    </div>
+                                }
+                                @if (unionActivity.RequirePhonenumber)
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="phonenumber">Telefonnummer</label>
+                                        <InputText id="phonenumber" class="form-control form-style" @bind-Value="displayRegistration.Phonenumber"></InputText>
+                                    </div>
+                                }
+                                @if(unionActivity.IsYearlyActivity)
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="participationtype">Deltagertype</label>
+                                        <InputSelect id="participationtype" class="form-control" style="max-width: 10%; min-width: 100px;" @bind-Value="displayRegistration.ParticipantType">
+                                            <option value="" selected>-vælg type-</option>
+                                            <option value="PIC">PIC</option>
+                                            <option value="COP">COP</option>
+                                            <option value="PAX">PAX</option>
+                                        </InputSelect>
+                                    </div>
+                                }
+                                @if (unionActivity.PInformation1 != "")
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation1">@unionActivity.PInformation1</label>
+                                        <InputText id="pInformation1" class="form-control form-style" @bind-Value="displayRegistration.PInformation1"></InputText>
+                                    </div>
+                                }
+                                @if (unionActivity.PInformation2 != "")
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation2">@unionActivity.PInformation2</label>
+                                        <InputText id="pInformation2" class="form-control form-style" @bind-Value="displayRegistration.PInformation2"></InputText>
+                                    </div>
+                                }
+                                @if (unionActivity.PInformation3 != "")
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation3">@unionActivity.PInformation3</label>
+                                        <InputText id="pInformation3" class="form-control form-style" @bind-Value="displayRegistration.PInformation3"></InputText>
+                                    </div>
+                                }
+                                @if (unionActivity.PInformation4 != "")
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation4">@unionActivity.PInformation4</label>
+                                        <InputText id="pInformation4" class="form-control form-style" @bind-Value="displayRegistration.PInformation4"></InputText>
+                                    </div>
+                                }
+                                @if (unionActivity.PInformation5 != "")
+                                {
+                                    <div>
+                                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation5">@unionActivity.PInformation5</label>
+                                        <InputText id="pInformation5" class="form-control form-style" @bind-Value="displayRegistration.PInformation5"></InputText>
+                                    </div>
+                                }
+                            }
+                            <!--Buttons for adding new participants-->
+                            <div style="text-align: center; padding-top:15px;">
+                                <button type="button" class="btn btn-light" @onclick="Add">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                    Tilføj Deltager
+                                </button>
+                                @if(DisplayRegistrations.Count>1)
+                                {
+                                <button type="button" class="btn btn-light" @onclick="Remove">
+                                    <i class="fa-solid fa-user-minus"></i>
+                                    Fjern Deltager
+                                </button>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <h4 style="color:white;font-weight:600; padding-top: 2%">Personlig Information</h4>
                         @if (unionActivity.RequireName)
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="name">Navn</label>
-                                <InputText id="name" class="form-control form-style" @bind-Value="displayRegistration.Name"></InputText>
+                                <InputText id="name" class="form-control form-style" @bind-Value="DisplayRegistration.Name"></InputText>
                             </div>
                         }
                         @if (unionActivity.RequireEmail)
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="email">Email</label>
-                                <InputText id="email" class="form-control form-style" @bind-Value="displayRegistration.Email"></InputText>
+                                <InputText id="email" class="form-control form-style" @bind-Value="DisplayRegistration.Email"></InputText>
                             </div>
                         }
                         @if (unionActivity.RequirePhonenumber)
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="phonenumber">Telefonnummer</label>
-                                <InputText id="phonenumber" class="form-control form-style" @bind-Value="displayRegistration.Phonenumber"></InputText>
+                                <InputText id="phonenumber" class="form-control form-style" @bind-Value="DisplayRegistration.Phonenumber"></InputText>
                             </div>
                         }
-                        @if(unionActivity.IsYearlyActivity)
+                        @if (unionActivity.IsYearlyActivity)
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="participationtype">Deltagertype</label>
-                                <InputSelect id="participationtype" class="form-control" style="max-width: 10%; min-width: 100px;" @bind-Value="displayRegistration.ParticipantType">
+                                <InputSelect id="participationtype" class="form-control" style="max-width: 10%; min-width: 100px;" @bind-Value="DisplayRegistration.ParticipantType">
                                     <option value="" selected>-vælg type-</option>
                                     <option value="PIC">PIC</option>
                                     <option value="COP">COP</option>
@@ -141,140 +228,54 @@ else
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="pInformation1">@unionActivity.PInformation1</label>
-                                <InputText id="pInformation1" class="form-control form-style" @bind-Value="displayRegistration.PInformation1"></InputText>
+                                <InputText id="pInformation1" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation1"></InputText>
                             </div>
                         }
                         @if (unionActivity.PInformation2 != "")
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="pInformation2">@unionActivity.PInformation2</label>
-                                <InputText id="pInformation2" class="form-control form-style" @bind-Value="displayRegistration.PInformation2"></InputText>
+                                <InputText id="pInformation2" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation2"></InputText>
                             </div>
                         }
                         @if (unionActivity.PInformation3 != "")
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="pInformation3">@unionActivity.PInformation3</label>
-                                <InputText id="pInformation3" class="form-control form-style" @bind-Value="displayRegistration.PInformation3"></InputText>
+                                <InputText id="pInformation3" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation3"></InputText>
                             </div>
                         }
                         @if (unionActivity.PInformation4 != "")
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="pInformation4">@unionActivity.PInformation4</label>
-                                <InputText id="pInformation4" class="form-control form-style" @bind-Value="displayRegistration.PInformation4"></InputText>
+                                <InputText id="pInformation4" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation4"></InputText>
                             </div>
                         }
                         @if (unionActivity.PInformation5 != "")
                         {
                             <div>
                                 <label style="color:white;font-weight:600;padding:5px;" for="pInformation5">@unionActivity.PInformation5</label>
-                                <InputText id="pInformation5" class="form-control form-style" @bind-Value="displayRegistration.PInformation5"></InputText>
+                                <InputText id="pInformation5" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation5"></InputText>
                             </div>
                         }
                     }
-
-
-                    <div style="text-align: center; padding-top:15px;">
-                        <button type="button" class="btn btn-light" @onclick="Add">
-                            <i class="fa-solid fa-user-plus"></i>
-                            Tilføj Deltager
-                        </button>
-                        @if(DisplayRegistrations.Count>1)
-                        {
-                        <button type="button" class="btn btn-light" @onclick="Remove">
-                            <i class="fa-solid fa-user-minus"></i>
-                            Fjern Deltager
-                        </button>
-                        }
+                    <!--Buttons for going back and signing up-->
+                    <div style="padding-top:30px">
+                        <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
+                        <button type="submit" class="btn btn-light">Tilmeld</button>
                     </div>
-                </div>
-            }
-            else
-            {
-                <h4 style="color:white;font-weight:600; padding-top: 2%">Personlig Information</h4>
-                @if (unionActivity.RequireName)
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="name">Navn</label>
-                        <InputText id="name" class="form-control form-style" @bind-Value="DisplayRegistration.Name"></InputText>
-                    </div>
-                }
-                @if (unionActivity.RequireEmail)
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="email">Email</label>
-                        <InputText id="email" class="form-control form-style" @bind-Value="DisplayRegistration.Email"></InputText>
-                    </div>
-                }
-                @if (unionActivity.RequirePhonenumber)
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="phonenumber">Telefonnummer</label>
-                        <InputText id="phonenumber" class="form-control form-style" @bind-Value="DisplayRegistration.Phonenumber"></InputText>
-                    </div>
-                }
-                @if (unionActivity.IsYearlyActivity)
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="participationtype">Deltagertype</label>
-                        <InputSelect id="participationtype" class="form-control" style="max-width: 10%; min-width: 100px;" @bind-Value="DisplayRegistration.ParticipantType">
-                            <option value="" selected>-vælg type-</option>
-                            <option value="PIC">PIC</option>
-                            <option value="COP">COP</option>
-                            <option value="PAX">PAX</option>
-                        </InputSelect>
-                    </div>
-                }
-                @if (unionActivity.PInformation1 != "")
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation1">@unionActivity.PInformation1</label>
-                        <InputText id="pInformation1" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation1"></InputText>
-                    </div>
-                }
-                @if (unionActivity.PInformation2 != "")
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation2">@unionActivity.PInformation2</label>
-                        <InputText id="pInformation2" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation2"></InputText>
-                    </div>
-                }
-                @if (unionActivity.PInformation3 != "")
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation3">@unionActivity.PInformation3</label>
-                        <InputText id="pInformation3" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation3"></InputText>
-                    </div>
-                }
-                @if (unionActivity.PInformation4 != "")
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation4">@unionActivity.PInformation4</label>
-                        <InputText id="pInformation4" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation4"></InputText>
-                    </div>
-                }
-                @if (unionActivity.PInformation5 != "")
-                {
-                    <div>
-                        <label style="color:white;font-weight:600;padding:5px;" for="pInformation5">@unionActivity.PInformation5</label>
-                        <InputText id="pInformation5" class="form-control form-style" @bind-Value="DisplayRegistration.PInformation5"></InputText>
-                    </div>
-                }
-            }
-
-            <div style="padding-top:30px">
-                <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
-                <button type="submit" class="btn btn-light">Tilmeld</button>
+                </EditForm>
             </div>
-            <!-- <button type="button" @onclick="showNUmber">Nummer</button>
-            @if (test)
-            {
-            @Registration.Phonenumber
-            }-->
-        </EditForm>
-    </div>
-}
+        }
+    </Authorized>
+    <NotAuthorized>
+        <p>You're not logged in.</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
 
 
 

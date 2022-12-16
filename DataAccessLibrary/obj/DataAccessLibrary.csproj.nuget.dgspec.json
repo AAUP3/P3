@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {}
+    "C:\\Users\\night\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
+    "C:\\Users\\night\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\night\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
         "projectName": "DataAccessLibrary",
-        "projectPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
-        "packagesPath": "C:\\Users\\Kira\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kira\\Documents\\GitHub\\P3\\DataAccessLibrary\\obj\\",
+        "projectPath": "C:\\Users\\night\\Documents\\GitHub\\P3\\DataAccessLibrary\\DataAccessLibrary.csproj",
+        "packagesPath": "C:\\Users\\night\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\night\\Documents\\GitHub\\P3\\DataAccessLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Kira\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\night\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
