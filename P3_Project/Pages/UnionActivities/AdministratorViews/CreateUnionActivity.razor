@@ -25,7 +25,7 @@
 
             <div style="padding-bottom: 20px">
                 <div style="background-color: #3846c0; border-radius: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 10px">
-                    <EditForm Model="@newUnionActivity" OnSubmit="() => _db.InsertUnionActivity(SubmitUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity))">
+                    <EditForm Context="Editform" Model="@newUnionActivity" OnSubmit="() => _db.InsertUnionActivity(SubmitUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity))">
                         @if (FirstScreen)
                         {
                             <div class="InputField" style="max-width: 98.5%;">

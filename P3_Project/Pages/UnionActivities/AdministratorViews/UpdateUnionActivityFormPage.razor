@@ -22,7 +22,7 @@
                 <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
                 &lt; Tilbage
                 </div>
-                <EditForm Model="@unionActivity" OnSubmit="() => UpdateUnionActivity(unionActivity.Id, unionActivity)">
+                <EditForm Context="Editform" Model="@unionActivity" OnSubmit="() => UpdateUnionActivity(unionActivity.Id, unionActivity)">
                     @if (FirstScreen)
                     {
                         <div class="InputField" style="max-width: 98.5%;">
