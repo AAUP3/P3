@@ -24,7 +24,7 @@
         else
         {
             <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
-                <EditForm Context="Editform" Model="@DisplayRegistration" OnSubmit="() => RegistrationListToDB(SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity, unionActivities),_db)" class="">
+                <EditForm Context="Editform" Model="@DisplayRegistration" OnSubmit="() => RegistrationListToDB(SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity),_db)" class="">
 
                     <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
 
@@ -333,7 +333,7 @@
 
     }
 
-    public static List<RegistrationModel> SubmitRegistration(int Id, string userId, string format, DisplayRegistrationModel DisplayRegistration, List<DisplayRegistrationModel> DisplayRegistrations, UnionActivityModel unionActivity, List<UnionActivityModel> unionActivities)
+    public static List<RegistrationModel> SubmitRegistration(int Id, string userId, string format, DisplayRegistrationModel DisplayRegistration, List<DisplayRegistrationModel> DisplayRegistrations, UnionActivityModel unionActivity)
     {
         List<RegistrationModel> FinishedRegistrations = new List<RegistrationModel>(); ;
 
