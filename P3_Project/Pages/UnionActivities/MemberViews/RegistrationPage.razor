@@ -24,9 +24,7 @@
 else
 {
     <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
-        <EditForm Model="@DisplayRegistration" OnValidSubmit="@Submit" class="">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+        <EditForm Model="@DisplayRegistration" OnSubmit="() => RegistrationListToDB(SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity, unionActivities),_db)" class="">
 
             <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
 
@@ -264,8 +262,8 @@ else
             }
 
             <div style="padding-top:30px">
-                <button type="button" class="btn btn-danger" @onclick="GoBack">Annuller</button>
-                <button type="submit" class="btn btn-light">Tilmeld</button>
+                <button type="button" class="btn btn-danger" @onclick="GoToUAOverview">Annuller</button>
+                <button type="submit" class="btn btn-light" @onclick="GoToUAOverview">Tilmeld</button>
             </div>
             <!-- <button type="button" @onclick="showNUmber">Nummer</button>
             @if (test)
@@ -295,8 +293,7 @@ else
     public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
     public List<DisplayRegistrationModel> DisplayRegistrations = new List<DisplayRegistrationModel>();
 
-    public string[] infoFields = new string[] { "", "", "", "", "" };
-    public string[] pInfoFields = new string[] { "", "", "", "", "" };
+   
 
 
 
@@ -329,8 +326,10 @@ else
 
     }
 
-    private async Task Submit()
+    public static List<RegistrationModel> SubmitRegistration(int Id, string userId, string format, DisplayRegistrationModel DisplayRegistration, List<DisplayRegistrationModel> DisplayRegistrations, UnionActivityModel unionActivity, List<UnionActivityModel> unionActivities)
     {
+        List<RegistrationModel> FinishedRegistrations = new List<RegistrationModel>(); ;
+
         string[] info = new string[] { "", "", "", "", "" };
         string[] pInfo = new string[] { "", "", "", "", "" };
 
@@ -383,7 +382,8 @@ else
 
                     };
 
-                await _db.InsertRegistration(r);
+                //Adds each registration to returned list
+                FinishedRegistrations.Add(r);
 
             }
         }
@@ -428,13 +428,22 @@ else
 
                 };
 
-            await _db.InsertRegistration(r);
-
+            //Adds each registration to returned list
+            FinishedRegistrations.Add(r);
         }
 
+        return FinishedRegistrations;
 
+        //NavigationManager.NavigateTo("/");
+    }
 
-        NavigationManager.NavigateTo("/");
+    public static async Task RegistrationListToDB(List<RegistrationModel> FinishedRegistrations, IRegistrationData _db)
+    {
+        foreach(var registration in FinishedRegistrations)
+        {
+            await _db.InsertRegistration(registration);
+        }
+
     }
 
 

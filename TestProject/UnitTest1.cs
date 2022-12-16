@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Data;
 using Bunit;
 using P3_Project.Pages.UnionActivities.AdministratorViews;
+using P3_Project.Pages.UnionActivities.MemberViews;
 using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using P3_Project.Models;
@@ -57,11 +58,11 @@ namespace TestProject
             AllowGroupRegistration = false
         };
 
-        static int infoCount, pInfoCount = 0;
+        private static int infoCount, pInfoCount = 0;
 
 
         [Fact]
-        public void Test1()
+        public void TestUnionActivityModelTransfer()
         {
             //act
 
@@ -92,6 +93,70 @@ namespace TestProject
             Assert.True(testUnionActivity.AllowGroupRegistration);
 
         }
+    }
+
+    public class UnitTest2 : TestContext 
+    {
+        private static int Id = 5;
+        private static string userId = "iuwery78weiofu89";
+        string format = "## ## ## ##";
+
+
+        private static List<DisplayRegistrationModel> testRegistrations = new List<DisplayRegistrationModel>();
+
+        private static DisplayRegistrationModel DisplayRegistration = new DisplayRegistrationModel
+        {
+            FlightRegistrationNumber = "",
+            Type = "",
+            MaxTakeoffWeight = 0,
+            Club = "",
+            StartDestination = "",
+            Name = "",
+            Email = "",
+            Phonenumber = "",
+            ParticipantType = "",
+            UnionActivityID = 0,
+            UserId = "",
+            Information1 = "",
+            Information2 = "",
+            Information3 = "",
+            Information4 = "",
+            Information5 = "",
+            PInformation1 = "",
+            PInformation2 = "",
+            PInformation3 = "",
+            PInformation4 = "",
+            PInformation5 = ""
+        };
+
+        private static UnionActivityModel UnionActivity = new UnionActivityModel
+        {
+            Name = "Flyvetur",
+            Description = "Beskrivelse",
+            DateOfActivity = new DateTime(2001, 9, 8),
+            IsVisible = false,
+            RequireName = true,
+            RequireEmail = true,
+            RequirePhonenumber = true,
+            IsYearlyActivity = true,
+            AllowRegistration = true,
+            AllowGroupRegistration = true
+        };
+
+        private static List<RegistrationModel> testRegistrations = new List<RegistrationModel>();
+
+
+
+        [Fact]
+        public void TestRegistrationModelTransfer() 
+        {
+
+            testRegistrations = RegistrationPage.SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity, unionActivities);
+
+
+
+        }
+    
     }
     
 }
