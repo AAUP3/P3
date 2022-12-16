@@ -53,11 +53,11 @@
                                 <InputCheckbox @bind-Value="newUnionActivity.AllowGroupRegistration" id="allowgroupregistration"></InputCheckbox>
                                 <label style="color:white;font-weight:600;padding:5px;" for="allowgroupregistration">Gruppe-tilmelding tilladt</label>
                             </div>
-                            <button style="padding-bottom:10px" class="btn btn-primary" type="button" @onclick="NextScreen">Næste</button>
+                            <button style="padding-bottom:10px" class="btn btn-light" type="button" @onclick="NextScreen">Næste</button>
                         }
                         @if (!FirstScreen)
                         {
-                            <p>Generel Information</p>
+                            <h4 style="color:white;font-weight:600;padding-top:10px;">General Information</h4>
                             @foreach (var infoField in infoFields)
                             {
 
@@ -72,18 +72,19 @@
                                 <button type="button" @onclick="RemoveInformation" class="btn btn-light">Fjern felt</button>
                             </div>
 
-                            <p style="padding-top: 2%">Personlig Information</p>
-                            <div>
-                                <label for="requirename">Navn</label>
+                            <h4 style="color:white;font-weight:600; padding-top: 2%">Personlig Information</h4>
+                            
+                            <div class="form-check InputField">
                                 <InputCheckbox @bind-Value="newUnionActivity.RequireName" id="requirename"></InputCheckbox>
+                                <label style="color:white;font-weight:600;padding:5px;" for="requirename">Navn</label>
                             </div>
-                            <div>
-                                <label for="requireemail">E-mail</label>
+                            <div class="form-check InputField">
                                 <InputCheckbox @bind-Value="newUnionActivity.RequireEmail" id="requireemail"></InputCheckbox>
+                                <label style="color:white;font-weight:600;padding:5px;" for="requireemail">Email</label>
                             </div>
-                            <div>
-                                <label for="requirephone">Telefonnummer</label>
+                            <div class="form-check InputField">
                                 <InputCheckbox @bind-Value="newUnionActivity.RequirePhonenumber" id="requirephone"></InputCheckbox>
+                                <label style="color:white;font-weight:600;padding:5px;" for="requirephone">Mobilnummer</label>
                             </div>
 
 
