@@ -21,7 +21,7 @@
         {
             <p>Loading...</p>
         }
-        else
+        else if(unionActivity.AllowRegistration)
         {
             <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
                 <EditForm Context="Editform" Model="@DisplayRegistration" OnSubmit="() => RegistrationListToDB(SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity),_db)" class="">
@@ -272,6 +272,10 @@
                     }-->
                 </EditForm>
             </div>
+        }
+        else
+        {
+            <p>Registrering ikke tilladt.</p>
         }
     </Authorized>
     <NotAuthorized>
