@@ -104,7 +104,7 @@ namespace TestProject
         {
             FlightRegistrationNumber = "OY-9933",
             Type = "Cessna",
-            MaxTakeoffWeight = 2000,
+            MTOW = 2000,
             Club = "DMU",
             StartDestination = "Aalborg",
             Information1 = "G1svar",
@@ -161,7 +161,7 @@ namespace TestProject
             //registration for person 1
             Assert.Equal(DisplayRegistration.FlightRegistrationNumber, testRegistrations[0].FlightRegistrationNumber);
             Assert.Equal(DisplayRegistration.Type, testRegistrations[0].Type);
-            Assert.Equal(DisplayRegistration.MaxTakeoffWeight, testRegistrations[0].MaxTakeoffWeight);
+            Assert.Equal(DisplayRegistration.MTOW, testRegistrations[0].MTOW);
             Assert.Equal(DisplayRegistration.Club, testRegistrations[0].Club);
             Assert.Equal(DisplayRegistration.StartDestination, testRegistrations[0].StartDestination);
             Assert.Equal(DisplayRegistrations[0].Name, testRegistrations[0].Name);
@@ -184,7 +184,7 @@ namespace TestProject
             //registration for person 2
             Assert.Equal(DisplayRegistration.FlightRegistrationNumber, testRegistrations[1].FlightRegistrationNumber);
             Assert.Equal(DisplayRegistration.Type, testRegistrations[1].Type);
-            Assert.Equal(DisplayRegistration.MaxTakeoffWeight, testRegistrations[1].MaxTakeoffWeight);
+            Assert.Equal(DisplayRegistration.MTOW, testRegistrations[1].MTOW);
             Assert.Equal(DisplayRegistration.Club, testRegistrations[1].Club);
             Assert.Equal(DisplayRegistration.StartDestination, testRegistrations[1].StartDestination);
             Assert.Equal(DisplayRegistrations[1].Name, testRegistrations[1].Name);

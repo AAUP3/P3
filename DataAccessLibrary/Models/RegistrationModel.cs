@@ -11,7 +11,7 @@ namespace DataAccessLibrary.Models
     {
         public string FlightRegistrationNumber { get; set; }
         public string Type { get; set; }
-        public int MaxTakeoffWeight { get; set; }
+        public int MTOW { get; set; }
         public string Club { get; set; }
         public string StartDestination { get; set; }
         public string Name { get; set; }
