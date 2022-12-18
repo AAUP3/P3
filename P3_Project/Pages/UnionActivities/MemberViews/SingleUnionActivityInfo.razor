@@ -55,7 +55,7 @@
 
 @code {
     [Parameter]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
 
 
@@ -63,15 +63,13 @@
     private List<UnionActivityModel> unionActivities;
     private List<RegistrationModel> CurrentUserRegistrations;
     private RegistrationModel Delete;
-    private string currentUserName;
+    private string currentUserId;
 
     protected override async Task OnInitializedAsync()
     {
-        unionActivities = await _db.GetUnionActivities();
-        unionActivity = GetSingleUnionActivity((int)Id);
-
-        currentUserName = _UserManager.GetUserId(httpContextAccessor.HttpContext.User);
-        CurrentUserRegistrations = await _rdb.GetCurrentUserRegistrations(currentUserName);
+        unionActivity = await _db.GetSingleUnionActivity(Id);
+        currentUserId = _UserManager.GetUserId(httpContextAccessor.HttpContext.User);
+        CurrentUserRegistrations = await _rdb.GetCurrentUserRegistrations(currentUserId);
     }
 
 
@@ -106,10 +104,9 @@
     }
     async void CancelRegistration(int unionActivityId)
     {
+        await _rdb.CancelRegistration(currentUserId, unionActivityId);
 
-        await _rdb.CancelRegistration(currentUserName, unionActivityId);
-
-        NavigationManager.NavigateTo("begivenheder", true);
+        NavigationManager.NavigateTo("begivenheder");
     }
 
     void GoToRegistration(int id)

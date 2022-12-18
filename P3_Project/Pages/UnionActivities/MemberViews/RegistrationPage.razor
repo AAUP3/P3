@@ -174,13 +174,13 @@
 
 
                             <div style="text-align: center; padding-top:15px;">
-                                <button type="button" class="btn btn-light" @onclick="Add">
+                                <button type="button" class="btn btn-light" @onclick="AddParticipant">
                                     <i class="fa-solid fa-user-plus"></i>
                                     Tilføj Deltager
                                 </button>
                                 @if(DisplayRegistrations.Count>1)
                                 {
-                                <button type="button" class="btn btn-light" @onclick="Remove">
+                                <button type="button" class="btn btn-light" @onclick="RemoveParticipant">
                                     <i class="fa-solid fa-user-minus"></i>
                                     Fjern Deltager
                                 </button>
@@ -304,7 +304,7 @@
     public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
     public List<DisplayRegistrationModel> DisplayRegistrations = new List<DisplayRegistrationModel>();
 
-   
+
 
 
 
@@ -325,17 +325,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //DisplayRegistrations.Add(DisplayRegistration);
-        unionActivities = await _ua.GetUnionActivities();
-        unionActivity = await _ua.GetSingleUnionActivity((int)Id);
+        unionActivity = await _ua.GetSingleUnionActivity(Id);
         DisplayRegistrations.Add(new DisplayRegistrationModel());
         userId = _UserManager.GetUserId(httpContextAccessor.HttpContext.User);
     }
 
-    public void AddParticipant()
-    {
-
-    }
+   
 
     public static List<RegistrationModel> SubmitRegistration(int Id, string userId, string format, DisplayRegistrationModel DisplayRegistration, List<DisplayRegistrationModel> DisplayRegistrations, UnionActivityModel unionActivity)
     {
@@ -463,23 +458,24 @@
         NavigationManager.NavigateTo("/");
     }
 
-        void GoToUAOverview()
+    void GoToUAOverview()
     {
         NavigationManager.NavigateTo($"/begivenheder");
     }
 
-    void Add()
+    void AddParticipant()
     {
-        DisplayRegistrations.Add(new DisplayRegistrationModel());
-
+        if (DisplayRegistrations.Count < 6)
+        {
+            DisplayRegistrations.Add(new DisplayRegistrationModel());  
+        }
     }
 
-    void Remove()
+    void RemoveParticipant()
     {
-        if(DisplayRegistrations.Count>1)
+        if(DisplayRegistrations.Count > 1)
         {
-        int count = DisplayRegistrations.Count;
-        DisplayRegistrations.RemoveAt(count - 1);
+        DisplayRegistrations.RemoveAt(DisplayRegistrations.Count - 1);
         }
     }
 }

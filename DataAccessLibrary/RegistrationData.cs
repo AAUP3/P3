@@ -42,7 +42,7 @@ namespace DataAccessLibrary
         public Task InsertRegistration(RegistrationModel registration)
         {
             string sql = @"insert into dbo.Registration (FlightRegistrationNumber, Type, MTOW, Club, Startdestination, Name, Email, Phonenumber, ParticipantType, UnionActivityID, UserId, Information1, Information2, Information3, Information4, Information5, PInformation1, PInformation2, PInformation3, PInformation4, PInformation5) 
-                                                values (@FlightRegistrationNumber, @Type, @MaxTakeoffWeight, @Club, @Startdestination, @Name, @Email, @Phonenumber, @ParticipantType, @UnionActivityID, @UserId, @Information1, @Information2, @Information3, @Information4, @Information5, @PInformation1, @PInformation2, @PInformation3, @PInformation4, @PInformation5);";
+                                                values (@FlightRegistrationNumber, @Type, @MTOW, @Club, @Startdestination, @Name, @Email, @Phonenumber, @ParticipantType, @UnionActivityID, @UserId, @Information1, @Information2, @Information3, @Information4, @Information5, @PInformation1, @PInformation2, @PInformation3, @PInformation4, @PInformation5);";
 
             return _db.SaveData(sql, registration);
         }

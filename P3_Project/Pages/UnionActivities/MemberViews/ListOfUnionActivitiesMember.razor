@@ -183,11 +183,6 @@
     protected override async Task OnInitializedAsync()
     {
         unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
-        currentUserName = _UserManager.GetUserId(httpContextAccessor.HttpContext.User);
-
-
-        CurrentUserRegistrations = await _rdb.GetCurrentUserRegistrations(currentUserName);
-
     }
 
     private bool IsRegistered(int unionActivityId)
