@@ -1,0 +1,85 @@
+﻿@page "/begivenheder/{id:int}"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using P3_Project.Models
+
+@inject IUnionActivityData _db
+@inject NavigationManager NavigationManager
+
+
+@if (unionActivity == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+<div class="container col-lg-12 col-md-12 col-12" style="">
+        <h3>Tilmeld - @unionActivity.Name</h3>
+        <div class="row col-lg-12" style="">
+            <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold;">
+                &lt; Tilbage
+            </div>
+            <div class="col-md-12 col-lg-12 active" style="background-color: #3846c0; border-radius: 10px;">
+                    <div class="col-12 h4" style="text-align: left; font-weight: bold; color: white; padding-top: 10px;">Beskrivelse</div>
+                <div class="col-12" style="background-color: white; border-radius: 10px; padding-left: 10px; padding-right: 7px; min-height: 100px;"><p>@unionActivity.Description</p></div>
+                    <div class="col" style="padding: 17px;" align="center">
+                    <button class="btn btn-primary" @onclick="() => GoToRegistration(unionActivity.Id)">
+                        Tilmeld</button>
+                    </div>              
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+
+
+    private UnionActivityModel unionActivity;
+    private List<UnionActivityModel> unionActivities;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        unionActivities = await _db.GetUnionActivities();
+        unionActivity = GetSingleUnionActivity((int)Id);
+    }
+
+
+
+    private UnionActivityModel GetSingleUnionActivity(int id)
+    {
+        foreach (var unionActivity in unionActivities)
+        {
+            if (unionActivity.Id == id)
+            {
+                return unionActivity;
+                break;
+            }
+            else
+            {
+
+            }
+        }
+        return unionActivity;
+    }
+
+
+    void GoToRegistration(int id)
+    {
+        NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
+    }
+    void GoToUAOverview()
+    {
+        NavigationManager.NavigateTo($"/begivenheder/listofua");
+    }
+
+    
+}

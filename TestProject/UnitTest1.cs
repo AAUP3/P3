@@ -3,11 +3,16 @@ using System;
 using System.Diagnostics;
 using System.Data;
 using Bunit;
+
 using P3_Project.Pages.UnionActivities.AdministratorViews;
 using P3_Project.Pages.UnionActivities.MemberViews;
 using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using P3_Project.Models;
+using Moq;
+using Dapper;
+using Autofac.Extras.Moq;
+using Xunit;
 
 namespace TestProject
 {
@@ -15,8 +20,8 @@ namespace TestProject
     {
         //arrange
 
-        private static List<InformationFieldModel> infoFields = new List<InformationFieldModel> { new InformationFieldModel("G1") , new InformationFieldModel("G2") , new InformationFieldModel("G3") , new InformationFieldModel("G4") , new InformationFieldModel("G5") };
-        private static List<InformationFieldModel> pInfoFields = new List<InformationFieldModel> { new InformationFieldModel("P1") , new InformationFieldModel("P2") , new InformationFieldModel("P3") , new InformationFieldModel("P4") , new InformationFieldModel("P5") };
+        private static List<InformationFieldModel> infoFields = new List<InformationFieldModel> { new InformationFieldModel("G1"), new InformationFieldModel("G2"), new InformationFieldModel("G3"), new InformationFieldModel("G4"), new InformationFieldModel("G5") };
+        private static List<InformationFieldModel> pInfoFields = new List<InformationFieldModel> { new InformationFieldModel("P1"), new InformationFieldModel("P2"), new InformationFieldModel("P3"), new InformationFieldModel("P4"), new InformationFieldModel("P5") };
 
         private static DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel
         {
@@ -93,7 +98,7 @@ namespace TestProject
         }
     }
 
-    public class UnitTest2 : TestContext 
+    public class UnitTest2 : TestContext
     {
         //arrange
         private static int Id = 5;
@@ -152,7 +157,7 @@ namespace TestProject
 
 
         [Fact]
-        public void TestRegistrationModelTransfer() 
+        public void TestRegistrationModelTransfer()
         {
             //act
             testRegistrations = RegistrationPage.SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity);
@@ -205,7 +210,193 @@ namespace TestProject
             Assert.Equal(DisplayRegistrations[1].PInformation5, testRegistrations[1].PInformation5);
 
         }
-    
+
     }
+
+
+
+
+
+    public class UnitTest3 : TestContext
+    {
+        private List<UnionActivityModel> LoadSampleActivities()
+        {
+            List<UnionActivityModel> output = new List<UnionActivityModel>
+            {
+                new UnionActivityModel
+                {
+                    Id = 1,
+                    Name = "Begivenhed 1",
+                    Description = "Beskrivelse 1"
+
+                },
+                new UnionActivityModel
+                {
+                    Id = 2,
+                    Name = "Begivenhed 2",
+                    Description = "Beskrivelse 2"
+                }
+            };
+            return output.ToList();
+        }
+        [Fact]
+        public async void TestLoadData()
+        {
+            string sql = "SELECT * FROM dbo.TestTable";
+            // LoadData<UnionActivityModel, dynamic>(sql, new { });
+            List<UnionActivityModel> expected = LoadSampleActivities();
+            SqlDataAccess test = new SqlDataAccess();
+            List<UnionActivityModel> actual = await test.LoadData<UnionActivityModel, dynamic>(sql, new { });
+
+            // change 2 to actual.Count when inserting it to the report
+            for (int i = 0; i < 2; i++)
+            {
+                Assert.Equal(expected[i].Id, actual[i].Id);
+                Assert.Equal(expected[i].Name, actual[i].Name);
+                Assert.Equal(expected[i].Description, actual[i].Description);
+            }
+        }
+
+    }
+
+    public class UnitTest4 : TestContext
+    {
+        [Fact]
+        public async void SaveDatatest()
+        {
+            string sqlInsert = "INSERT INTO dbo.TestTable (Id, Name, Description) values (@Id, @Name, @Description);";
+            UnionActivityModel unionActivity = new UnionActivityModel
+            {
+                Id = 3,
+                Name = "Begivenhed 3",
+                Description = "Beskrivelse 3"
+            };
+
+            UnionActivityModel expected = unionActivity;
+            SqlDataAccess access = new SqlDataAccess();
+            await access.SaveData(sqlInsert, unionActivity);
+            string sqlLoad = "SELECT * FROM dbo.TestTable";
+            List<UnionActivityModel> ListOfCurrentActivities = await access.LoadData<UnionActivityModel, dynamic>(sqlLoad, new { });
+            // return _db.SaveData(sql, unionActivity);
+
+            Assert.Equal(expected.Id, ListOfCurrentActivities[ListOfCurrentActivities.Count - 1].Id);
+        }
+    }
+
     
+    public class Test5
+    {
+        [Fact]
+        public async Task InsertDataTestAsync()
+        {
+            UnionActivityModel unionActivity = new UnionActivityModel
+            {
+                Name = "Årstur",
+                Description = "Årstur til Berlin",
+                DateOfActivity = DateTime.Today,
+                IsVisible = true,
+                RequireName = true,
+                RequireEmail = true,
+                RequirePhonenumber = true,
+                Information1 = "",
+                Information2 = "",
+                Information3 = "",
+                Information4 = "",
+                Information5 = "",
+                PInformation1 = "Adresse",
+                PInformation2 = "",
+                PInformation3 = "",
+                PInformation4 = "",
+                PInformation5 = "",
+                IsYearlyActivity = true,
+                AllowRegistration = true,
+                AllowGroupRegistration = false
+            };
+
+            SqlDataAccess dataAccess = new SqlDataAccess();
+            UnionActivityData activityData = new UnionActivityData(dataAccess);
+            string sql = "SELECT * FROM dbo.TestTableIntegraion;";
+
+            await activityData.InsertUnionActivity(unionActivity);
+            List<UnionActivityModel> activities = await dataAccess.LoadData<UnionActivityModel, dynamic>(sql, new {});
+
+            Assert.Equal(unionActivity.Name, activities[activities.Count - 1].Name);
+        }
+    }
+
+
+
+    public class Test6 : TestContext
+    {
+        //arrange
+
+        private static List<InformationFieldModel> infoFields = new List<InformationFieldModel> { new InformationFieldModel("G1"), new InformationFieldModel("G2"), new InformationFieldModel("G3"), new InformationFieldModel("G4"), new InformationFieldModel("G5") };
+        private static List<InformationFieldModel> pInfoFields = new List<InformationFieldModel> { new InformationFieldModel("P1"), new InformationFieldModel("P2"), new InformationFieldModel("P3"), new InformationFieldModel("P4"), new InformationFieldModel("P5") };
+
+        private static DisplayUnionActivityModel newUnionActivity = new DisplayUnionActivityModel
+        {
+            Name = "Flyvetur",
+            Description = "Beskrivelse",
+            DateOfActivity = new DateTime(2001, 9, 8),
+            IsVisible = false,
+            RequireName = true,
+            RequireEmail = true,
+            RequirePhonenumber = true,
+            IsYearlyActivity = true,
+            AllowRegistration = true,
+            AllowGroupRegistration = true
+        };
+
+        private static UnionActivityModel testUnionActivity2 = new UnionActivityModel
+        {
+            Name = "",
+            Description = "",
+            DateOfActivity = DateTime.Today,
+            IsVisible = false,
+            RequireName = false,
+            RequireEmail = false,
+            RequirePhonenumber = false,
+            Information1 = "",
+            Information2 = "",
+            Information3 = "",
+            Information4 = "",
+            Information5 = "",
+            PInformation1 = "",
+            PInformation2 = "",
+            PInformation3 = "",
+            PInformation4 = "",
+            PInformation5 = "",
+            IsYearlyActivity = false,
+            AllowRegistration = false,
+            AllowGroupRegistration = false
+        };
+
+        private static int infoCount, pInfoCount = 0;
+
+        
+
+        [Fact]
+        public async Task TestUnionActivityModelTransferAsync()
+        {
+            SqlDataAccess dataAccess = new SqlDataAccess();
+
+            UnionActivityData activityData = new UnionActivityData(dataAccess);
+            string sql = "SELECT * FROM dbo.TestTableIntegraion;";
+
+            //act
+
+            testUnionActivity2 = CreateUnionActivity.SubmitUnionActivity(infoCount, pInfoCount, infoFields, pInfoFields, newUnionActivity, testUnionActivity2);
+
+            await activityData.InsertUnionActivity(testUnionActivity2);
+            List<UnionActivityModel> activities = await dataAccess.LoadData<UnionActivityModel, dynamic>(sql, new { });
+
+            //assert
+
+            Assert.Equal(testUnionActivity2.Name, activities[activities.Count - 1].Name);
+            
+        }
+
+        
+    }
+
 }
