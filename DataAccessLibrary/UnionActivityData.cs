@@ -25,7 +25,7 @@ namespace DataAccessLibrary
         {
             string sql = "select * from dbo.UnionActivityData";
 
-            return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+            return _db.LoadData<UnionActivityModel>(sql);
         }
 
 
@@ -33,7 +33,7 @@ namespace DataAccessLibrary
         {
             string sql = $"select * from dbo.UnionActivityData where Id={id};";
 
-            return _db.LoadDataSingle<UnionActivityModel, dynamic>(sql, new { });
+            return _db.LoadDataSingle<UnionActivityModel>(sql);
         }
 
 
@@ -75,14 +75,14 @@ namespace DataAccessLibrary
             string sql = $"select * from dbo.UnionActivityData order by {column};";
 
             //await _db.SaveDataTest(sql, List);
-            return _db.LoadData<UnionActivityModel, dynamic>(sql, new { });
+            return _db.LoadData<UnionActivityModel>(sql);
         }
 
         public Task SaveSingle(string column ,int i, int id, string value)
         {
             string sql = $"update dbo.UnionActivityData set {column}{i}='{value}' where Id={id};";
 
-            return _db.SaveDataTest(sql);
+            return _db.UpdateTable(sql);
         }
 
         public Task CheckIfColumnExistsElseCreate(string column)
@@ -94,7 +94,7 @@ namespace DataAccessLibrary
             else
             {
                 string sql = $"if COL_LENGTH('dbo.Registration', '{column}') is null begin alter table Registration add {column} nvarchar(max) null end;";
-                return _db.SaveDataTest(sql);
+                return _db.UpdateTable(sql);
             }
             
 

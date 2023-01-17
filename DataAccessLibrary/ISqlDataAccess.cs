@@ -6,10 +6,10 @@ namespace DataAccessLibrary
     {
         string ConnectionStringName { get; set; }
 
-        Task<List<T>> LoadData<T, U>(string sql, U parameters);
+        Task<List<T>> LoadData<T>(string sql);
         Task SaveData<T>(string sql, T parameters);
-        Task<T> LoadDataSingle<T, U>(string sql, U parameters);
-        Task SaveDataTest(string sql);
+        Task<T> LoadDataSingle<T>(string sql);
+        Task UpdateTable(string sql);
         
 
     }

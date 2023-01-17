@@ -12,7 +12,7 @@
     <Authorized>
         @if (context.User.IsInRole("Administrators"))
         {
-            <h3>ListOfParticipants</h3>
+            <h3>Deltagere</h3>
 
             <div class="col-md-12 col-lg-12" @onclick="() => GoToUAOverview()" style="font-weight: bold; padding: 10px;">
                 &lt; Tilbage
@@ -169,8 +169,8 @@
     protected override async Task OnInitializedAsync()
     {
         
-        Registrations = await _db.OrderRegistrations((int)Id, column);
-        unionActivity = await _udb.GetSingleUnionActivity((int)Id);
+        Registrations = await _db.OrderRegistrations(Id, column);
+        unionActivity = await _udb.GetSingleUnionActivity(Id);
         LoadInformationFields();
 
     }
@@ -178,7 +178,7 @@
     async void sortBy(int index, int ID)
     {
         column = staticColumns[index];
-        Registrations = await _db.OrderRegistrations((int)Id, column);
+        Registrations = await _db.OrderRegistrations(Id, column);
         //NavigationManager.NavigateTo($"/begivenheder/tilmeldinger/{(int)Id}", true);
     }
 

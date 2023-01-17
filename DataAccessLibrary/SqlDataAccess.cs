@@ -22,13 +22,13 @@ namespace DataAccessLibrary
             _config = config;
         }
 
-        public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
+        public async Task<List<T>> LoadData<T>(string sql)
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                var data = await connection.QueryAsync<T>(sql, parameters);
+                var data = await connection.QueryAsync<T>(sql);
 
                 return data.ToList();
             }
@@ -44,19 +44,19 @@ namespace DataAccessLibrary
             }
         }
 
-        public async Task<T> LoadDataSingle<T, U>(string sql, U parameters)
+        public async Task<T> LoadDataSingle<T>(string sql)
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
-                var data = await connection.QueryAsync<T>(sql, parameters);
+                var data = await connection.QueryAsync<T>(sql);
 
                 return data.FirstOrDefault();
             }
         }
 
-        public async Task SaveDataTest(string sql)
+        public async Task UpdateTable(string sql)
         {
             string connectionString = _config.GetConnectionString(ConnectionStringName);
 

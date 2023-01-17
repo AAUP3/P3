@@ -21,22 +21,21 @@ namespace DataAccessLibrary
         {
             string sql = $"select * from dbo.Registration where UnionActivityID={id};";
 
-            return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
+            return _db.LoadData<RegistrationModel>(sql);
         }
 
         public Task<List<RegistrationModel>> GetAllRegistrations()
         {
             string sql = $"select * from dbo.Registration;";
 
-            return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
+            return _db.LoadData<RegistrationModel>(sql);
         }
 
         public Task<List<RegistrationModel>> OrderRegistrations(int id, string column)
         {
             string sql = $"select * from dbo.Registration where UnionActivityID={id} order by {column};";
 
-            //await _db.SaveDataTest(sql, List);
-            return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
+            return _db.LoadData<RegistrationModel>(sql);
         }
 
         public Task InsertRegistration(RegistrationModel registration)
@@ -49,30 +48,30 @@ namespace DataAccessLibrary
 
         public Task<List<RegistrationModel>> GetCurrentUserRegistrations(string userId)
         {
-            string sql = $"select * from dbo.Registration where UserId like '%{userId}%';";
+            string sql = $"select * from dbo.Registration where UserId='{userId}';";
 
-            return _db.LoadData<RegistrationModel, dynamic>(sql, new { });
+            return _db.LoadData<RegistrationModel>(sql);
         }
 
         public Task<RegistrationModel> GetSingleUserRegistration(string userId, int unionActivityId)
         {
             string sql = $"select * from dbo.Registration where UserId like '%{userId}%' and UnionActivityID={unionActivityId};";
 
-            return _db.LoadDataSingle<RegistrationModel, dynamic>(sql, new { });
+            return _db.LoadDataSingle<RegistrationModel>(sql);
         }
 
         public Task CancelRegistration(string userId, int unionActivityId)
         {
             string sql = $"delete from dbo.Registration where UserId='{userId}' and UnionActivityID={unionActivityId};";
 
-            return _db.SaveDataTest(sql);
+            return _db.UpdateTable(sql);
         }
 
         public Task DeleteAllRegistrationsOfUnionActivity(int unionActivityId)
         {
             string sql = $"delete from dbo.Registration where UnionActivityID={unionActivityId};";
 
-            return _db.SaveDataTest(sql);
+            return _db.UpdateTable(sql);
         }
 
 
