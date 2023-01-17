@@ -58,3 +58,27 @@ C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\DataAccessLibrary\obj\Debug\net6
 C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
 C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
 C:\Users\rasmu\OneDrive\Skrivebord\P3\P3 2.0\P3\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.deps.json
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.AssemblyReference.cache
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfoInputs.cache
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfo.cs
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.CoreCompileInputs.cache
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\ida-0\Documents\GitHub\P3\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.deps.json
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.AssemblyReference.cache
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfoInputs.cache
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfo.cs
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.CoreCompileInputs.cache
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.dll
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
+C:\Users\rasmu\OneDrive\Skrivebord\Projekt\P3\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll

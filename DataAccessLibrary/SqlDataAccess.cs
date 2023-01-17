@@ -17,14 +17,14 @@ namespace DataAccessLibrary
 
         public string ConnectionStringName { get; set; } = "Default";
 
-        public SqlDataAccess()
+        public SqlDataAccess(IConfiguration config)
         {
-            //_config = config;
+            _config = config;
         }
 
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
         {
-            string connectionString = "Data Source=p3server.database.windows.net;Initial Catalog=p3database;User ID=ServerAdmin;Password=@AAu1234;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//_config.GetConnectionString(ConnectionStringName);
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
@@ -36,7 +36,7 @@ namespace DataAccessLibrary
 
         public async Task SaveData<T>(string sql, T parameters)
         {
-            string connectionString = "Data Source=p3server.database.windows.net;Initial Catalog=p3database;User ID=ServerAdmin;Password=@AAu1234;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//_config.GetConnectionString(ConnectionStringName);
+            string connectionString = _config.GetConnectionString(ConnectionStringName);
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {

@@ -39,7 +39,7 @@ namespace DataAccessLibrary
 
         public Task InsertUnionActivity(UnionActivityModel unionActivity)
         {
-            string sql = @"insert into dbo.TestTableIntegraion (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, 
+            string sql = @"insert into dbo.UnionActivityData (Name, Description, DateOfActivity, IsVisible, RequireName, RequireEmail, RequirePhonenumber, 
                                                             Information1, Information2, Information3, Information4, Information5, IsYearlyActivity, 
                                                             AllowRegistration, AllowGroupRegistration, PInformation1, PInformation2, PInformation3, 
                                                             PInformation4, PInformation5) 
