@@ -62,7 +62,6 @@
     private UnionActivityModel unionActivity;
     private List<UnionActivityModel> unionActivities;
     private List<RegistrationModel> CurrentUserRegistrations;
-    private RegistrationModel Delete;
     private string currentUserId;
 
     protected override async Task OnInitializedAsync()
@@ -73,18 +72,6 @@
     }
 
 
-
-    private UnionActivityModel GetSingleUnionActivity(int id)
-    {
-        foreach (var unionActivity in unionActivities)
-        {
-            if (unionActivity.Id == id)
-            {
-                return unionActivity;
-            }
-        }
-        return unionActivity;
-    }
 
     private bool IsRegistered(int unionActivityId)
     {
@@ -97,6 +84,8 @@
         }
         return false;
     }
+
+
     async void CancelRegistration(int unionActivityId)
     {
         await _rdb.CancelRegistration(currentUserId, unionActivityId);
@@ -108,6 +97,7 @@
     {
         NavigationManager.NavigateTo($"begivenheder/tilmeld/{id}");
     }
+
     void GoToUAOverview()
     {
         NavigationManager.NavigateTo($"/begivenheder");

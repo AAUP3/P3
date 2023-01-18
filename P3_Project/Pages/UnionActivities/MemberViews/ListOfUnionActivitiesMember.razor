@@ -106,10 +106,7 @@
         else
         {
             <!--Member view-->
-            @if (currentUserName != null)
-            {
-                <p>@currentUserName</p>
-            }
+            
 
             <div class="container col-lg-12" style="margin: 20px;">
                 <div class="row col-lg-12" style="">
@@ -175,8 +172,8 @@
 
     private List<UnionActivityModel> unionActivities;
     private List<RegistrationModel> CurrentUserRegistrations;
-    private RegistrationModel Delete;
-    private string currentUserName;
+    
+    
 
 
 
@@ -185,17 +182,6 @@
         unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
     }
 
-    private bool IsRegistered(int unionActivityId)
-    {
-        foreach (var registration in CurrentUserRegistrations)
-        {
-            if (registration.UnionActivityID == unionActivityId)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     void ShowUnionActivity(int id)
     {
@@ -216,13 +202,7 @@
     }
 
 
-    async void CancelRegistration(int unionActivityId)
-    {
-
-        await _rdb.CancelRegistration(currentUserName, unionActivityId);
-
-        NavigationManager.NavigateTo("begivenheder", true);
-    }
+  
     void GoToMakeUnionActivity()
     {
         NavigationManager.NavigateTo("begivenheder/opretbegivenhed");

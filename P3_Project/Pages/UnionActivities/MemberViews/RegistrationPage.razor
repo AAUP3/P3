@@ -26,8 +26,7 @@
             <div style="background-color: #3846c0; border-radius: 10px; padding: 5px;">
                 <EditForm Context="Editform" Model="@DisplayRegistration" OnSubmit="() => RegistrationListToDB(SubmitRegistration(Id, userId, format, DisplayRegistration, DisplayRegistrations, unionActivity),_db)" class="">
 
-                    <!--Don't know if we can use validation in this form, because the values that are required can be different from one activity to the other.-->
-
+                    
                     <!--General information-->
                     @if (unionActivity.Information1 != "")
                     {
@@ -265,11 +264,7 @@
                         <button type="button" class="btn btn-danger" @onclick="GoToUAOverview">Annuller</button>
                         <button type="submit" class="btn btn-light" @onclick="GoToUAOverview">Tilmeld</button>
                     </div>
-                    <!-- <button type="button" @onclick="showNUmber">Nummer</button>
-                    @if (test)
-                    {
-                    @Registration.Phonenumber
-                    }-->
+                    
                 </EditForm>
             </div>
         }
@@ -290,37 +285,18 @@
 
 @code {
 
-    //RegistrationModel Registration = new RegistrationModel();
     DisplayRegistrationModel DisplayRegistration = new DisplayRegistrationModel();
 
     [Parameter]
     public int Id { get; set; }
     //phone number formating
     string format = "## ## ## ##";
-    public bool test = false;
     private string userId;
 
     public UnionActivityModel unionActivity = new UnionActivityModel();
     public List<UnionActivityModel> unionActivities = new List<UnionActivityModel>();
     public List<DisplayRegistrationModel> DisplayRegistrations = new List<DisplayRegistrationModel>();
 
-
-
-
-
-    // Only works one time, can't convert back and forth
-    //public void showNUmber()
-    //{
-    //    if (test)
-    //    {
-    //        test = false;
-    //    }
-    //    else
-    //    {
-    //        test = true;
-    //        Registration.Phonenumber = Convert.ToInt64(Registration.Phonenumber).ToString(format);
-    //    }
-    //}
 
 
     protected override async Task OnInitializedAsync()
@@ -440,7 +416,6 @@
 
         return FinishedRegistrations;
 
-        //NavigationManager.NavigateTo("/");
     }
 
     public static async Task RegistrationListToDB(List<RegistrationModel> FinishedRegistrations, IRegistrationData _db)

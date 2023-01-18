@@ -127,7 +127,7 @@
 
 @code {
     [Parameter]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     private int NumberOfInformation = 0;
     private int NumberOfPInformation = 0;
@@ -143,9 +143,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-
-        unionActivities = await _db.GetUnionActivities();
-        unionActivity = GetSingleUnionActivity((int)Id);
+        unionActivity = await _db.GetSingleUnionActivity(Id);
         LoadInformationFields();
     }
 
@@ -182,23 +180,7 @@
     }
 
 
-    // Maybe this can be simplified by using sql statement like "select * from "table" where id=@id"????
-    private UnionActivityModel GetSingleUnionActivity(int id)
-    {
-        foreach (var unionActivity in unionActivities)
-        {
-            if (unionActivity.Id == id)
-            {
-                return unionActivity;
-
-            }
-            else
-            {
-
-            }
-        }
-        return unionActivity;
-    }
+  
 
 
     void NextScreen()

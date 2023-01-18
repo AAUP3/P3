@@ -85,21 +85,7 @@ namespace DataAccessLibrary
             return _db.UpdateTable(sql);
         }
 
-        public Task CheckIfColumnExistsElseCreate(string column)
-        {
-            if (column == null)
-            {
-                throw new Exception("It's Britney B*tch");
-            }
-            else
-            {
-                string sql = $"if COL_LENGTH('dbo.Registration', '{column}') is null begin alter table Registration add {column} nvarchar(max) null end;";
-                return _db.UpdateTable(sql);
-            }
-            
-
-            
-        }
+        
 
         
 

@@ -160,7 +160,6 @@
 
     protected override void OnInitialized()
     {
-        //unionActivities.Add(unionActivity);
         newUnionActivity.DateOfActivity = DateTime.Today;
     }
 
@@ -172,7 +171,6 @@
 
     void AddNewInformation()
     {
-        // unionActivities.Add(new UnionActivityModel()); old???
         if (NumberOfInformation < 5)
         {
             NumberOfInformation++;
@@ -183,7 +181,6 @@
 
     void AddNewPInformation()
     {
-        // unionActivities.Add(new UnionActivityModel()); old???
         if (NumberOfPInformation < 5)
         {
             NumberOfPInformation++;
@@ -212,10 +209,6 @@
         }
     }
 
-    void Add(string information)
-    {
-
-    }
 
     public static UnionActivityModel SubmitUnionActivity(int infoCount, int pInfoCount, List<InformationFieldModel> infoFields, List<InformationFieldModel> pInfoFields, DisplayUnionActivityModel newUnionActivity, UnionActivityModel testUnionActivity)
     {
@@ -260,16 +253,8 @@
             };
 
 
-
-        //await _db.InsertUnionActivity(ua);
         return ua;
-        //reset used models and containers
-        //newUnionActivity = new DisplayUnionActivityModel();
-        //infoFields = new List<InformationFieldModel>();
-        //pInfoFields = new List<InformationFieldModel>();
-        //info = new string[] { "", "", "", "", ""};
-
-        //NavigationManager.NavigateTo("begivenheder");
+        
     }
 
 

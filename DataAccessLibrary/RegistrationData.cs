@@ -16,14 +16,6 @@ namespace DataAccessLibrary
             _db = db;
         }
 
-        // Maybe order this based on FlightRegistrationNumber to group the participants by plane (Wanted by DMU).
-        public Task<List<RegistrationModel>> GetRegistrations(int id)
-        {
-            string sql = $"select * from dbo.Registration where UnionActivityID={id};";
-
-            return _db.LoadData<RegistrationModel>(sql);
-        }
-
         public Task<List<RegistrationModel>> GetAllRegistrations()
         {
             string sql = $"select * from dbo.Registration;";
@@ -53,13 +45,6 @@ namespace DataAccessLibrary
             return _db.LoadData<RegistrationModel>(sql);
         }
 
-        public Task<RegistrationModel> GetSingleUserRegistration(string userId, int unionActivityId)
-        {
-            string sql = $"select * from dbo.Registration where UserId like '%{userId}%' and UnionActivityID={unionActivityId};";
-
-            return _db.LoadDataSingle<RegistrationModel>(sql);
-        }
-
         public Task CancelRegistration(string userId, int unionActivityId)
         {
             string sql = $"delete from dbo.Registration where UserId='{userId}' and UnionActivityID={unionActivityId};";
@@ -72,22 +57,6 @@ namespace DataAccessLibrary
             string sql = $"delete from dbo.Registration where UnionActivityID={unionActivityId};";
 
             return _db.UpdateTable(sql);
-        }
-
-
-        //public Task UpdateUnionActivity(int id, UnionActivityModel unionActivity)
-        //{
-        //    string sql = @"update dbo.UnionActivityData set Name=@Name, Description=@Description, DateOfActivity=@DateOfActivity, IsVisible=@IsVisible where Id=@id;";
-        //
-        //    return _db.SaveData(sql, unionActivity);
-        // }
-
-
-        public Task DeleteRegistration(int id, UnionActivityModel unionActivity)
-        {
-            string sql = @"delete from dbo.UnionActivityData where Id=@id;";
-
-            return _db.SaveData(sql, unionActivity);
         }
 
 

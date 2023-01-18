@@ -43,7 +43,6 @@
                                         <td>@unionActivity.Id</td>
                                         <td>@unionActivity.Name</td>
                                         <td>@unionActivity.DateOfActivity.ToShortDateString()</td>
-                                        <!--<td>@unionActivity.ActivityDuration</td>-->
                                         <td>
                                             @if (unionActivity.IsVisible)
                                             {
@@ -124,8 +123,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
-        //unionActivities = await _db.GetUnionActivities();
         unionActivities = await _db.OrderActivities("IsVisible DESC, DateOfActivity ASC");
         registrations = await _rdb.GetAllRegistrations();
 
