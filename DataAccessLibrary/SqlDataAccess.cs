@@ -24,7 +24,7 @@ namespace DataAccessLibrary
 
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
         {
-            string connectionString = "Data Source=p3server.database.windows.net;Initial Catalog=p3database;User ID=ServerAdmin;Password=@AAu1234;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//_config.GetConnectionString(ConnectionStringName);
+            string connectionString = "Server=tcp:p3-server.database.windows.net,1433;Initial Catalog=P3Database;Persist Security Info=False;User ID=P3Admin;Password=@AAu1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
@@ -36,7 +36,7 @@ namespace DataAccessLibrary
 
         public async Task SaveData<T>(string sql, T parameters)
         {
-            string connectionString = "Data Source=p3server.database.windows.net;Initial Catalog=p3database;User ID=ServerAdmin;Password=@AAu1234;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";//_config.GetConnectionString(ConnectionStringName);
+            string connectionString = "Server=tcp:p3-server.database.windows.net,1433;Initial Catalog=P3Database;Persist Security Info=False;User ID=P3Admin;Password=@AAu1234;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {

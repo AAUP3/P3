@@ -315,10 +315,10 @@ namespace TestProject
 
             SqlDataAccess dataAccess = new SqlDataAccess();
             UnionActivityData activityData = new UnionActivityData(dataAccess);
-            string sql = "SELECT * FROM dbo.TestTableIntegraion;";
+            string sql = "SELECT * FROM dbo.TestTableIntegraion";
 
             await activityData.InsertUnionActivity(unionActivity);
-            List<UnionActivityModel> activities = await dataAccess.LoadData<UnionActivityModel, dynamic>(sql, new {});
+            List<UnionActivityModel> activities = await dataAccess.LoadData<UnionActivityModel, dynamic>(sql, new { });
 
             Assert.Equal(unionActivity.Name, activities[activities.Count - 1].Name);
         }

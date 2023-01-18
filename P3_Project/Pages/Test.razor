@@ -4,19 +4,10 @@
 @inject IUnionActivityData ua
 
 <h3>test</h3>
-@if (tests == null) {
 
-}
-else {
-    @foreach (var test in tests) {
-        <div>
-            <p>@test.Name</p>
-        </div>
-    }
-}
 
 @code {
-    private var tests;
+    //private var tests;
 
     protected override async Task OnInitializedAsync() {
         //tests = ua.GetUnionActivitiesTest();
